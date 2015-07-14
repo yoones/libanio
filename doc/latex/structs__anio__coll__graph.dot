@@ -1,0 +1,14 @@
+digraph "s_anio"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="s_anio",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" mode_config" ];
+  Node2 [label="u_anio_mode_config",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$unionu__anio__mode__config.html"];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" clients\nthreads" ];
+  Node3 [label="s_list",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structs__list.html"];
+  Node4 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" head\ntail" ];
+  Node4 [label="s_lnode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structs__lnode.html"];
+  Node4 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" prev\nnext" ];
+  Node1 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" fptr_on_error\nfptr_on_eof\nfptr_on_read\nfptr_on_accept" ];
+}

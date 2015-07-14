@@ -1,0 +1,96 @@
+\hypertarget{libanio__interface_8h}{}\section{include/libanio\+\_\+interface.h File Reference}
+\label{libanio__interface_8h}\index{include/libanio\+\_\+interface.\+h@{include/libanio\+\_\+interface.\+h}}
+{\ttfamily \#include \char`\"{}libanio\+\_\+types.\+h\char`\"{}}\\*
+Include dependency graph for libanio\+\_\+interface.\+h\+:
+% FIG 0
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{libanio__interface_8h_a75baea4acd10b9018f05d1fb9917626f}{}\#define {\bfseries L\+I\+B\+A\+N\+I\+O\+\_\+\+B\+U\+F\+\_\+\+S\+I\+Z\+E}~4096\label{libanio__interface_8h_a75baea4acd10b9018f05d1fb9917626f}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{libanio__interface_8h_a1a7f934494bc6994c46eb31d8277c437}{libanio\+\_\+init} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, int fd, size\+\_\+t max\+\_\+clients, size\+\_\+t thread\+\_\+pool\+\_\+size, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+accept fptr\+\_\+on\+\_\+accept, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+read fptr\+\_\+on\+\_\+read, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+eof fptr\+\_\+on\+\_\+eof, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+error fptr\+\_\+on\+\_\+error, t\+\_\+anio\+\_\+mode mode,...)
+\begin{DoxyCompactList}\small\item\em Initializes the server structure. \end{DoxyCompactList}\item 
+\hypertarget{libanio__interface_8h_a708cc62d9730395df12c098c0abc76bb}{}int {\bfseries libanio\+\_\+set\+\_\+max\+\_\+clients} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, size\+\_\+t nb)\label{libanio__interface_8h_a708cc62d9730395df12c098c0abc76bb}
+
+\item 
+\hypertarget{libanio__interface_8h_a07fb76bcb32640eb8db652120b0a1abc}{}int {\bfseries libanio\+\_\+set\+\_\+thread\+\_\+pool\+\_\+size} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, size\+\_\+t thread\+\_\+pool\+\_\+size)\label{libanio__interface_8h_a07fb76bcb32640eb8db652120b0a1abc}
+
+\item 
+\hypertarget{libanio__interface_8h_ac1190451a512c6dbd8d306fb4ca44926}{}int {\bfseries libanio\+\_\+set\+\_\+callbacks} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+accept fptr\+\_\+on\+\_\+accept, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+read fptr\+\_\+on\+\_\+read, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+eof fptr\+\_\+on\+\_\+eof, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+error fptr\+\_\+on\+\_\+error)\label{libanio__interface_8h_ac1190451a512c6dbd8d306fb4ca44926}
+
+\item 
+\hypertarget{libanio__interface_8h_ac5cebc4095a72516a934fc9d0d6bd77b}{}int {\bfseries libanio\+\_\+set\+\_\+callbacks\+\_\+on\+\_\+accept} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+accept fptr\+\_\+on\+\_\+accept)\label{libanio__interface_8h_ac5cebc4095a72516a934fc9d0d6bd77b}
+
+\item 
+\hypertarget{libanio__interface_8h_a70450c3de3bd0d117f6c7be34390a6b5}{}int {\bfseries libanio\+\_\+set\+\_\+callbacks\+\_\+on\+\_\+read} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+read fptr\+\_\+on\+\_\+read)\label{libanio__interface_8h_a70450c3de3bd0d117f6c7be34390a6b5}
+
+\item 
+\hypertarget{libanio__interface_8h_a8541e746ed87e7757b55ae29bc14837e}{}int {\bfseries libanio\+\_\+set\+\_\+callbacks\+\_\+on\+\_\+eof} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+eof fptr\+\_\+on\+\_\+eof)\label{libanio__interface_8h_a8541e746ed87e7757b55ae29bc14837e}
+
+\item 
+\hypertarget{libanio__interface_8h_a90b1385eff39d71e8d177783e1104b6d}{}int {\bfseries libanio\+\_\+set\+\_\+callbacks\+\_\+on\+\_\+error} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+error fptr\+\_\+on\+\_\+error)\label{libanio__interface_8h_a90b1385eff39d71e8d177783e1104b6d}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{libanio__interface_8h_a1a7f934494bc6994c46eb31d8277c437}{}\index{libanio\+\_\+interface.\+h@{libanio\+\_\+interface.\+h}!libanio\+\_\+init@{libanio\+\_\+init}}
+\index{libanio\+\_\+init@{libanio\+\_\+init}!libanio\+\_\+interface.\+h@{libanio\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+anio} $\ast$}]{server, }
+\item[{int}]{fd, }
+\item[{size\+\_\+t}]{max\+\_\+clients, }
+\item[{size\+\_\+t}]{thread\+\_\+pool\+\_\+size, }
+\item[{t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+accept}]{fptr\+\_\+on\+\_\+accept, }
+\item[{t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+read}]{fptr\+\_\+on\+\_\+read, }
+\item[{t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+eof}]{fptr\+\_\+on\+\_\+eof, }
+\item[{t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+error}]{fptr\+\_\+on\+\_\+error, }
+\item[{t\+\_\+anio\+\_\+mode}]{mode, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{libanio__interface_8h_a1a7f934494bc6994c46eb31d8277c437}
+
+
+Initializes the server structure. 
+
+Exemples\+:
+
+libanio\+\_\+init(\&server, server\+\_\+fd, 0, 21, \&on\+\_\+accept, \&on\+\_\+read, \&on\+\_\+eof, \&on\+\_\+error, A\+N\+I\+O\+\_\+\+S\+T\+R\+E\+A\+M);
+
+libanio\+\_\+init(\&server, server\+\_\+fd, 14, 20, \&on\+\_\+accept, \&on\+\_\+read, \&on\+\_\+eof, N\+U\+L\+L, A\+N\+I\+O\+\_\+\+B\+L\+O\+C\+K, 1024);
+
+libanio\+\_\+init(\&server, server\+\_\+fd, 100, 100, \&on\+\_\+accept, \&on\+\_\+read, \&on\+\_\+eof, \&on\+\_\+error, A\+N\+I\+O\+\_\+\+L\+I\+N\+E, \char`\"{}\textbackslash{}r\textbackslash{}n\char`\"{});
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer on the t\+\_\+anio structure to initialize. \\
+\hline
+{\em fd} & File description on already listening socket. \\
+\hline
+{\em max\+\_\+clients} & Maximum simultaneously-\/connected clients allowed. \\
+\hline
+{\em thread\+\_\+pool\+\_\+size} & Maximum number of threads to perform i/o on clients. \\
+\hline
+{\em fptr\+\_\+on\+\_\+accept} & Function pointer to be called when accepting a new client. \\
+\hline
+{\em fptr\+\_\+on\+\_\+read} & Function pointer to be called when data is read and ready to be consumed (depending on the mode set\+: stream, block or line). \\
+\hline
+{\em fptr\+\_\+on\+\_\+eof} & Function pointer to be called when reaching end-\/of-\/file. \\
+\hline
+{\em fptr\+\_\+on\+\_\+error} & Function pointer to be called when a syscall fails. \\
+\hline
+{\em server} & mode Defines when to call the fptr\+\_\+on\+\_\+read callback (A\+N\+I\+O\+\_\+\+S\+T\+R\+E\+A\+M\+: whenever data is read, A\+N\+I\+O\+\_\+\+B\+L\+O\+C\+K\+: when a complete block is available, A\+N\+I\+O\+\_\+\+L\+I\+N\+E\+: when a complete line is available). \\
+\hline
+{\em ...} & Depending on the mode\+: A\+N\+I\+O\+\_\+\+S\+T\+R\+E\+A\+M\+: nothing (ignored if any given), A\+N\+I\+O\+\_\+\+B\+L\+O\+C\+K\+: block size, A\+N\+I\+O\+\_\+\+L\+I\+N\+E\+: array of chars representing the newline sequence.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}

@@ -1,0 +1,54 @@
+\hypertarget{libanio__types_8h}{}\section{include/libanio\+\_\+types.h File Reference}
+\label{libanio__types_8h}\index{include/libanio\+\_\+types.\+h@{include/libanio\+\_\+types.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structs__anio__buf}{s\+\_\+anio\+\_\+buf}
+\item 
+union \hyperlink{unionu__anio__mode__config}{u\+\_\+anio\+\_\+mode\+\_\+config}
+\item 
+struct \hyperlink{structs__anio__fd}{s\+\_\+anio\+\_\+fd}
+\item 
+struct \hyperlink{structs__anio}{s\+\_\+anio}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{libanio__types_8h_a6686d5d1900038ba60e9fe45bd156384}{}typedef struct \hyperlink{structs__anio__buf}{s\+\_\+anio\+\_\+buf} {\bfseries t\+\_\+anio\+\_\+buf}\label{libanio__types_8h_a6686d5d1900038ba60e9fe45bd156384}
+
+\item 
+\hypertarget{libanio__types_8h_a068db84503bbfd298951d722510d3101}{}typedef enum e\+\_\+anio\+\_\+mode {\bfseries t\+\_\+anio\+\_\+mode}\label{libanio__types_8h_a068db84503bbfd298951d722510d3101}
+
+\item 
+\hypertarget{libanio__types_8h_aa11807d955839518205e2c33891a1810}{}typedef union \hyperlink{unionu__anio__mode__config}{u\+\_\+anio\+\_\+mode\+\_\+config} {\bfseries t\+\_\+anio\+\_\+mode\+\_\+config}\label{libanio__types_8h_aa11807d955839518205e2c33891a1810}
+
+\item 
+\hypertarget{libanio__types_8h_aa7a6264cd9853146b93ff35e123cbe1e}{}typedef struct \hyperlink{structs__anio__fd}{s\+\_\+anio\+\_\+fd} {\bfseries t\+\_\+anio\+\_\+fd}\label{libanio__types_8h_aa7a6264cd9853146b93ff35e123cbe1e}
+
+\item 
+\hypertarget{libanio__types_8h_ad836bebccb89cbb6cfe67b67fc2cae83}{}typedef void($\ast$ {\bfseries t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+accept}) (struct \hyperlink{structs__anio}{s\+\_\+anio} $\ast$, \hyperlink{structs__anio__fd}{t\+\_\+anio\+\_\+fd} $\ast$)\label{libanio__types_8h_ad836bebccb89cbb6cfe67b67fc2cae83}
+
+\item 
+\hypertarget{libanio__types_8h_abbeeeb6cde9e3d880c6ed27d189cb5af}{}typedef void($\ast$ {\bfseries t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+read}) (struct \hyperlink{structs__anio}{s\+\_\+anio} $\ast$, \hyperlink{structs__anio__fd}{t\+\_\+anio\+\_\+fd} $\ast$, char $\ast$, size\+\_\+t)\label{libanio__types_8h_abbeeeb6cde9e3d880c6ed27d189cb5af}
+
+\item 
+\hypertarget{libanio__types_8h_a3f1a775fe1b6cf5629e9d35dfa438c3a}{}typedef void($\ast$ {\bfseries t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+eof}) (struct \hyperlink{structs__anio}{s\+\_\+anio} $\ast$, \hyperlink{structs__anio__fd}{t\+\_\+anio\+\_\+fd} $\ast$, char $\ast$, size\+\_\+t)\label{libanio__types_8h_a3f1a775fe1b6cf5629e9d35dfa438c3a}
+
+\item 
+\hypertarget{libanio__types_8h_ab6381de19ff7329f146116c4738061da}{}typedef void($\ast$ {\bfseries t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+error}) (struct \hyperlink{structs__anio}{s\+\_\+anio} $\ast$, \hyperlink{structs__anio__fd}{t\+\_\+anio\+\_\+fd} $\ast$, int)\label{libanio__types_8h_ab6381de19ff7329f146116c4738061da}
+
+\item 
+\hypertarget{libanio__types_8h_a058e72d72c3571a1d8a7f6011c3c0219}{}typedef struct \hyperlink{structs__anio}{s\+\_\+anio} {\bfseries t\+\_\+anio}\label{libanio__types_8h_a058e72d72c3571a1d8a7f6011c3c0219}
+
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{libanio__types_8h_a27762d537b9dea7f97296b7b4e8ba57a}{}enum {\bfseries e\+\_\+anio\+\_\+mode} \{ {\bfseries A\+N\+I\+O\+\_\+\+M\+O\+D\+E\+\_\+\+S\+T\+R\+E\+A\+M}, 
+{\bfseries A\+N\+I\+O\+\_\+\+M\+O\+D\+E\+\_\+\+B\+L\+O\+C\+K}, 
+{\bfseries A\+N\+I\+O\+\_\+\+M\+O\+D\+E\+\_\+\+L\+I\+N\+E}
+ \}\label{libanio__types_8h_a27762d537b9dea7f97296b7b4e8ba57a}
+
+\end{DoxyCompactItemize}
