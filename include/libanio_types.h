@@ -28,30 +28,38 @@ typedef union	u_anio_mode_config
 typedef struct	s_anio_fd
 {
   int		fd;
-  /* t_list	readbuf; */
-  /* t_list	writebuf; */
+  t_list	readbuf;
+  t_list	writebuf;
 }		t_anio_fd;
 
 struct s_anio;
 
-typedef void (*t_anio_fptr_on_accept)(struct s_anio *, t_anio_fd *);
-typedef void (*t_anio_fptr_on_read)(struct s_anio *, t_anio_fd *, char *, size_t);
-typedef void (*t_anio_fptr_on_eof)(struct s_anio *, t_anio_fd *, char *, size_t);
-typedef void (*t_anio_fptr_on_error)(struct s_anio *, t_anio_fd *, int);
+typedef void (*t_anio_fptr_on_accept)(struct s_anio *, int);
+typedef void (*t_anio_fptr_on_read)(struct s_anio *, int, char *, size_t);
+typedef void (*t_anio_fptr_on_eof)(struct s_anio *, int, char *, size_t);
+typedef void (*t_anio_fptr_on_error)(struct s_anio *, int, int);
+
+typedef struct		s_thread_pool
+{
+  size_t		max_workers;
+  t_list		workers;
+  struct epoll_event	*jobs;
+  int			remaining_jobs;
+  pthread_mutex_t	jobs_mutex;
+  pthread_cond_t	jobs_condvar;
+}			t_thread_pool;
 
 typedef struct		s_anio
 {
   int			fd;
 
-  pthread_mutex_t	monitoring_thread_mutex;
-  pthread_attr_t	monitoring_thread_attr;
-  pthread_t		monitoring_thread;
-
   size_t		max_clients;
   t_list		clients;
 
-  size_t		thread_pool_size;
-  t_list		threads;
+  pthread_mutex_t	monitoring_thread_mutex;
+  pthread_t		monitoring_thread;
+
+  t_thread_pool		thread_pool;
 
   t_anio_fptr_on_accept	fptr_on_accept;
   t_anio_fptr_on_read	fptr_on_read;

@@ -5,6 +5,6 @@ int		libanio_set_thread_pool_size(t_anio *server,
 {
   if (size == 0)
     return (-1);
-  server->thread_pool_size = size;
+  server->thread_pool.max_workers = size;
   return (0);
 }

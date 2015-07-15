@@ -14,15 +14,15 @@
 #include <sys/time.h>
 #include "libanio.h"
 
-void		on_accept(t_anio *server, t_anio_fd *fd)
+void		on_accept(t_anio *server, int fd)
 {
-  printf("Server (fd:%d), I got a new client (fd:%d)!\n", server->fd, fd->fd);
+  printf("Server (fd:%d), I got a new client (fd:%d)!\n", server->fd, fd);
 }
 
-void		on_read(t_anio *server, t_anio_fd *fd, char *buf, size_t size)
+void		on_read(t_anio *server, int fd, char *buf, size_t size)
 {
   (void)buf;
-  printf("Server (fd:%d), I received %d byte(s) from client (fd:%d)\n", server->fd, (int)size, fd->fd);
+  printf("Server (fd:%d), I received %d byte(s) from client (fd:%d)\n", server->fd, (int)size, fd);
 }
 
 int			start_server(int port)
@@ -34,7 +34,7 @@ int			start_server(int port)
   fd = socket(AF_INET, SOCK_STREAM, 0);
   if (fd == -1)
     {
-      perror("");
+      perror(NULL);
       return (-1);
     }
   /* bind */
@@ -44,14 +44,14 @@ int			start_server(int port)
   sin.sin_port = htons(port);
   if (bind(fd, (struct sockaddr *)&sin, sizeof(struct sockaddr)) == -1)
     {
-      perror("");
+      perror(NULL);
       close(fd);
       return (-1);
     }
   /* go in listen mode */
   if (listen(fd, 0) == -1)
     {
-      perror("");
+      perror(NULL);
       close(fd);
       return (-1);
     }
