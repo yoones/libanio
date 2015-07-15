@@ -47,9 +47,11 @@ $(NAME_DEBUG)	:	$(NAME) $(OBJS_DEBUG)
 
 clean		:
 			$(RM) $(NAME)
+			$(RM) $(NAME_DEBUG)
 
 fclean		:	clean
 			$(RM) $(OBJS)
+			$(RM) $(OBJS_DEBUG)
 
 re		:	fclean all
 
