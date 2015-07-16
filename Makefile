@@ -28,7 +28,14 @@ SRCS		=	src/list.c			\
 			src/stop_monitor.c		\
 			src/free.c			\
 			src/create_workers.c		\
-			src/destroy_workers.c
+			src/destroy_workers.c		\
+			src/pthread_helpers.c		\
+			src/fdesc_init.c		\
+			src/fdesc_close.c		\
+			src/has_client.c		\
+			src/add_client.c		\
+			src/remove_client.c		\
+			src/get_client.c
 OBJS		=	$(SRCS:.c=.o)
 
 ## Debug binary

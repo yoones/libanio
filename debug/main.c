@@ -16,13 +16,13 @@
 
 void		on_accept(t_anio *server, int fd)
 {
-  printf("Server (fd:%d), I got a new client (fd:%d)!\n", server->fd, fd);
+  printf("Server (fd:%d), I got a new client (fd:%d)!\n", server->fdesc.fd, fd);
 }
 
 void		on_read(t_anio *server, int fd, char *buf, size_t size)
 {
   (void)buf;
-  printf("Server (fd:%d), I received %d byte(s) from client (fd:%d)\n", server->fd, (int)size, fd);
+  printf("Server (fd:%d), I received %d byte(s) from client (fd:%d)\n", server->fdesc.fd, (int)size, fd);
 }
 
 int			start_server(int port)

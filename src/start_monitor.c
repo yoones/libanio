@@ -38,12 +38,12 @@ static int	_fill_fds_pool(t_anio *server,
 {
   int		i;
   t_lnode	*w;
-  t_anio_fd	*aniofd;
+  t_fdesc	*fdesc;
 
   /* add server */
-  events_pool[0].data.fd = server->fd;
+  events_pool[0].data.fd = server->fdesc.fd;
   events_pool[0].events = EPOLLIN; /* todo: use EPOLLRDHUP to detected closed socket */
-  if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, server->fd, events_pool + 0) == -1)
+  if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, server->fdesc.fd, events_pool + 0) == -1)
     {
       perror("epoll_ctl(server)");
       return (-1);
@@ -51,12 +51,12 @@ static int	_fill_fds_pool(t_anio *server,
   /* add clients */
   for (i = 1, w = server->clients.head; w != NULL; w = w->next, i++)
     {
-      aniofd = w->data;
-      events_pool[i].data.fd = aniofd->fd;
+      fdesc = w->data;
+      events_pool[i].data.fd = fdesc->fd;
       events_pool[i].events = EPOLLIN; /* todo: watch event EPOLLRDHUP to detected closed socket */
-      if (aniofd->writebuf.size > 0)
+      if (fdesc->writebuf.size > 0)
 	events_pool[i].events |= EPOLLOUT;
-      if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, aniofd->fd, events_pool + i) == -1)
+      if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, fdesc->fd, events_pool + i) == -1)
 	{
 	  perror("epoll_ctl(client)");
 	  return (-1);

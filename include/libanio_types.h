@@ -52,10 +52,11 @@ typedef struct		s_thread_pool
 
 typedef struct		s_anio
 {
-  t_fdesc		fd;
+  t_fdesc		fdesc;
 
   size_t		max_clients;
   t_list		clients;
+  pthread_mutex_t	clients_mutex;
 
   pthread_mutex_t	monitoring_thread_mutex;
   pthread_t		monitoring_thread;

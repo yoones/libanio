@@ -51,7 +51,7 @@ static void		*_start_worker(void *arg)
 	  /* remove this fd from clients' list */
 	  continue ;
 	}
-      else if (jobs[i].data.fd == server->fd)
+      else if (jobs[i].data.fd == server->fdesc.fd)
 	{
 	  printf("debug: accepting new client...\n");
 	  int			client_fd;
@@ -60,12 +60,12 @@ static void		*_start_worker(void *arg)
 
 	  /* accept new client if limit not reached */
 	  client_addrlen = sizeof(struct sockaddr_in);
-	  client_fd = accept(server->fd, (struct sockaddr *)&client_sin, &client_addrlen);
+	  client_fd = accept(server->fdesc.fd, (struct sockaddr *)&client_sin, &client_addrlen);
 	  if (client_fd == -1)
 	    {
 	      perror("");
 	      /* on_error server */
-	      close(server->fd);
+	      close(server->fdesc.fd);
 	      return ((void *)-1);
 	    }
 	  if (server->fptr_on_accept)
