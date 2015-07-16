@@ -1,18 +1,7 @@
 #ifndef LIBANIO_INTERNAL_INTERFACE_H_
 # define LIBANIO_INTERNAL_INTERFACE_H_
 
-/*
-  Needed:
-  - one thread for epoll
-  - thread pool for i/o and callbacks
- */
-
 # include "libanio_types.h"
-
-int		x_pthread_mutex_lock(pthread_mutex_t *mutex);
-int		x_pthread_mutex_trylock(pthread_mutex_t *mutex);
-int		x_pthread_mutex_unlock(pthread_mutex_t *mutex);
-
 
 int		libanio_start_monitor(t_anio *server);
 int		libanio_stop_monitor(t_anio *server);
@@ -28,5 +17,18 @@ int		libanio_add_client(t_anio *server, int fd);
 int		libanio_remove_client(t_anio *server, int fd);
 int		libanio_get_client(t_anio *server, int fd, t_fdesc **fdesc);
 
+/* pthread helpers */
+int		x_pthread_mutex_lock(pthread_mutex_t *mutex);
+int		x_pthread_mutex_trylock(pthread_mutex_t *mutex);
+int		x_pthread_mutex_unlock(pthread_mutex_t *mutex);
+int		x_pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+				 void *(*start_routine) (void *), void *arg);
+int		x_pthread_cancel(pthread_t thread);
+int		x_pthread_cond_broadcast(pthread_cond_t *cond);
+
+/* epoll helpers */
+
+int		x_epoll_create1(int flags);
+  int		x_epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
 
 #endif /* LIBANIO_INTERNAL_INTERFACE_H_ */

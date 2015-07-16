@@ -7,6 +7,7 @@
 
 # include <stddef.h>
 # include <pthread.h>
+# include <sys/epoll.h>
 
 # include "list.h"
 # include "libanio_types.h"

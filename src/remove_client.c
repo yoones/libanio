@@ -23,6 +23,9 @@ int		libanio_remove_client(t_anio *server, int fd)
       fdesc = server->clients.head->data;
       if (fdesc->fd == fd)
 	{
+	  if (epoll_ctl(server->thread_pool.epoll_fd, EPOLL_CTL_DEL, fdesc->fd, &fdesc->event) == -1)
+	    perror("epoll_ctl(client)");
+	  libanio_fdesc_close(server->clients.head->data);
 	  list_pop_front(&server->clients);
 	  ret = 0;
 	  break ;
@@ -30,6 +33,9 @@ int		libanio_remove_client(t_anio *server, int fd)
       fdesc = server->clients.tail->data;
       if (fdesc->fd == fd)
 	{
+	  if (epoll_ctl(server->thread_pool.epoll_fd, EPOLL_CTL_DEL, fdesc->fd, &fdesc->event) == -1)
+	    perror("epoll_ctl(client)");
+	  libanio_fdesc_close(server->clients.tail->data);
 	  list_pop_back(&server->clients);
 	  ret = 0;
 	  break ;
@@ -54,6 +60,8 @@ int		libanio_remove_client(t_anio *server, int fd)
 	  w->next->prev = w->prev;
 	  w->prev->next = w->next;
 	  server->clients.size--;
+	  if (epoll_ctl(server->thread_pool.epoll_fd, EPOLL_CTL_DEL, fdesc->fd, &fdesc->event) == -1)
+	    perror("epoll_ctl(client)");
 	  libanio_fdesc_close(w->data);
 	  free(w->data);
 	  free(w);

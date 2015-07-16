@@ -58,12 +58,18 @@ int			start_server(int port)
   return (fd);
 }
 
-int		main()
+int		main(int argc, char **argv)
 {
   int		fd;
   t_anio	server;
+  int		port;
 
-  fd = start_server(5555);
+  port = 5555;
+  if (argc == 2)
+    port = atoi(argv[1]);
+  printf("Server listening on port %d\nPress [ENTER] to continue...\n", port);
+  getchar();
+  fd = start_server(port);
   if (fd == -1)
     return (EXIT_FAILURE);
   assert(libanio_init(&server, fd, 1000, 21, &on_accept, NULL, NULL, NULL, ANIO_MODE_STREAM) == -1);

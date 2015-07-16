@@ -24,6 +24,7 @@ int		libanio_init(t_anio *server,
     return (-1);
   server->thread_pool.max_workers = thread_pool_size;
   list_init(&server->thread_pool.workers, NULL, NULL); /* todo: set list:free callback */
+  server->thread_pool.epoll_fd = -1;
   server->thread_pool.jobs = NULL;
   server->thread_pool.remaining_jobs = 0;
   pthread_mutex_init(&server->thread_pool.jobs_mutex, NULL);
@@ -56,6 +57,6 @@ int		libanio_init(t_anio *server,
     so libanio_is_server_alive() can check it to know if the server is running
     (meaning libanio_init() succeeded and no syscall on server->fd failed)
    */
-  server->fdesc.fd = fd;
+  libanio_fdesc_init(&server->fdesc, fd);
   return (0);
 }

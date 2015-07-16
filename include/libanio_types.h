@@ -25,13 +25,14 @@ typedef union	u_anio_mode_config
   size_t	block_size;
 }		t_anio_mode_config;
 
-typedef struct	s_fdesc
+typedef struct		s_fdesc
 {
-  int		fd;
-  int		closed;
-  t_list	readbuf;
-  t_list	writebuf;
-}		t_fdesc;
+  int			fd;
+  int			closed;
+  struct epoll_event	event;
+  t_list		readbuf;
+  t_list		writebuf;
+}			t_fdesc;
 
 struct s_anio;
 
@@ -44,6 +45,8 @@ typedef struct		s_thread_pool
 {
   size_t		max_workers;
   t_list		workers;
+
+  int			epoll_fd;
   struct epoll_event	*jobs;
   int			remaining_jobs;
   pthread_mutex_t	jobs_mutex;

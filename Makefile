@@ -30,6 +30,7 @@ SRCS		=	src/list.c			\
 			src/create_workers.c		\
 			src/destroy_workers.c		\
 			src/pthread_helpers.c		\
+			src/epoll_helpers.c		\
 			src/fdesc_init.c		\
 			src/fdesc_close.c		\
 			src/has_client.c		\
