@@ -25,12 +25,13 @@ typedef union	u_anio_mode_config
   size_t	block_size;
 }		t_anio_mode_config;
 
-typedef struct	s_anio_fd
+typedef struct	s_fdesc
 {
   int		fd;
+  int		closed;
   t_list	readbuf;
   t_list	writebuf;
-}		t_anio_fd;
+}		t_fdesc;
 
 struct s_anio;
 
@@ -51,7 +52,7 @@ typedef struct		s_thread_pool
 
 typedef struct		s_anio
 {
-  int			fd;
+  t_fdesc		fd;
 
   size_t		max_clients;
   t_list		clients;

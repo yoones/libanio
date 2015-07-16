@@ -26,7 +26,9 @@ SRCS		=	src/list.c			\
 			src/set_thread_pool_size.c	\
 			src/start_monitor.c		\
 			src/stop_monitor.c		\
-			src/free.c
+			src/free.c			\
+			src/create_workers.c		\
+			src/destroy_workers.c
 OBJS		=	$(SRCS:.c=.o)
 
 ## Debug binary

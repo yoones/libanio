@@ -6,10 +6,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-
 #include "libanio.h"
-
-/* int epoll_create(int size); */
 
 #define EPOLL_MAX_EVENTS 1024
 /* todo: if getrlimit(NOFILE) > 0, use this value instead of EPOLL_MAX_EVENTS  */
@@ -48,7 +45,7 @@ static int	_fill_fds_pool(t_anio *server,
   events_pool[0].events = EPOLLIN; /* todo: use EPOLLRDHUP to detected closed socket */
   if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, server->fd, events_pool + 0) == -1)
     {
-      perror(NULL);
+      perror("epoll_ctl(server)");
       return (-1);
     }
   /* add clients */
@@ -61,128 +58,7 @@ static int	_fill_fds_pool(t_anio *server,
 	events_pool[i].events |= EPOLLOUT;
       if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, aniofd->fd, events_pool + i) == -1)
 	{
-	  perror(NULL);
-	  return (-1);
-	}
-    }
-  return (0);
-}
-
-static void		*_start_worker(void *arg)
-{
-  t_anio		*server = arg;
-  struct epoll_event	*jobs = server->thread_pool.jobs;
-  int			i;
-  int			ret;
-
-  while (1)
-    {
-#define BREAK_ON_ERR(ret) if (ret != 0) { dprintf(2, "%s\n", strerror(ret)); break ; }
-      ret = pthread_mutex_lock(&server->thread_pool.jobs_mutex);
-      BREAK_ON_ERR(ret);
-      ret = pthread_cond_wait(&server->thread_pool.jobs_condvar, &server->thread_pool.jobs_mutex);
-      BREAK_ON_ERR(ret);
-      if (server->thread_pool.remaining_jobs == 0)
-	{
-	  ret = pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
-	  BREAK_ON_ERR(ret);
-	  continue ;
-	}
-      i = --server->thread_pool.remaining_jobs;
-      ret = pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
-      BREAK_ON_ERR(ret);
-#undef BREAK_ON_ERR
-      if ((jobs[i].events & EPOLLERR) ||
-	  (jobs[i].events & EPOLLHUP) ||
-	  (!(jobs[i].events & EPOLLIN)))
-	{
-	  /* An error has occured on this fd, or the socket is not
-	     ready for reading (why were we notified then?) */
-	  dprintf(2, "epoll error\n"); /* todo: get the real error to display a useful message here */
-	  if (server->fptr_on_error)
-	    server->fptr_on_error(server, jobs[i].data.fd, 0); /* todo: find the right error number, using 0 meanwhile... */
-	  /* if this fd is the server's, stop the monitor and set server->fd to -1 */
-	  close(jobs[i].data.fd);
-	  /* remove this fd from clients' list */
-	  continue ;
-	}
-      else if (jobs[i].data.fd == server->fd)
-	{
-	  printf("debug: accepting new client...\n");
-	  int			client_fd;
-	  struct sockaddr_in	client_sin;
-	  socklen_t		client_addrlen;
-
-	  /* accept new client if limit not reached */
-	  client_addrlen = sizeof(struct sockaddr_in);
-	  client_fd = accept(server->fd, (struct sockaddr *)&client_sin, &client_addrlen);
-	  if (client_fd == -1)
-	    {
-	      perror("");
-	      /* on_error server */
-	      close(server->fd);
-	      return ((void *)-1);
-	    }
-	  if (server->fptr_on_accept)
-	    server->fptr_on_accept(server, client_fd);
-	}
-      else if (server->fptr_on_read)
-	{
-	  /* client ready for read and/or write */
-	  server->fptr_on_read(server, jobs[i].data.fd, NULL, 0); /* or call on_eof() ?? */
-	}
-    }
-  pthread_exit((void *)EXIT_FAILURE);
-  return (0);
-}
-
-static int		_destroy_workers(t_anio *server)
-{
-  list_clear(&server->thread_pool.workers);
-  return (0);
-}
-
-static void		_list_free_worker(void *data)
-{
-  pthread_t		*worker = data;
-
-  pthread_cancel(*worker);
-  free(worker);
-}
-
-static int		_create_workers(t_anio *server)
-{
-  size_t		i;
-  pthread_t		*worker;
-  int			ret;
-
-  if (server->thread_pool.max_workers == 0
-      || server->thread_pool.workers.size > 0)
-    return (-1);
-  list_init(&server->thread_pool.workers, &_list_free_worker, NULL);
-  for (i = 0; i < server->thread_pool.max_workers; i++)
-    {
-      if (!(worker = malloc(sizeof(pthread_t))))
-	{
-	  perror(NULL);
-	  list_clear(&server->thread_pool.workers);
-	  return (-1);
-	}
-      if ((ret = pthread_create(worker,
-				NULL,
-				&_start_worker,
-				(void *)server)) != 0)
-	{
-	  dprintf(2, "%s\n", strerror(ret));
-	  free(worker);
-	  list_clear(&server->thread_pool.workers);
-	  return (-1);
-	}
-      if (list_push_back(&server->thread_pool.workers, worker) == -1)
-	{
-	  pthread_cancel(*worker);
-	  free(worker);
-	  list_clear(&server->thread_pool.workers);
+	  perror("epoll_ctl(client)");
 	  return (-1);
 	}
     }
@@ -200,7 +76,7 @@ static void		*_start_monitor(void *arg)
 
   if ((epoll_fd = epoll_create1(0)) == -1
       || !(server->thread_pool.jobs = calloc(EPOLL_MAX_EVENTS, sizeof(struct epoll_event)))
-      || _create_workers(server) == -1)
+      || libanio_create_workers(server) == -1)
     {
       perror(NULL);
       close(epoll_fd);
@@ -212,41 +88,56 @@ static void		*_start_monitor(void *arg)
   while (!err_flag)
     {
       /* prepare what epoll needs and wait for events */
+      printf("DEBUG: monitor mutex_lock (part 1) ??\n");
       ret = pthread_mutex_lock(&server->thread_pool.jobs_mutex);
+      printf("DEBUG: monitor mutex_lock (part 1) OK (%d)\n", ret);
       BREAK_ON_ERR(ret, err_flag);
       if (_realloc_fds_pool(server, &fds_pool, &prev_nb_fds) == -1
 	  || _fill_fds_pool(server, epoll_fd, fds_pool) == -1)
-	break ;
+	{printf("FUUUUCK\n");break ;}
+      printf("DEBUG: monitor epoll_wait\n");
       if ((server->thread_pool.remaining_jobs = epoll_wait(epoll_fd, server->thread_pool.jobs, EPOLL_MAX_EVENTS, -1)) == -1)
 	{
 	  server->thread_pool.remaining_jobs = 0;
 	  perror(NULL);
 	  break ;
 	}
+      printf("DEBUG: monitor mutex_unlock (part 1)\n");
       ret = pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
       BREAK_ON_ERR(ret, err_flag);
       /* let workers take care of epoll events */
       while (!err_flag)
 	{
+	  printf("DEBUG: monitor mutex_lock (part 2)\n");
 	  ret = pthread_mutex_lock(&server->thread_pool.jobs_mutex);
 	  BREAK_ON_ERR(ret, err_flag);
+	  printf("DEBUG: monitor has %d jobs\n", server->thread_pool.remaining_jobs);
 	  if (server->thread_pool.remaining_jobs > 0)
 	    {
+	      printf("DEBUG: monitor cond_broadcast\n");
 	      ret = pthread_cond_broadcast(&server->thread_pool.jobs_condvar);
 	      BREAK_ON_ERR(ret, err_flag);
 	    }
+	  else
+	    {
+	      printf("DEBUG: monitor mutex_unlock\n");
+	      ret = pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
+	      BREAK_ON_ERR(ret, err_flag);
+	      break ;
+	    }
+	  printf("DEBUG: monitor mutex_unlock (part 2)\n");
 	  ret = pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
 	  BREAK_ON_ERR(ret, err_flag);
 	}
     }
 #undef BREAK_ON_ERR
-  (void) _destroy_workers(server);
+  (void)libanio_destroy_workers(server);
   close(epoll_fd);
   free(fds_pool);
   free(server->thread_pool.jobs);
   server->thread_pool.jobs = NULL;
   server->thread_pool.remaining_jobs = 0;
-  (void) pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
+  (void)pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
   pthread_exit((void *)EXIT_FAILURE);
   return (NULL);
 }
@@ -255,7 +146,7 @@ int		libanio_start_monitor(t_anio *server)
 {
   int		ret;
 
-  if (pthread_mutex_trylock(&server->monitoring_thread_mutex) != 0) /* could use a pthread_join instead? */
+  if (pthread_mutex_trylock(&server->monitoring_thread_mutex) != 0) /* could use a pthread_tryjoin instead? */
     return (-1);
   if ((ret = pthread_create(&server->monitoring_thread,
 			    NULL,

@@ -12,4 +12,7 @@
 int		libanio_start_monitor(t_anio *server);
 int		libanio_stop_monitor(t_anio *server);
 
+int		libanio_create_workers(t_anio *server);
+int		libanio_destroy_workers(t_anio *server);
+
 #endif /* LIBANIO_INTERNAL_INTERFACE_H_ */

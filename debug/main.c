@@ -67,7 +67,7 @@ int		main()
   if (fd == -1)
     return (EXIT_FAILURE);
   assert(libanio_init(&server, fd, 1000, 21, &on_accept, NULL, NULL, NULL, ANIO_MODE_STREAM) == -1);
-  assert(libanio_init(&server, fd, 1000, 21, &on_accept, &on_read, NULL, NULL, ANIO_MODE_STREAM) == 0);
+  assert(libanio_init(&server, fd, 1000, 1, &on_accept, &on_read, NULL, NULL, ANIO_MODE_STREAM) == 0);
   assert(libanio_start_monitor(&server) == 0);
   assert(libanio_start_monitor(&server) == -1);
 
