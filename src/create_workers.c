@@ -72,6 +72,7 @@ static int		_handle_accept(t_anio *server)
   DEBUG(GREEN, "BEFORE ADD_CLIENT");
   if (libanio_add_client(server, client_fd) != 0)
     {
+      DEBUG(GREEN, "AFTER ADD_CLIENT => it failed :(");
       close(client_fd);
       return (-1);
     }

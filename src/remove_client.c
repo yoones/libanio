@@ -49,6 +49,8 @@ int		libanio_remove_client(t_anio *server, int fd)
   if (ret != DO_NOT_EXIT)
     {
       /* mutex unlock */
+      if (x_pthread_mutex_unlock(&server->clients_mutex) != 0)
+	return (-1);
       return (ret);
     }
 #undef DO_NOT_EXIT
