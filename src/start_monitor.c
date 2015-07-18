@@ -70,7 +70,7 @@ static void		*_monitor_main(void *arg)
 	      if (server->thread_pool.workers.size == 0)
 		{
 		  dprintf(2, "ERROR: no worker available!!!\n");
-		  abort();
+		  abort();	/* todo: manage this case. can should the monitor run if there's no worker?? */
 		}
 	      ret = x_pthread_cond_broadcast(&server->thread_pool.jobs_condvar);
 	      BREAK_ON_ERR(ret, err_flag);
