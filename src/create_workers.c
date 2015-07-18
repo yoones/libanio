@@ -11,8 +11,6 @@
 
 static int		_handle_error(t_anio *server, int fd, int errnumber)
 {
-  DEBUG(GREEN, "DEBUG: worker -> _handle_error");
-  DEBUG(GREEN, "Error: epoll/error on file descriptor %d (errnumber: %d)", fd, errnumber);
   server->fptr_on_error(server, fd, 0); /* todo: find the right error number, using 0 meanwhile... */
   libanio_remove_client(server, fd);
   return (0);
@@ -23,7 +21,6 @@ static int		_handle_read(t_anio *server, int fd)
   char			buff[4096];
   int			ret;
 
-  DEBUG(GREEN, "DEBUG: worker -> _handle_read");
   ret = read(fd, buff, 4096);
   switch (ret)
     {
@@ -47,7 +44,7 @@ static int		_handle_write(t_anio *server, int fd)
 {
   DEBUG(GREEN, "DEBUG: worker -> _handle_write");
   (void)server;
-  dprintf(2, "DEBUG: handle write on fd %d\n", fd);
+  dprintf(2, "TODO: handle write on fd %d\n", fd);
   return (-1);
 }
 
@@ -57,28 +54,20 @@ static int		_handle_accept(t_anio *server)
   struct sockaddr_in	client_sin;
   socklen_t		client_addrlen;
 
-  DEBUG(GREEN, "DEBUG: worker -> _handle_accept");
-  /* printf("DEBUG: accepting new client...\n"); */
   client_addrlen = sizeof(struct sockaddr_in);
-  DEBUG(GREEN, "BEFORE ACCEPT");
   client_fd = accept(server->fdesc.fd, (struct sockaddr *)&client_sin, &client_addrlen);
-  DEBUG(GREEN, "AFTER ACCEPT");
   if (client_fd == -1)
     {
       perror(NULL);
       close(server->fdesc.fd);
       return (-1);
    }
-  DEBUG(GREEN, "BEFORE ADD_CLIENT");
   if (libanio_add_client(server, client_fd) != 0)
     {
-      DEBUG(GREEN, "AFTER ADD_CLIENT => it failed :(");
       close(client_fd);
       return (-1);
     }
-  DEBUG(GREEN, "AFTER ADD_CLIENT");
   server->fptr_on_accept(server, client_fd);
-  DEBUG(GREEN, "HANDLER IS DONE");
   return (0);
 }
 
@@ -108,7 +97,6 @@ static int		_handle_event(t_anio *server, struct epoll_event *job)
       else if (job->events & EPOLLOUT)
 	return (_handle_write(server, job->data.fd));
     }
-  dprintf(2, "Error: unexpected epoll event\n");
   DEBUG(GREEN, "DEBUG: worker -> no handler set for this case");
   return (-1);
 }
@@ -121,26 +109,21 @@ static void		*_worker_main(void *arg)
 
   while (1)
     {
-      DEBUG(GREEN, "DEBUG: worker cond_wait");
       if (x_pthread_cond_wait(&server->thread_pool.jobs_condvar, &server->thread_pool.jobs_mutex))
 	break ;
-      DEBUG(GREEN, "DEBUG: worker checking remaining jobs (%d)", server->thread_pool.remaining_jobs);
       if (server->thread_pool.remaining_jobs == 0)
 	{
-	  DEBUG(GREEN, "DEBUG: worker found no job, mutex_unlock");
 	  if (x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex))
 	    break ;
 	  continue ;
 	}
       server->thread_pool.remaining_jobs--;
       memcpy(&my_job, jobs + server->thread_pool.remaining_jobs, sizeof(struct epoll_event));
-      DEBUG(GREEN, "DEBUG: worker took job %d, mutex_unlock", server->thread_pool.remaining_jobs);
       if (x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex))
 	break ;
       if (_handle_event(server, &my_job) == -1)
 	{ /* handle handler's error */ }
     }
-  DEBUG(GREEN, "DEBUG: worker exits");
   list_pop_data(&server->thread_pool.workers, (void *)pthread_self());
   pthread_exit((void *)EXIT_FAILURE);
   return (0);

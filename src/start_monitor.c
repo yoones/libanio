@@ -50,28 +50,21 @@ static void		*_monitor_main(void *arg)
   while (!err_flag)
     {
       /* prepare what epoll needs and wait for events */
-      DEBUG(RED, "DEBUG: monitor mutex_lock (part 1) ??");
       ret = x_pthread_mutex_lock(&server->thread_pool.jobs_mutex);
       BREAK_ON_ERR(ret, err_flag);
-      DEBUG(RED, "DEBUG: monitor mutex_lock (part 1) OK (%d)", ret);
-      DEBUG(RED, "DEBUG: monitor epoll_wait");
       if ((server->thread_pool.remaining_jobs = epoll_wait(server->thread_pool.epoll_fd, server->thread_pool.jobs, EPOLL_MAX_EVENTS, -1)) == -1)
 	{
 	  server->thread_pool.remaining_jobs = 0;
 	  perror(NULL);
 	  break ;
 	}
-      DEBUG(RED, "DEBUG: monitor mutex_unlock (part 1) ??");
       ret = x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
       BREAK_ON_ERR(ret, err_flag);
-      DEBUG(RED, "DEBUG: monitor mutex_unlock (part 1) OK (%d)", ret);
       /* let workers take care of epoll events */
       while (!err_flag)
 	{
-	  DEBUG(RED, "DEBUG: monitor mutex_lock (part 2)");
 	  ret = x_pthread_mutex_lock(&server->thread_pool.jobs_mutex);
 	  BREAK_ON_ERR(ret, err_flag);
-	  DEBUG(RED, "DEBUG: monitor has %d jobs", server->thread_pool.remaining_jobs);
 	  if (server->thread_pool.remaining_jobs > 0)
 	    {
 	      if (server->thread_pool.workers.size == 0)
@@ -79,18 +72,15 @@ static void		*_monitor_main(void *arg)
 		  dprintf(2, "ERROR: no worker available!!!\n");
 		  abort();
 		}
-	      DEBUG(RED, "DEBUG: monitor cond_broadcast");
 	      ret = x_pthread_cond_broadcast(&server->thread_pool.jobs_condvar);
 	      BREAK_ON_ERR(ret, err_flag);
 	    }
 	  else
 	    {
-	      DEBUG(RED, "DEBUG: monitor mutex_unlock");
 	      ret = x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
 	      BREAK_ON_ERR(ret, err_flag);
 	      break ;
 	    }
-	  DEBUG(RED, "DEBUG: monitor mutex_unlock (part 2)");
 	  ret = x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
 	  BREAK_ON_ERR(ret, err_flag);
 	}
