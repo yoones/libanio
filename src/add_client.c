@@ -21,12 +21,14 @@ int		libanio_add_client(t_anio *server, int fd)
   fdesc->event.events = EPOLLIN; /* todo: watch event EPOLLRDHUP to detected closed socket */
   if (fdesc->writebuf.size > 0)
     fdesc->event.events |= EPOLLOUT;
+  printf("adding client: mutex lock?\n");
   if (x_epoll_ctl(server->thread_pool.epoll_fd, EPOLL_CTL_ADD, fdesc->fd, &fdesc->event) == -1
       || x_pthread_mutex_lock(&server->clients_mutex) != 0)
     {
       free(fdesc);
       return (-1);
     }
+  printf("adding client: mutex locked!!\n");
   ret = 0;
   if (list_push_front(&server->clients, fdesc) == -1)
     {

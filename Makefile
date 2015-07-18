@@ -9,7 +9,7 @@ AR		=	ar
 DOXYGEN		=	doxygen
 
 INCLUDES	=	-Iinclude -I.
-CFLAGS		+=	-W -Wall -Wextra $(INCLUDES)
+CFLAGS		+=	-W -Wall -Wextra $(INCLUDES) -ggdb
 LDFLAGS		=	-lpthread
 
 ## Library

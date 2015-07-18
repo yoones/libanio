@@ -23,7 +23,7 @@ static int	_watch_server_fd(t_anio *server)
   return (0);
 }
 
-static void		*_start_monitor(void *arg)
+static void		*_monitor_main(void *arg)
 {
   t_anio		*server = arg;
   int			err_flag;
@@ -50,46 +50,53 @@ static void		*_start_monitor(void *arg)
   while (!err_flag)
     {
       /* prepare what epoll needs and wait for events */
-      printf("DEBUG: monitor mutex_lock (part 1) ??\n");
+      DEBUG(RED, "DEBUG: monitor mutex_lock (part 1) ??");
       ret = x_pthread_mutex_lock(&server->thread_pool.jobs_mutex);
-      printf("DEBUG: monitor mutex_lock (part 1) OK (%d)\n", ret);
       BREAK_ON_ERR(ret, err_flag);
-      printf("DEBUG: monitor epoll_wait\n");
+      DEBUG(RED, "DEBUG: monitor mutex_lock (part 1) OK (%d)", ret);
+      DEBUG(RED, "DEBUG: monitor epoll_wait");
       if ((server->thread_pool.remaining_jobs = epoll_wait(server->thread_pool.epoll_fd, server->thread_pool.jobs, EPOLL_MAX_EVENTS, -1)) == -1)
 	{
 	  server->thread_pool.remaining_jobs = 0;
 	  perror(NULL);
 	  break ;
 	}
-      printf("DEBUG: monitor mutex_unlock (part 1)\n");
+      DEBUG(RED, "DEBUG: monitor mutex_unlock (part 1) ??");
       ret = x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
       BREAK_ON_ERR(ret, err_flag);
+      DEBUG(RED, "DEBUG: monitor mutex_unlock (part 1) OK (%d)", ret);
       /* let workers take care of epoll events */
       while (!err_flag)
 	{
-	  printf("DEBUG: monitor mutex_lock (part 2)\n");
+	  DEBUG(RED, "DEBUG: monitor mutex_lock (part 2)");
 	  ret = x_pthread_mutex_lock(&server->thread_pool.jobs_mutex);
 	  BREAK_ON_ERR(ret, err_flag);
-	  printf("DEBUG: monitor has %d jobs\n", server->thread_pool.remaining_jobs);
+	  DEBUG(RED, "DEBUG: monitor has %d jobs", server->thread_pool.remaining_jobs);
 	  if (server->thread_pool.remaining_jobs > 0)
 	    {
-	      printf("DEBUG: monitor cond_broadcast\n");
+	      if (server->thread_pool.workers.size == 0)
+		{
+		  dprintf(2, "ERROR: no worker available!!!\n");
+		  abort();
+		}
+	      DEBUG(RED, "DEBUG: monitor cond_broadcast");
 	      ret = x_pthread_cond_broadcast(&server->thread_pool.jobs_condvar);
 	      BREAK_ON_ERR(ret, err_flag);
 	    }
 	  else
 	    {
-	      printf("DEBUG: monitor mutex_unlock\n");
+	      DEBUG(RED, "DEBUG: monitor mutex_unlock");
 	      ret = x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
 	      BREAK_ON_ERR(ret, err_flag);
 	      break ;
 	    }
-	  printf("DEBUG: monitor mutex_unlock (part 2)\n");
+	  DEBUG(RED, "DEBUG: monitor mutex_unlock (part 2)");
 	  ret = x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
 	  BREAK_ON_ERR(ret, err_flag);
 	}
     }
 #undef BREAK_ON_ERR
+  DEBUG(RED, "DEBUG: monitor exits loop");
   (void)libanio_destroy_workers(server);
   close(server->thread_pool.epoll_fd);
   server->thread_pool.epoll_fd = -1;
@@ -105,7 +112,7 @@ int		libanio_start_monitor(t_anio *server)
 {
   if (x_pthread_mutex_trylock(&server->monitoring_thread_mutex) != 0) /* could use a pthread_tryjoin instead? */
     return (-1);
-  if (x_pthread_create(&server->monitoring_thread, NULL, &_start_monitor, (void *)server) != 0)
+  if (x_pthread_create(&server->monitoring_thread, NULL, &_monitor_main, (void *)server) != 0)
     return (-1);
   return (0);
 }

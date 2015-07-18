@@ -54,6 +54,10 @@ void		list_pop_front(t_list *list);
 
 void		list_pop_back(t_list *list);
 
+void		list_pop_node(t_list *list, t_lnode *node);
+
+void		list_pop_data(t_list *list, void *data);
+
 int		list_contains(t_list *list, void *data);
 
 #endif /* LIST_H_ */

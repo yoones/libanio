@@ -169,6 +169,60 @@ void		list_pop_back(t_list *list)
   list->size--;
 }
 
+void		list_pop_node(t_list *list, t_lnode *node)
+{
+  t_lnode	*w;
+
+  if (list->size < 3)
+    {
+      if (list->head == node)
+	list_pop_front(list);
+      else if (list->tail == node)
+	list_pop_back(list);
+    }
+  else
+    {
+      for (w = list->head; w != NULL; w = w->next)
+	{
+	  if (w == node)
+	    {
+	      node->prev->next = node->next;
+	      node->next->prev = node->prev;
+	      list->size--;
+	      free(node);
+	      return ;
+	    }
+	}
+    }
+}
+
+void		list_pop_data(t_list *list, void *data)
+{
+  t_lnode	*w;
+
+  if (list->size < 3)
+    {
+      if (list->head && list->head->data == data)
+	list_pop_front(list);
+      else if (list->tail && list->tail->data == data)
+	list_pop_back(list);
+    }
+  else
+    {
+      for (w = list->head; w != NULL; w = w->next)
+	{
+	  if (w->data == data)
+	    {
+	      w->prev->next = w->next;
+	      w->next->prev = w->prev;
+	      list->size--;
+	      free(w);
+	      return ;
+	    }
+	}
+    }
+}
+
 /*
   Compares data using (list->f_cmp)
   Returns 0 on success

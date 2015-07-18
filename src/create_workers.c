@@ -6,30 +6,15 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <errno.h>
 #include "libanio.h"
-
-/* int		libanio_fdesc_init(t_fdesc *fdesc, int fd); */
-/* int		libanio_fdesc_close(t_fdesc *fdesc); */
-
-/* int		libanio_has_client(t_anio *server, int fd); */
-/* int		libanio_add_client(t_anio *server, int fd); */
-/* int		libanio_remove_client(t_anio *server, int fd); */
-/* int		libanio_get_client(t_anio *server, int fd, t_fdesc **fdesc); */
 
 static int		_handle_error(t_anio *server, int fd, int errnumber)
 {
-  dprintf(2, "Error: epoll/error on file descriptor %d (errnumber: %d)\n", fd, errnumber);
-  if (server->fptr_on_error)
-    server->fptr_on_error(server, fd, 0); /* todo: find the right error number, using 0 meanwhile... */
-  if (fd == server->fdesc.fd)
-    {
-      dprintf(2, "TODO: handle error on server's fd.\n");
-      if (epoll_ctl(server->thread_pool.epoll_fd, EPOLL_CTL_DEL, server->fdesc.fd, &server->fdesc.event) == -1)
-	perror("epoll_ctl(server)");
-      /* todo: notify the monitor that it has to stop, closing all clients connexions and destroying all workers */
-    }
-  else
-    libanio_remove_client(server, fd);
+  DEBUG(GREEN, "DEBUG: worker -> _handle_error");
+  DEBUG(GREEN, "Error: epoll/error on file descriptor %d (errnumber: %d)", fd, errnumber);
+  server->fptr_on_error(server, fd, 0); /* todo: find the right error number, using 0 meanwhile... */
+  libanio_remove_client(server, fd);
   return (0);
 }
 
@@ -38,14 +23,29 @@ static int		_handle_read(t_anio *server, int fd)
   char			buff[4096];
   int			ret;
 
+  DEBUG(GREEN, "DEBUG: worker -> _handle_read");
   ret = read(fd, buff, 4096);
-  server->fptr_on_read(server, fd, NULL, ret); /* or call on_eof() ?? */
-  /* if syscall fails, call fptr_on_error */
-  return (-1);
+  switch (ret)
+    {
+    case (-1):
+      ret = errno;
+      perror(NULL);
+      return (_handle_error(server, fd, ret));
+    case (0):
+      /* todo: extract unread data, send it to on_eof callback */
+      server->fptr_on_eof(server, fd, NULL, 0); /* buf NULL size 0 for debug */
+      libanio_remove_client(server, fd);
+      break ;
+    default:
+      /* stack data or call callback depending on the read mode (stream, block or line) */
+      server->fptr_on_read(server, fd, NULL, ret); /* debug: work in stream mode for now */
+    }
+  return (0);
 }
 
 static int		_handle_write(t_anio *server, int fd)
 {
+  DEBUG(GREEN, "DEBUG: worker -> _handle_write");
   (void)server;
   dprintf(2, "DEBUG: handle write on fd %d\n", fd);
   return (-1);
@@ -57,76 +57,90 @@ static int		_handle_accept(t_anio *server)
   struct sockaddr_in	client_sin;
   socklen_t		client_addrlen;
 
+  DEBUG(GREEN, "DEBUG: worker -> _handle_accept");
   /* printf("DEBUG: accepting new client...\n"); */
   client_addrlen = sizeof(struct sockaddr_in);
+  DEBUG(GREEN, "BEFORE ACCEPT");
   client_fd = accept(server->fdesc.fd, (struct sockaddr *)&client_sin, &client_addrlen);
+  DEBUG(GREEN, "AFTER ACCEPT");
   if (client_fd == -1)
     {
       perror(NULL);
       close(server->fdesc.fd);
       return (-1);
    }
+  DEBUG(GREEN, "BEFORE ADD_CLIENT");
   if (libanio_add_client(server, client_fd) != 0)
     {
       close(client_fd);
       return (-1);
     }
-  if (server->fptr_on_accept)
-    server->fptr_on_accept(server, client_fd);
+  DEBUG(GREEN, "AFTER ADD_CLIENT");
+  server->fptr_on_accept(server, client_fd);
+  DEBUG(GREEN, "HANDLER IS DONE");
   return (0);
 }
 
+static int		_handle_event(t_anio *server, struct epoll_event *job)
+{
+  if (job->data.fd == server->fdesc.fd)
+    {
+      if ((job->events & EPOLLERR)
+	  || (job->events & EPOLLHUP)
+	  || (!(job->events & EPOLLIN)))
+	{
+	  dprintf(2, "TODO: handle error on server's fd.\n");
+	  /* todo: notify the monitor that it has to stop, closing all clients connexions and destroying all workers */
+	  return (-1);
+	}
+      else if (job->events & EPOLLIN)
+	return (_handle_accept(server));
+    }
+  else
+    {
+      if ((job->events & EPOLLERR)
+	  || (job->events & EPOLLHUP)
+	  || (!(job->events & EPOLLIN)))
+	return (_handle_error(server, job->data.fd, 0));
+      else if (job->events & EPOLLIN)
+	return (_handle_read(server, job->data.fd));
+      else if (job->events & EPOLLOUT)
+	return (_handle_write(server, job->data.fd));
+    }
+  dprintf(2, "Error: unexpected epoll event\n");
+  DEBUG(GREEN, "DEBUG: worker -> no handler set for this case");
+  return (-1);
+}
 
-static void		*_start_worker(void *arg)
+static void		*_worker_main(void *arg)
 {
   t_anio		*server = arg;
   struct epoll_event	*jobs = server->thread_pool.jobs;
-  int			i;
-  int			ret;
+  struct epoll_event	my_job;	/* todo: move this into worker structure */
 
   while (1)
     {
-#define BREAK_ON_ERR(ret) if (ret != 0) { dprintf(2, "%s\n", strerror(ret)); break ; }
-      /* printf("DEBUG: worker mutex_lock\n"); */
-      /* ret = pthread_mutex_lock(&server->thread_pool.jobs_mutex); */
-      /* BREAK_ON_ERR(ret); */
-      printf("DEBUG: worker cond_wait\n");
-      ret = pthread_cond_wait(&server->thread_pool.jobs_condvar, &server->thread_pool.jobs_mutex);
-      BREAK_ON_ERR(ret);
-      printf("DEBUG: worker checking remaining jobs (%d)\n", server->thread_pool.remaining_jobs);
+      DEBUG(GREEN, "DEBUG: worker cond_wait");
+      if (x_pthread_cond_wait(&server->thread_pool.jobs_condvar, &server->thread_pool.jobs_mutex))
+	break ;
+      DEBUG(GREEN, "DEBUG: worker checking remaining jobs (%d)", server->thread_pool.remaining_jobs);
       if (server->thread_pool.remaining_jobs == 0)
 	{
-	  printf("DEBUG: worker found no job, mutex_unlock\n");
-	  ret = pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
-	  BREAK_ON_ERR(ret);
+	  DEBUG(GREEN, "DEBUG: worker found no job, mutex_unlock");
+	  if (x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex))
+	    break ;
 	  continue ;
 	}
-      i = --server->thread_pool.remaining_jobs;
-      printf("DEBUG: worker took job %d, mutex_unlock\n", i);
-      ret = pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
-      BREAK_ON_ERR(ret);
-#undef BREAK_ON_ERR
-      if ((jobs[i].events & EPOLLERR) ||
-	  (jobs[i].events & EPOLLHUP) ||
-	  (!(jobs[i].events & EPOLLIN)))
-	{
-	  _handle_error(server, jobs[i].data.fd, 0);
-	  continue ;
-	}
-      else if (jobs[i].data.fd == server->fdesc.fd)
-	{
-	  if (_handle_accept(server) != 0)
-	    {
-	      /*  handle error */
-	    }
-	}
-      else if (server->fptr_on_read)
-	{
-	  _handle_read(server, jobs[i].data.fd);
-	  /* client ready for read and/or write */
-	}
+      server->thread_pool.remaining_jobs--;
+      memcpy(&my_job, jobs + server->thread_pool.remaining_jobs, sizeof(struct epoll_event));
+      DEBUG(GREEN, "DEBUG: worker took job %d, mutex_unlock", server->thread_pool.remaining_jobs);
+      if (x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex))
+	break ;
+      if (_handle_event(server, &my_job) == -1)
+	{ /* handle handler's error */ }
     }
-  printf("DEBUG: worker exits\n");
+  DEBUG(GREEN, "DEBUG: worker exits");
+  list_pop_data(&server->thread_pool.workers, (void *)pthread_self());
   pthread_exit((void *)EXIT_FAILURE);
   return (0);
 }
@@ -159,7 +173,7 @@ int		libanio_create_workers(t_anio *server)
 	}
       if ((ret = pthread_create(worker,
 				NULL,
-				&_start_worker,
+				&_worker_main,
 				(void *)server)) != 0)
 	{
 	  dprintf(2, "%s\n", strerror(ret));

@@ -25,6 +25,8 @@ int		x_pthread_create(pthread_t *thread, const pthread_attr_t *attr,
 				 void *(*start_routine) (void *), void *arg);
 int		x_pthread_cancel(pthread_t thread);
 int		x_pthread_cond_broadcast(pthread_cond_t *cond);
+int		x_pthread_cond_wait(pthread_cond_t *cond,
+				    pthread_mutex_t *mutex);
 
 /* epoll helpers */
 

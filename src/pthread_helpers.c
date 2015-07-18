@@ -62,3 +62,14 @@ int		x_pthread_cond_broadcast(pthread_cond_t *cond)
     dprintf(2, "%s\n", strerror(ret));
   return (ret);
 }
+
+int		x_pthread_cond_wait(pthread_cond_t *cond,
+				    pthread_mutex_t *mutex)
+{
+  int		ret;
+
+  ret = pthread_cond_wait(cond, mutex);
+  if (ret != 0)
+    dprintf(2, "%s\n", strerror(ret));
+  return (ret);
+}
