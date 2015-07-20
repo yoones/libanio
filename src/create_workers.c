@@ -124,29 +124,32 @@ static void		*_worker_main(void *arg)
 
   while (1)
     {
-      DEBUG(CYAN, "worker try to lock mutex... (busy = %d)...", busy);
+      /* DEBUG(CYAN, "worker %lu try to lock mutex... (busy = %d)...", pthread_self(), busy); */
       if (x_pthread_mutex_lock(&server->thread_pool.jobs_mutex))
 	{
 	  list_pop_data(&server->thread_pool.workers, (void *)pthread_self());
 	  pthread_exit((void *)EXIT_FAILURE);
 	}
-      DEBUG(CYAN, "worker try to lock mutex SUCCESS (busy = %d)...", busy);
+      /* DEBUG(CYAN, "worker %lu try to lock mutex SUCCESS (busy = %d)...", pthread_self(), busy); */
       if (busy == 1)
 	{
 	  busy = 0;
 	  server->thread_pool.busy_workers--;
 	}
-      DEBUG(CYAN, "worker waits (busy = %d)...", busy);
+      /* DEBUG(CYAN, "worker %lu waits (busy = %d)...", pthread_self(), busy); */
       if (x_pthread_cond_wait(&server->thread_pool.jobs_condvar, &server->thread_pool.jobs_mutex))
 	break ;
-      DEBUG(CYAN, "worker awake!");
+      /* DEBUG(CYAN, "worker %lu awake!", pthread_self()); */
       if (server->thread_pool.remaining_jobs == 0)
-	continue ;
+	{
+	  x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
+	  continue ;
+	}
       server->thread_pool.remaining_jobs--;
       server->thread_pool.busy_workers++;
       busy = 1;
       memcpy(&my_job, jobs + server->thread_pool.remaining_jobs, sizeof(struct epoll_event));
-      DEBUG(CYAN, "worker unlocks mutex!");
+      /* DEBUG(CYAN, "worker %lu unlocks mutex!", pthread_self()); */
       x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
       if (_handle_event(server, &my_job) == -1)
 	{ /* handle handler's error */ }

@@ -78,10 +78,6 @@ static void		*_monitor_main(void *arg)
 	      ret = x_pthread_cond_broadcast(&server->thread_pool.jobs_condvar);
 	      BREAK_ON_ERR(ret, err_flag);
 	    }
-	  else if (server->thread_pool.busy_workers > 0)
-	    {
-	      sleep(1);
-	    }
 	  else
 	    {
 	      ret = x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
