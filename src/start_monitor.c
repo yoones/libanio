@@ -17,7 +17,7 @@ static int	_watch_server_fd(t_anio *server)
   server->fdesc.event.events = EPOLLIN; /* todo: use EPOLLRDHUP to detected closed socket */
   if (epoll_ctl(server->thread_pool.epoll_fd, EPOLL_CTL_ADD, server->fdesc.fd, &server->fdesc.event) == -1)
     {
-      perror("epoll_ctl(server)");
+      print_err(errno);
       return (-1);
     }
   return (0);
@@ -33,7 +33,7 @@ static void		*_monitor_main(void *arg)
       || !(server->thread_pool.jobs = calloc(EPOLL_MAX_EVENTS, sizeof(struct epoll_event)))
       || libanio_create_workers(server) == -1)
     {
-      perror(NULL);
+      print_err(errno);
       close(server->thread_pool.epoll_fd);
       server->thread_pool.epoll_fd = -1;
       pthread_exit((void *)EXIT_FAILURE);
@@ -55,7 +55,7 @@ static void		*_monitor_main(void *arg)
       if ((server->thread_pool.remaining_jobs = epoll_wait(server->thread_pool.epoll_fd, server->thread_pool.jobs, EPOLL_MAX_EVENTS, -1)) == -1)
 	{
 	  server->thread_pool.remaining_jobs = 0;
-	  perror(NULL);
+	  print_err(errno);
 	  break ;
 	}
       ret = x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
@@ -63,17 +63,24 @@ static void		*_monitor_main(void *arg)
       /* let workers take care of epoll events */
       while (!err_flag)
 	{
+	  DEBUG(CYAN, "try to lock mutex...");
 	  ret = x_pthread_mutex_lock(&server->thread_pool.jobs_mutex);
 	  BREAK_ON_ERR(ret, err_flag);
+	  DEBUG(CYAN, "try to lock mutex SUCCESS");
+	  DEBUG(YELLOW, "busy workers: %d", server->thread_pool.busy_workers);
 	  if (server->thread_pool.remaining_jobs > 0)
 	    {
 	      if (server->thread_pool.workers.size == 0)
 		{
-		  dprintf(2, "ERROR: no worker available!!!\n");
+		  print_custom_err("ERROR: no worker available!!!");
 		  abort();	/* todo: manage this case. can should the monitor run if there's no worker?? */
 		}
 	      ret = x_pthread_cond_broadcast(&server->thread_pool.jobs_condvar);
 	      BREAK_ON_ERR(ret, err_flag);
+	    }
+	  else if (server->thread_pool.busy_workers > 0)
+	    {
+	      sleep(1);
 	    }
 	  else
 	    {

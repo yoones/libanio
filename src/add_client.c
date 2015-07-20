@@ -13,7 +13,7 @@ int		libanio_add_client(t_anio *server, int fd)
   if (!(fdesc = malloc(sizeof(t_fdesc)))
       || libanio_fdesc_init(fdesc, fd) == -1)
     {
-      perror(NULL);
+      print_err(errno);
       free(fdesc);
       return (-1);
     }

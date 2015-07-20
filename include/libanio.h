@@ -8,6 +8,8 @@
 # include <stddef.h>
 # include <pthread.h>
 # include <sys/epoll.h>
+# include <string.h>
+# include <errno.h>
 
 # include "list.h"
 # include "libanio_types.h"
@@ -34,6 +36,10 @@
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
 #define DEBUG(color, m, args...) dprintf(2, color m RESET "\n" , ##args)
+
+#define print_err(errnumber) dprintf(2, RED "%s:%d: %s" RESET "\n", __FILE__, __LINE__, strerror(errnumber))
+#define print_custom_err(msg) dprintf(2, RED "%s:%d: %s" RESET "\n", __FILE__, __LINE__, msg)
+
 
 /* --- */
 

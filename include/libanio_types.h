@@ -49,6 +49,7 @@ typedef struct		s_thread_pool
   int			epoll_fd;
   struct epoll_event	*jobs;
   int			remaining_jobs;
+  int			busy_workers;
   pthread_mutex_t	jobs_mutex;
   pthread_cond_t	jobs_condvar;
 }			t_thread_pool;

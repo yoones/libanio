@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <signal.h>
 #include "libanio.h"
 
 void		on_accept(t_anio *server, int fd)
@@ -23,6 +24,13 @@ void		on_read(t_anio *server, int fd, char *buf, size_t size)
 {
   (void)buf;
   printf("Server (fd:%d), I received %d byte(s) from client (fd:%d)\n", server->fdesc.fd, (int)size, fd);
+}
+
+void		on_eof(t_anio *server, int fd, char *buf, size_t size)
+{
+  (void)buf;
+  (void)size;
+  printf("Server (fd:%d), client (fd:%d) is gone!\n", server->fdesc.fd, fd);
 }
 
 int			start_server(int port)
@@ -58,12 +66,22 @@ int			start_server(int port)
   return (fd);
 }
 
+void		_handle_sigint(int sig)
+{
+  (void)sig;
+  fsync(1);
+  fsync(2);
+  write(1, RESET, strlen(RESET));
+  exit(0);
+}
+
 int		main(int argc, char **argv)
 {
   int		fd;
   t_anio	server;
   int		port;
 
+  signal(SIGINT, &_handle_sigint);
   port = 5555;
   if (argc == 2)
     port = atoi(argv[1]);
@@ -72,16 +90,16 @@ int		main(int argc, char **argv)
   fd = start_server(port);
   if (fd == -1)
     return (EXIT_FAILURE);
-  assert(libanio_init(&server, fd, 1000, 21, &on_accept, NULL, NULL, NULL, ANIO_MODE_STREAM) == -1);
-  assert(libanio_init(&server, fd, 1000, 5, &on_accept, &on_read, NULL, NULL, ANIO_MODE_STREAM) == 0);
+  /* assert(libanio_init(&server, fd, 1000, 21, &on_accept, NULL, NULL, NULL, ANIO_MODE_STREAM) == -1); */
+  assert(libanio_init(&server, fd, 1000, 1, &on_accept, &on_read, &on_eof, NULL, ANIO_MODE_STREAM) == 0);
   assert(libanio_start_monitor(&server) == 0);
-  assert(libanio_start_monitor(&server) == -1);
+  /* assert(libanio_start_monitor(&server) == -1); */
 
   /* start libanio loop here */
   pause();
 
   assert(libanio_stop_monitor(&server) == 0);
-  assert(libanio_stop_monitor(&server) == -1);
+  /* assert(libanio_stop_monitor(&server) == -1); */
   close(fd);
   return (EXIT_SUCCESS);
 }

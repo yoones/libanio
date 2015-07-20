@@ -1,5 +1,6 @@
 #include <sys/epoll.h>
 #include <stdio.h>
+#include "libanio.h"
 
 int		x_epoll_create1(int flags)
 {
@@ -7,7 +8,7 @@ int		x_epoll_create1(int flags)
 
   ret = epoll_create1(flags);
   if (ret != 0)
-    perror(NULL);
+    print_err(errno);
   return (ret);
 }
 
@@ -17,6 +18,6 @@ int		x_epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)
 
   ret = epoll_ctl(epfd, op, fd, event);
   if (ret != 0)
-    perror(NULL);
+    print_err(errno);
   return (ret);
 }

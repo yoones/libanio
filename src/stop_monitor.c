@@ -15,7 +15,7 @@ int		libanio_stop_monitor(t_anio *server)
     }
   if ((ret = pthread_cancel(server->monitoring_thread)) != 0)
     {
-      dprintf(2, "%s\n", strerror(ret));
+      print_err(ret);
       return (-1);
     }
   pthread_mutex_unlock(&server->monitoring_thread_mutex);

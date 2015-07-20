@@ -26,6 +26,7 @@ int		libanio_init(t_anio *server,
   list_init(&server->thread_pool.workers, NULL, NULL); /* todo: set list:free callback */
   server->thread_pool.epoll_fd = -1;
   server->thread_pool.jobs = NULL;
+  server->thread_pool.busy_workers = 0;
   server->thread_pool.remaining_jobs = 0;
   pthread_mutex_init(&server->thread_pool.jobs_mutex, NULL);
   pthread_cond_init(&server->thread_pool.jobs_condvar, NULL);

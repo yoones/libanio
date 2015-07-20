@@ -1,5 +1,2 @@
-- Find out why I have a "Device or resource busy" err message when I start the server
-- Handle clients disconnection better ("Bad file descriptor" displayed).
-  reproduce error: run nc, then Ctrl+C
 - implement read modes (block & line)
 - implement write
