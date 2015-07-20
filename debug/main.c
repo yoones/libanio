@@ -15,6 +15,8 @@
 #include <signal.h>
 #include "libanio.h"
 
+t_anio	server;
+
 void		on_accept(t_anio *server, int fd)
 {
   dprintf(2, "Server (fd:%d), I got a new client (fd:%d)!\n", server->fdesc.fd, fd);
@@ -72,13 +74,14 @@ void		_handle_sigint(int sig)
   fsync(1);
   fsync(2);
   write(1, RESET, strlen(RESET));
+  libanio_stop_monitor(&server);
+  libanio_free(&server);
   exit(0);
 }
 
 int		main(int argc, char **argv)
 {
   int		fd;
-  t_anio	server;
   int		port;
 
   signal(SIGINT, &_handle_sigint);
@@ -90,16 +93,14 @@ int		main(int argc, char **argv)
   fd = start_server(port);
   if (fd == -1)
     return (EXIT_FAILURE);
-  /* assert(libanio_init(&server, fd, 1000, 21, &on_accept, NULL, NULL, NULL, ANIO_MODE_STREAM) == -1); */
   assert(libanio_init(&server, fd, 1000, 2, &on_accept, &on_read, &on_eof, NULL, ANIO_MODE_STREAM) == 0);
   assert(libanio_start_monitor(&server) == 0);
-  /* assert(libanio_start_monitor(&server) == -1); */
 
   /* start libanio loop here */
-  pause();
+  sleep(5);
 
-  assert(libanio_stop_monitor(&server) == 0);
-  /* assert(libanio_stop_monitor(&server) == -1); */
+  libanio_stop_monitor(&server);
+  libanio_free(&server);
   close(fd);
   return (EXIT_SUCCESS);
 }

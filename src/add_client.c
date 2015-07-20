@@ -18,7 +18,7 @@ int		libanio_add_client(t_anio *server, int fd)
       return (-1);
     }
   fdesc->event.data.fd = fdesc->fd;
-  fdesc->event.events = EPOLLIN; /* todo: watch event EPOLLRDHUP to detected closed socket */
+  fdesc->event.events = EPOLLIN;
   if (fdesc->writebuf.size > 0)
     fdesc->event.events |= EPOLLOUT;
   if (x_epoll_ctl(server->thread_pool.epoll_fd, EPOLL_CTL_ADD, fdesc->fd, &fdesc->event) != 0

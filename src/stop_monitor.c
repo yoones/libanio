@@ -2,8 +2,6 @@
 #include <string.h>
 #include "libanio.h"
 
-/* int pthread_cancel(pthread_t thread); */
-
 int		libanio_stop_monitor(t_anio *server)
 {
   int		ret;
@@ -13,6 +11,8 @@ int		libanio_stop_monitor(t_anio *server)
       pthread_mutex_unlock(&server->monitoring_thread_mutex);
       return (-1);
     }
+  libanio_destroy_workers(server);
+  list_clear(&server->clients);
   if ((ret = pthread_cancel(server->monitoring_thread)) != 0)
     {
       print_err(ret);

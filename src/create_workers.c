@@ -124,47 +124,37 @@ static void		*_worker_main(void *arg)
 
   while (1)
     {
-      /* DEBUG(CYAN, "worker %lu try to lock mutex... (busy = %d)...", pthread_self(), busy); */
+      pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
       if (x_pthread_mutex_lock(&server->thread_pool.jobs_mutex))
-	{
-	  list_pop_data(&server->thread_pool.workers, (void *)pthread_self());
-	  pthread_exit((void *)EXIT_FAILURE);
-	}
-      /* DEBUG(CYAN, "worker %lu try to lock mutex SUCCESS (busy = %d)...", pthread_self(), busy); */
+	break ;
       if (busy == 1)
 	{
 	  busy = 0;
 	  server->thread_pool.busy_workers--;
 	}
-      /* DEBUG(CYAN, "worker %lu waits (busy = %d)...", pthread_self(), busy); */
       if (x_pthread_cond_wait(&server->thread_pool.jobs_condvar, &server->thread_pool.jobs_mutex))
-	break ;
-      /* DEBUG(CYAN, "worker %lu awake!", pthread_self()); */
+	{
+	  x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
+	  break ;
+	}
       if (server->thread_pool.remaining_jobs == 0)
 	{
 	  x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
+	  pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 	  continue ;
 	}
       server->thread_pool.remaining_jobs--;
       server->thread_pool.busy_workers++;
       busy = 1;
       memcpy(&my_job, jobs + server->thread_pool.remaining_jobs, sizeof(struct epoll_event));
-      /* DEBUG(CYAN, "worker %lu unlocks mutex!", pthread_self()); */
-      x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
+      if (x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex))
+	break ;
+      pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
       if (_handle_event(server, &my_job) == -1)
 	{ /* handle handler's error */ }
     }
-  list_pop_data(&server->thread_pool.workers, (void *)pthread_self());
-  x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
+  pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
   pthread_exit((void *)EXIT_FAILURE);
-}
-
-static void	_list_free_worker(void *data)
-{
-  pthread_t	*worker = data;
-
-  pthread_cancel(*worker);
-  free(worker);
 }
 
 int		libanio_create_workers(t_anio *server)
@@ -176,7 +166,6 @@ int		libanio_create_workers(t_anio *server)
   if (server->thread_pool.max_workers == 0
       || server->thread_pool.workers.size > 0)
     return (-1);
-  list_init(&server->thread_pool.workers, &_list_free_worker, NULL);
   for (i = 0; i < server->thread_pool.max_workers; i++)
     {
       if (!(worker = malloc(sizeof(pthread_t))))

@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include "libanio.h"
 
-/* int pthread_attr_destroy(pthread_attr_t *attr); */
-/* int pthread_mutex_destroy(pthread_mutex_t *mutex); */
-
 void		libanio_free(t_anio *server)
 {
-  (void)server;
-  abort();			/* todo: write list:free callbacks first */
+  server->fdesc.fd = -1;
+  libanio_fdesc_close(&server->fdesc);
+  pthread_mutex_destroy(&server->clients_mutex);
+  pthread_mutex_destroy(&server->thread_pool.jobs_mutex);
+  pthread_cond_destroy(&server->thread_pool.jobs_condvar);
 }

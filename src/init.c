@@ -4,6 +4,23 @@
 #include <string.h>
 #include "libanio.h"
 
+static void	_list_free_client(void *data)
+{
+  t_fdesc	*fdesc = data;
+
+  libanio_fdesc_close(fdesc);
+  free(fdesc);
+}
+
+static void	_list_free_worker(void *data)
+{
+  pthread_t	*thread = data;
+
+  pthread_cancel(*thread);
+  pthread_join(*thread, NULL);
+  free(thread);
+}
+
 int		libanio_init(t_anio *server,
 			     int fd,
 			     size_t max_clients,
@@ -18,12 +35,12 @@ int		libanio_init(t_anio *server,
   va_list	ap;
 
   server->max_clients = max_clients;
-  list_init(&server->clients, NULL, NULL); /* todo: set list:free callback */
+  list_init(&server->clients, &_list_free_client, NULL);
   pthread_mutex_init(&server->clients_mutex, NULL);
   if (thread_pool_size == 0)
     return (-1);
   server->thread_pool.max_workers = thread_pool_size;
-  list_init(&server->thread_pool.workers, NULL, NULL); /* todo: set list:free callback */
+  list_init(&server->thread_pool.workers, &_list_free_worker, NULL);
   server->thread_pool.epoll_fd = -1;
   server->thread_pool.jobs = NULL;
   server->thread_pool.busy_workers = 0;
