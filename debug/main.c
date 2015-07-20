@@ -17,20 +17,20 @@
 
 void		on_accept(t_anio *server, int fd)
 {
-  printf("Server (fd:%d), I got a new client (fd:%d)!\n", server->fdesc.fd, fd);
+  dprintf(2, "Server (fd:%d), I got a new client (fd:%d)!\n", server->fdesc.fd, fd);
 }
 
 void		on_read(t_anio *server, int fd, char *buf, size_t size)
 {
   (void)buf;
-  printf("Server (fd:%d), I received %d byte(s) from client (fd:%d)\n", server->fdesc.fd, (int)size, fd);
+  dprintf(2, "Server (fd:%d), I received %d byte(s) from client (fd:%d)\n", server->fdesc.fd, (int)size, fd);
 }
 
 void		on_eof(t_anio *server, int fd, char *buf, size_t size)
 {
   (void)buf;
   (void)size;
-  printf("Server (fd:%d), client (fd:%d) is gone!\n", server->fdesc.fd, fd);
+  dprintf(2, "Server (fd:%d), client (fd:%d) is gone!\n", server->fdesc.fd, fd);
 }
 
 int			start_server(int port)
@@ -91,7 +91,7 @@ int		main(int argc, char **argv)
   if (fd == -1)
     return (EXIT_FAILURE);
   /* assert(libanio_init(&server, fd, 1000, 21, &on_accept, NULL, NULL, NULL, ANIO_MODE_STREAM) == -1); */
-  assert(libanio_init(&server, fd, 1000, 1, &on_accept, &on_read, &on_eof, NULL, ANIO_MODE_STREAM) == 0);
+  assert(libanio_init(&server, fd, 1000, 2, &on_accept, &on_read, &on_eof, NULL, ANIO_MODE_STREAM) == 0);
   assert(libanio_start_monitor(&server) == 0);
   /* assert(libanio_start_monitor(&server) == -1); */
 
