@@ -8,7 +8,6 @@
 typedef struct	s_anio_buf
 {
   char		*data;
-  size_t	size;
   size_t	memsize;
 }		t_anio_buf;
 

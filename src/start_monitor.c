@@ -52,10 +52,9 @@ static void		*_monitor_main(void *arg)
       /* prepare what epoll needs and wait for events */
       ret = x_pthread_mutex_lock(&server->thread_pool.jobs_mutex);
       BREAK_ON_ERR(ret, err_flag);
-      if ((server->thread_pool.remaining_jobs = epoll_wait(server->thread_pool.epoll_fd, server->thread_pool.jobs, EPOLL_MAX_EVENTS, -1)) == -1)
+      if ((server->thread_pool.remaining_jobs = x_epoll_wait(server->thread_pool.epoll_fd, server->thread_pool.jobs, EPOLL_MAX_EVENTS, -1)) == -1)
 	{
 	  server->thread_pool.remaining_jobs = 0;
-	  print_err(errno);
 	  break ;
 	}
       ret = x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);

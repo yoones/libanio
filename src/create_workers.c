@@ -11,6 +11,7 @@
 
 static int		_handle_error(t_anio *server, int fd, int errnumber)
 {
+  print_err(errnumber);
   server->fptr_on_error(server, fd, errnumber);
   libanio_remove_client(server, fd);
   return (0);
@@ -28,23 +29,66 @@ static int		_handle_read(t_anio *server, int fd)
 {
   char			buff[4096];
   int			ret;
+  char			*extract;
+  t_fdesc		*fdesc;
+  t_anio_buf		*aniobuf;
 
   ret = read(fd, buff, 4096);
-  printf("read() returned %d\n", ret);
+  DEBUG(RED, "DEBUG: read() returned %d", ret);
   switch (ret)
     {
     case (-1):
-      ret = errno;
-      print_err(errno);
-      return (_handle_error(server, fd, ret));
+      return (_handle_error(server, fd, errno));
     case (0):
       /* todo: extract unread data, send it to on_eof callback */
       server->fptr_on_eof(server, fd, NULL, 0); /* buf NULL size 0 for debug */
       libanio_remove_client(server, fd);
       break ;
     default:
+      return (0);
       /* stack data or call callback depending on the read mode (stream, block or line) */
-      server->fptr_on_read(server, fd, NULL, ret); /* debug: work in stream mode for now */
+      switch (server->mode)
+	{
+	case (ANIO_MODE_STREAM):
+	  printf("THAT'S A GOOD START\n");
+	  if (!(extract = malloc(sizeof(char) * ret)))
+	    return (_handle_error(server, fd, errno));
+	  memcpy(extract, buff, ret);
+	  server->fptr_on_read(server, fd, extract, ret);
+	  break;
+	/* case (ANIO_MODE_BLOCK): */
+	/*   if (!(aniobuf = malloc(sizeof(t_anio_buf))) */
+	/*       || !(aniobuf->data = malloc(sizeof(char) * ret))) */
+	/*     { */
+	/*       free(aniobuf); */
+	/*       return (_handle_error(server, fd, errno)); */
+	/*     } */
+	/*   aniobuf->memsize = ret; */
+	/*   memcpy(aniobuf->data, buff, ret); */
+	/*   if (libanio_get_client(server, fd, &fdesc) != 0) */
+	/*     { /\* TODO : handle error here *\/ } */
+	/*   if (list_push_back(&fdesc->readbuf, aniobuf)) */
+	/*     { */
+	/*       print_err(errno); */
+	/*       free(aniobuf->data); */
+	/*       free(aniobuf); */
+	/*       return (-1);	/\* -1 or 0 ??? *\/ */
+	/*     } */
+	/*   /\* TODO : t_anio_buf = extract_block(fdesc, size); *\/ */
+	/*   server->fptr_on_read(server, fd, aniobuf->data, aniobuf->memsize); */
+	/*   /\* data is to be freed by the read handler *\/ */
+	/*   free(aniobuf); */
+	/*   break; */
+	/* case (ANIO_MODE_LINE): */
+	/*   /\* TODO *\/ */
+	/*   printf("TODO mode ANIO_MODE_LINE\n"); */
+	/*   abort(); */
+	/*   break; */
+	/* default: */
+	/*   DEBUG(RED, "Error: unknown reading mode (%d), abort!!", server->mode); */
+	/*   abort(); */
+	/*   return (-1); */
+	}
     }
   return (0);
 }
@@ -122,6 +166,7 @@ static void		*_worker_main(void *arg)
   struct epoll_event	my_job;	/* todo: move this into worker structure */
   int			busy = 0;
 
+  printf("Hello, I'm a new thread :)\n");
   while (1)
     {
       pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
@@ -132,6 +177,7 @@ static void		*_worker_main(void *arg)
 	  busy = 0;
 	  server->thread_pool.busy_workers--;
 	}
+      printf("Thread going to sleep! (cond_wait)\n");
       if (x_pthread_cond_wait(&server->thread_pool.jobs_condvar, &server->thread_pool.jobs_mutex))
 	{
 	  x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);

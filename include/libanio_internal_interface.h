@@ -31,6 +31,7 @@ int		x_pthread_cond_wait(pthread_cond_t *cond,
 /* epoll helpers */
 
 int		x_epoll_create1(int flags);
-  int		x_epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
+int		x_epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
+int		x_epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout);
 
 #endif /* LIBANIO_INTERNAL_INTERFACE_H_ */
