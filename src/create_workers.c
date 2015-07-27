@@ -11,6 +11,7 @@
 
 static int		_handle_error(t_anio *server, int fd, int errnumber)
 {
+  DEBUG_IN();
   print_err(errnumber);
   server->fptr_on_error(server, fd, errnumber);
   libanio_remove_client(server, fd);
@@ -19,6 +20,7 @@ static int		_handle_error(t_anio *server, int fd, int errnumber)
 
 static int		_handle_eof(t_anio *server, int fd)
 {
+  DEBUG_IN();
   /* todo: extract what's left in client's readbuf */
   server->fptr_on_eof(server, fd, NULL, 0);
   libanio_remove_client(server, fd);
@@ -33,6 +35,7 @@ static int		_handle_read(t_anio *server, int fd)
   t_fdesc		*fdesc;
   t_anio_buf		*aniobuf;
 
+  DEBUG_IN();
   ret = read(fd, buff, 4096);
   DEBUG(RED, "DEBUG: read() returned %d", ret);
   switch (ret)
@@ -95,6 +98,7 @@ static int		_handle_read(t_anio *server, int fd)
 
 static int		_handle_write(t_anio *server, int fd)
 {
+  DEBUG_IN();
   DEBUG(GREEN, "DEBUG: worker -> _handle_write");
   (void)server;
   DEBUG(GREEN, "TODO: handle write on fd %d\n", fd);
@@ -107,6 +111,7 @@ static int		_handle_accept(t_anio *server)
   struct sockaddr_in	client_sin;
   socklen_t		client_addrlen;
 
+  DEBUG_IN();
   client_addrlen = sizeof(struct sockaddr_in);
   client_fd = accept(server->fdesc.fd, (struct sockaddr *)&client_sin, &client_addrlen);
   if (client_fd == -1)
@@ -126,6 +131,7 @@ static int		_handle_accept(t_anio *server)
 
 static int		_handle_event(t_anio *server, struct epoll_event *job)
 {
+  DEBUG_IN();
   if (job->data.fd == server->fdesc.fd)
     {
       if ((job->events & EPOLLERR)
@@ -169,37 +175,51 @@ static void		*_worker_main(void *arg)
   printf("Hello, I'm a new thread :)\n");
   while (1)
     {
+      print_custom_err("[worker] while in");
       pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
+      print_custom_err("[worker] thread not cancelable");
+      print_custom_err("[worker] mutex_lock()...");
       if (x_pthread_mutex_lock(&server->thread_pool.jobs_mutex))
 	break ;
+      print_custom_err("[worker] mutex locked!");
       if (busy == 1)
 	{
+	  print_custom_err("[worker] is busy == yes");
 	  busy = 0;
 	  server->thread_pool.busy_workers--;
 	}
-      printf("Thread going to sleep! (cond_wait)\n");
+      print_custom_err("[worker] cond_wait()");
       if (x_pthread_cond_wait(&server->thread_pool.jobs_condvar, &server->thread_pool.jobs_mutex))
 	{
+	  print_custom_err("[worker] cond_wait() FAIL");
 	  x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
 	  break ;
 	}
+      print_custom_err("[worker] woke up");
       if (server->thread_pool.remaining_jobs == 0)
 	{
+	  print_custom_err("[worker] no remaining jobs");
 	  x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
-	  pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+	  /* pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL); */
 	  continue ;
 	}
+      print_custom_err("[worker] taking a job");
       server->thread_pool.remaining_jobs--;
       server->thread_pool.busy_workers++;
       busy = 1;
       memcpy(&my_job, jobs + server->thread_pool.remaining_jobs, sizeof(struct epoll_event));
+      print_custom_err("[worker] job took, unlock mutex");
       if (x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex))
 	break ;
-      pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+      print_custom_err("[worker] mutex unlocked, thread now cancelable");
+      /* pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL); */
+      print_custom_err("[worker] handling event");
       if (_handle_event(server, &my_job) == -1)
 	{ /* handle handler's error */ }
+      print_custom_err("[worker] done handling event");
+      print_custom_err("[worker] while out");
     }
-  pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+  /* pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL); */
   pthread_exit((void *)EXIT_FAILURE);
 }
 

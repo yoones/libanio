@@ -40,8 +40,8 @@
 # define print_err(errnumber) dprintf(2, RED "%s:%s:%d: %s" RESET "\n", \
 				      __FILE__, __func__, __LINE__, strerror(errnumber))
 
-# define print_custom_err(msg) dprintf(2, RED "%s:%s:%d: %s" RESET "\n", \
-				       __FILE__, __func__, __LINE__, msg)
+# define print_custom_err(msg) dprintf(2, RED "%lu\t%s:%s:%d: %s" RESET "\n", \
+				       pthread_self(), __FILE__, __func__, __LINE__, msg)
 
 # define DEBUG_MODE
 

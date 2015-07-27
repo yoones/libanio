@@ -1,6 +1,12 @@
+===
+THREADS ARE CANCELED (when cancelable => segfault). WHYYYYYYYY??????
+===
+
 - implement read modes (block & line)
 - implement write
 - thread_pool list: replace casted thread_id byreal structure containing thread_id
 - Add stop_workers flag in thread pool struct. when broadcasting, awakened workers should check
   it first and pthread_exit() if it's set to true
 - Find memory leak (go valgrind)
+- Refactor thread pool to make it reusable for other purposes
+-
