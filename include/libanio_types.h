@@ -8,7 +8,7 @@
 typedef struct	s_anio_buf
 {
   char		*data;
-  size_t	memsize;
+  size_t	size;
 }		t_anio_buf;
 
 typedef enum	e_anio_mode

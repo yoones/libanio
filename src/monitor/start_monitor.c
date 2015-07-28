@@ -106,13 +106,16 @@ static void		*_monitor_main(void *arg)
     }
   if (_watch_server_fd(server) == -1)
     {
+      print_custom_err("ERROR: CANNOT WATCH SERVER FD");
       close(server->thread_pool.epoll_fd);
       server->thread_pool.epoll_fd = -1;
       libanio_destroy_workers(server);
       pthread_exit((void *)EXIT_FAILURE);
     }
 
+  print_custom_err("monito_loop: IN");
   ret = _monitor_loop(server);
+  print_custom_err("monito_loop: OUT");
 
   DEBUG(RED, "DEBUG: monitor exits loop");
   (void)libanio_destroy_workers(server);

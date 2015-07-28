@@ -62,7 +62,7 @@ int		libanio_init(t_anio *server,
       break ;
     case (ANIO_MODE_LINE):
       server->mode_config.line_delim = va_arg(ap, char *);
-      if (server->mode_config.line_delim == NULL)
+      if (server->mode_config.line_delim == NULL || server->mode_config.line_delim[0] == '\0')
 	return (-1);
       break ;
     default:

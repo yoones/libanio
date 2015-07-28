@@ -41,7 +41,7 @@
 # define print_custom_err(msg) dprintf(2, RED "%lu\t%s:%s:%d: %s" RESET "\n", \
 				       pthread_self(), __FILE__, __func__, __LINE__, msg)
 
-/* # define DEBUG_MODE */
+# define DEBUG_MODE
 
 # ifdef DEBUG_MODE
 #  define DEBUG(color, m, args...) dprintf(2, color m RESET "\n" , ##args)

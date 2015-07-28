@@ -9,12 +9,61 @@
 #include <errno.h>
 #include "libanio.h"
 
-/* static char		*_extract_bytes(t_fdesc *fdesc, size_t size) */
-/* { */
-/*   int			ret; */
-/*   int			i; */
+static size_t		_get_available_bytes(t_fdesc *fdesc)
+{
+  t_lnode		*w;
+  t_anio_buf		*anio_buf;
+  size_t		nbytes;
 
-/* } */
+  nbytes = 0;
+  for (w = fdesc->readbuf.head; w; w = w->next)
+    {
+      anio_buf = w->data;
+      nbytes += anio_buf->size;
+    }
+  return (nbytes);
+}
+
+/* expects the requested 'size' bytes to be available */
+static char		*_extract_bytes(t_fdesc *fdesc, size_t size, int extra_null_byte)
+{
+  char			*buf;
+  char			*tmp;
+  t_anio_buf		*anio_buf;
+  size_t		nbytes;
+
+  if (size == 0)
+    return (strdup(""));
+  extra_null_byte = (extra_null_byte ? 1 : 0);
+  if (!(buf = malloc(sizeof(char) * (size + extra_null_byte))))
+    {
+      print_err(errno);
+      return (NULL);
+    }
+  tmp = buf;
+  do
+    {
+      anio_buf = fdesc->readbuf.head->data;
+      nbytes = (size < anio_buf->size ? size : anio_buf->size);
+      memcpy(tmp, anio_buf->data, nbytes);
+      tmp += nbytes;
+      if (size >= nbytes)
+	{
+	  free(anio_buf->data);
+	  free(anio_buf);
+	  list_pop_front(&fdesc->readbuf);
+	}
+      else
+	{
+	  memmove(anio_buf->data, anio_buf->data + nbytes, anio_buf->size - nbytes);
+	  anio_buf->size -= nbytes;
+	}
+      size -= nbytes;
+    } while (size > 0);
+  if (extra_null_byte)
+    *tmp = '\0';
+  return (buf);
+}
 
 static int		_handle_error(t_anio *server, int fd, int errnumber)
 {
@@ -27,80 +76,142 @@ static int		_handle_error(t_anio *server, int fd, int errnumber)
 
 static int		_handle_eof(t_anio *server, int fd)
 {
+  char			*buf;
+  size_t		size;
+  t_fdesc		*fdesc;
+  t_anio_buf		*anio_buf;
+  t_lnode		*w;
+
   DEBUG_IN();
-  /* todo: extract what's left in client's readbuf */
-  server->fptr_on_eof(server, fd, NULL, 0);
-  libanio_remove_client(server, fd);
+  if (libanio_get_client(server, fd, &fdesc))
+    {
+      print_custom_err("Error: fd not found");
+      return (-1);
+    }
+    size = 0;
+    for (w = fdesc->readbuf.head; w; w = w->next)
+      {
+      anio_buf = (t_anio_buf *)w->data;
+      size += anio_buf->size;
+    }
+  if ((buf = _extract_bytes(fdesc, size, (server->mode == ANIO_MODE_LINE ? 1 : 0))) == NULL)
+    return (_handle_error(server, fd, errno));
+  server->fptr_on_eof(server, fd, buf, size);
+  return (libanio_remove_client(server, fd));
+}
+
+static int		_push_new_data(t_fdesc *fdesc, char *buf, size_t size)
+{
+  t_anio_buf		*anio_buf;
+
+  printf("DEBUG: push_new_data(%d)\n", size);
+  if (!(anio_buf = malloc(sizeof(t_anio_buf)))
+      || !(anio_buf->data = malloc(sizeof(char) * size)))
+    {
+      print_err(errno);
+      free(anio_buf);
+      return (-1);
+    }
+  memcpy(anio_buf->data, buf, size);
+  anio_buf->size = size;
+  if (list_push_back(&fdesc->readbuf, (void *)anio_buf))
+    {
+      print_err(errno);
+      free(anio_buf->data);
+      free(anio_buf);
+      return (-1);
+    }
+  return (0);
+}
+
+static int		_get_line_size(t_anio *server, t_fdesc *fdesc, size_t *nbytes)
+{
+  int			delim_length;
+  t_lnode		*w;
+  t_anio_buf		*anio_buf;
+  char			*tmp;
+
+  *nbytes = 0;
+  delim_length = strlen(server->mode_config.line_delim);
+  for (w = fdesc->readbuf.head; w; w = w->next)
+    {
+      anio_buf = w->data;
+      tmp = anio_buf->data;
+      while (*tmp && strncmp(tmp, server->mode_config.line_delim, delim_length))
+	{
+	  (*nbytes)++;
+	  tmp++;
+	}
+    }
+  if (strncmp(tmp, server->mode_config.line_delim, delim_length))
+    return (-1);
+  *nbytes += delim_length;
   return (0);
 }
 
 static int		_handle_read(t_anio *server, int fd)
 {
-  char			buff[4096];
+  char			buff[ANIO_BUF_SIZE];
   int			ret;
   char			*extract;
   t_fdesc		*fdesc;
-  t_anio_buf		*aniobuf;
+  char			*tmp;
+  size_t		nbytes;
 
   DEBUG_IN();
-  ret = read(fd, buff, 4096);
+  ret = read(fd, buff, ANIO_BUF_SIZE);
   DEBUG(RED, "DEBUG: read() returned %d", ret);
-  switch (ret)
+  if (ret == -1)
+    return (_handle_error(server, fd, errno));
+  else if (ret == 0)
+    return (_handle_eof(server, fd));
+  switch (server->mode)
     {
-    case (-1):
-      return (_handle_error(server, fd, errno));
-    case (0):
-      /* todo: extract unread data, send it to on_eof callback */
-      server->fptr_on_eof(server, fd, NULL, 0); /* buf NULL size 0 for debug */
-      libanio_remove_client(server, fd);
-      break ;
-    default:
+      /* === STREAM === */
+    case (ANIO_MODE_STREAM):
+      if (!(extract = malloc(sizeof(char) * ret)))
+	return (_handle_error(server, fd, errno));
+      memcpy(extract, buff, ret);
+      server->fptr_on_read(server, fd, extract, ret);
       return (0);
-      /* stack data or call callback depending on the read mode (stream, block or line) */
-      switch (server->mode)
+
+      /* === BLOCK === */
+    case (ANIO_MODE_BLOCK):
+      if (libanio_get_client(server, fd, &fdesc))
 	{
-	case (ANIO_MODE_STREAM):
-	  printf("THAT'S A GOOD START\n");
-	  if (!(extract = malloc(sizeof(char) * ret)))
-	    return (_handle_error(server, fd, errno));
-	  memcpy(extract, buff, ret);
-	  server->fptr_on_read(server, fd, extract, ret);
-	  break;
-	/* case (ANIO_MODE_BLOCK): */
-	/*   if (!(aniobuf = malloc(sizeof(t_anio_buf))) */
-	/*       || !(aniobuf->data = malloc(sizeof(char) * ret))) */
-	/*     { */
-	/*       free(aniobuf); */
-	/*       return (_handle_error(server, fd, errno)); */
-	/*     } */
-	/*   aniobuf->memsize = ret; */
-	/*   memcpy(aniobuf->data, buff, ret); */
-	/*   if (libanio_get_client(server, fd, &fdesc) != 0) */
-	/*     { /\* TODO : handle error here *\/ } */
-	/*   if (list_push_back(&fdesc->readbuf, aniobuf)) */
-	/*     { */
-	/*       print_err(errno); */
-	/*       free(aniobuf->data); */
-	/*       free(aniobuf); */
-	/*       return (-1);	/\* -1 or 0 ??? *\/ */
-	/*     } */
-	/*   /\* TODO : t_anio_buf = extract_block(fdesc, size); *\/ */
-	/*   server->fptr_on_read(server, fd, aniobuf->data, aniobuf->memsize); */
-	/*   /\* data is to be freed by the read handler *\/ */
-	/*   free(aniobuf); */
-	/*   break; */
-	/* case (ANIO_MODE_LINE): */
-	/*   /\* TODO *\/ */
-	/*   printf("TODO mode ANIO_MODE_LINE\n"); */
-	/*   abort(); */
-	/*   break; */
-	/* default: */
-	/*   DEBUG(RED, "Error: unknown reading mode (%d), abort!!", server->mode); */
-	/*   abort(); */
-	/*   return (-1); */
+	  print_custom_err("Error: fd not found, should not happen!!");
+	  return (-1);
 	}
+      if (_push_new_data(fdesc, buff, ret))
+	return (_handle_error(server, fd, errno));
+      if (_get_available_bytes(fdesc) < server->mode_config.block_size)
+	return (0);
+      if ((tmp = _extract_bytes(fdesc, server->mode_config.block_size, 0)) == NULL)
+	return (_handle_error(server, fd, errno));
+      server->fptr_on_read(server, fd, tmp, server->mode_config.block_size);
+      return (0);
+
+      /* === LINE === */
+    case (ANIO_MODE_LINE):
+      if (libanio_get_client(server, fd, &fdesc))
+	{
+	  print_custom_err("Error: fd not found, should not happen!!");
+	  return (-1);
+	}
+      if (_push_new_data(fdesc, buff, ret))
+	return (_handle_error(server, fd, errno));
+      if (_get_line_size(server, fdesc, &nbytes) != 0)
+	return (0);
+      if ((tmp = _extract_bytes(fdesc, nbytes, 1)) == NULL)
+	return (_handle_error(server, fd, errno));
+      server->fptr_on_read(server, fd, tmp, nbytes);
+      return (0);
+
+    default:
+      DEBUG(RED, "Error: unknown reading mode (%d), abort!!", server->mode);
+      abort();
+      return (-1);
     }
-  return (0);
 }
 
 static int		_handle_write(t_anio *server, int fd)

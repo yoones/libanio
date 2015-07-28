@@ -26,8 +26,8 @@ void		on_accept(t_anio *server, int fd)
 
 void		on_read(t_anio *server, int fd, char *buf, size_t size)
 {
-  (void)buf;
   dprintf(2, "Server (fd:%d), I received %d byte(s) from client (fd:%d)\n", server->fdesc.fd, (int)size, fd);
+  dprintf(2, "===\n%s\n===\n", buf);
 }
 
 void		on_eof(t_anio *server, int fd, char *buf, size_t size)
@@ -95,11 +95,12 @@ int		main(int argc, char **argv)
   fd = start_server(port);
   if (fd == -1)
     return (EXIT_FAILURE);
-  assert(libanio_init(&server, fd, 1000, NB_WORKERS, &on_accept, &on_read, &on_eof, NULL, ANIO_MODE_STREAM) == 0);
+  /* assert(libanio_init(&server, fd, 1000, NB_WORKERS, &on_accept, &on_read, &on_eof, NULL, ANIO_MODE_STREAM) == 0); */
+  assert(libanio_init(&server, fd, 1000, NB_WORKERS, &on_accept, &on_read, &on_eof, NULL, ANIO_MODE_LINE, "\n") == 0);
   assert(libanio_start_monitor(&server) == 0);
 
   /* start libanio loop here */
-  sleep(5);
+  sleep(500);
 
   libanio_stop_monitor(&server);
   libanio_free(&server);
