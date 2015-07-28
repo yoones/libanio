@@ -14,29 +14,32 @@ LDFLAGS		=	-lpthread
 
 ## Library
 NAME		=	libanio.a
-SRCS		=	src/list.c			\
-			src/init.c			\
-			src/is_server_alive.c		\
-			src/set_callback_on_accept.c	\
-			src/set_callback_on_read.c	\
-			src/set_callback_on_eof.c	\
-			src/set_callback_on_error.c	\
-			src/set_callbacks.c		\
-			src/set_max_clients.c		\
-			src/set_thread_pool_size.c	\
-			src/start_monitor.c		\
-			src/stop_monitor.c		\
-			src/free.c			\
-			src/create_workers.c		\
-			src/destroy_workers.c		\
-			src/pthread_helpers.c		\
-			src/epoll_helpers.c		\
-			src/fdesc_init.c		\
-			src/fdesc_close.c		\
-			src/has_client.c		\
-			src/add_client.c		\
-			src/remove_client.c		\
-			src/get_client.c
+
+_SRCS		=	utils/list.c				\
+			utils/pthread_helpers.c			\
+			utils/epoll_helpers.c			\
+			init/init.c				\
+			init/set_callback_on_accept.c		\
+			init/set_callback_on_read.c		\
+			init/set_callback_on_eof.c		\
+			init/set_callback_on_error.c		\
+			init/set_callbacks.c			\
+			init/set_max_clients.c			\
+			init/set_thread_pool_size.c		\
+			init/free.c				\
+			monitor/start_monitor.c			\
+			monitor/stop_monitor.c			\
+			monitor/is_server_alive.c		\
+			workers/create_workers.c		\
+			workers/handle_event.c			\
+			workers/destroy_workers.c		\
+			fdesc/fdesc_init.c			\
+			fdesc/fdesc_close.c			\
+			fdesc/has_client.c			\
+			fdesc/add_client.c			\
+			fdesc/remove_client.c			\
+			fdesc/get_client.c
+SRCS		=	$(addprefix src/, $(_SRCS))
 OBJS		=	$(SRCS:.c=.o)
 
 ## Debug binary

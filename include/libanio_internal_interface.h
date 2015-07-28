@@ -8,6 +8,7 @@ int		libanio_stop_monitor(t_anio *server);
 
 int		libanio_create_workers(t_anio *server);
 int		libanio_destroy_workers(t_anio *server);
+int		luibanio_handle_event(t_anio *server, struct epoll_event *job);
 
 int		libanio_fdesc_init(t_fdesc *fdesc, int fd);
 int		libanio_fdesc_close(t_fdesc *fdesc);

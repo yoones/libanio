@@ -93,7 +93,6 @@ static int		_monitor_loop(t_anio *server)
 static void		*_monitor_main(void *arg)
 {
   t_anio		*server = arg;
-  int			err_flag;
   int			ret;
 
   if ((server->thread_pool.epoll_fd = epoll_create1(0)) == -1
@@ -123,7 +122,7 @@ static void		*_monitor_main(void *arg)
   server->thread_pool.jobs = NULL;
   server->thread_pool.remaining_jobs = 0;
   (void)x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
-  pthread_exit((void *)EXIT_FAILURE);
+  pthread_exit(ret == 0 ? (void *)EXIT_SUCCESS : (void *)EXIT_FAILURE);
   return (NULL);
 }
 
