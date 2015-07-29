@@ -50,7 +50,8 @@ _SRCS		=	utils/list.c				\
 			fdesc/has_client.c			\
 			fdesc/add_client.c			\
 			fdesc/remove_client.c			\
-			fdesc/get_client.c
+			fdesc/get_client.c			\
+			fdesc/send.c
 SRCS		=	$(addprefix src/, $(_SRCS))
 OBJS		=	$(SRCS:.c=.o)
 

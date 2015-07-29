@@ -209,4 +209,37 @@ int		libanio_set_callback_on_error(t_anio *server,
  */
 int		libanio_is_server_alive(t_anio *server);
 
+/**
+ * @brief Stores data to be sent (later) to a client.
+ *
+ * Exemples:
+ *
+ * libanio_send(&server, client_fd, "hello world", 11);
+ *
+ * @param server Pointer to the t_anio structure.
+ * @param fd Client's file descriptor.
+ * @param buf Pointer to the data to send.
+ * @param nbytes Number of bytes to send.
+ *
+ * @return (0) on success
+ * @return (-1) on error
+ */
+int		libanio_send(t_anio *server, int fd, char *buf, size_t nbytes);
+
+/**
+ * @brief Stores a string (NULL terminated array of chars) to be sent (later) to a client.
+ *
+ * Exemples:
+ *
+ * libanio_send(&server, client_fd, "hello world");
+ *
+ * @param server Pointer to the t_anio structure.
+ * @param fd Client's file descriptor.
+ * @param buf Pointer to the string.
+ *
+ * @return (0) on success
+ * @return (-1) on error
+ */
+int		libanio_send_string(t_anio *server, int fd, char *buf);
+
 #endif /* LIBANIO_INTERFACE_H_ */

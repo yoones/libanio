@@ -40,6 +40,7 @@ void		on_read(t_anio *server, int fd, char *buf, size_t size)
 {
   dprintf(2, "Server (fd:%d), I received %d byte(s) from client (fd:%d)\n", server->fdesc.fd, (int)size, fd);
   dprintf(2, "===\n%s\n===\n", buf);
+  libanio_send(server, fd, "DATA RECEIVED :)\n", 17);
 }
 
 void		on_eof(t_anio *server, int fd, char *buf, size_t size)

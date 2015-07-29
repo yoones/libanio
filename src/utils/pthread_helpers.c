@@ -24,7 +24,6 @@ int		x_pthread_mutex_lock(pthread_mutex_t *mutex)
 {
   int		ret;
 
-  printf("mutex id: %p\n", mutex);
   ret = pthread_mutex_lock(mutex);
   if (ret != 0)
     print_err(ret);

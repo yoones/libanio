@@ -228,10 +228,39 @@ static int		_handle_read(t_anio *server, int fd)
 
 static int		_handle_write(t_anio *server, int fd)
 {
-  DEBUG(GREEN, "DEBUG: worker -> _handle_write");
-  (void)server;
-  DEBUG(GREEN, "TODO: handle write on fd %d\n", fd);
-  return (-1);
+  t_fdesc		*fdesc;
+  t_anio_buf		*anio_buf;
+  int			ret;
+
+  if (libanio_get_client(server, fd, &fdesc))
+    {
+      print_custom_err("Error: fd not found, should not happen!!");
+      return (-1);
+    }
+  anio_buf = fdesc->writebuf.head->data;
+  ret = write(fd, anio_buf->data, anio_buf->size);
+  if (ret == -1)
+    return (_handle_error(server, fd, errno));
+  else if (ret == 0)
+    return (_handle_eof(server, fd));
+  if (ret < (int)anio_buf->size)
+    {
+      memmove(anio_buf->data, anio_buf->data + ret, anio_buf->size - ret);
+      anio_buf->size -= ret;
+    }
+  else
+    {
+      list_pop_front(&fdesc->writebuf);
+      if (fdesc->writebuf.size == 0)
+	{
+	  if (x_epoll_ctl(server->thread_pool.epoll_fd, EPOLL_CTL_DEL, fdesc->fd, &fdesc->event) != 0)
+	    return (-1);
+	  fdesc->event.events = EPOLLIN;
+	  if (x_epoll_ctl(server->thread_pool.epoll_fd, EPOLL_CTL_ADD, fdesc->fd, &fdesc->event) != 0)
+	    return (-1);
+	}
+    }
+  return (0);
 }
 
 static int		_handle_accept(t_anio *server)
