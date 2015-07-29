@@ -46,7 +46,7 @@ t_list		*list_create(t_list_data_free *f_free,
 
 void		list_clear(t_list *list);
 
-inline void	lnode_init(t_lnode *node,
+void		lnode_init(t_lnode *node,
 			   void *data, t_lnode *prev, t_lnode *next);
 
 t_lnode		*lnode_create(void *data, t_lnode *prev, t_lnode *next);

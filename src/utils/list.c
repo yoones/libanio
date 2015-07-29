@@ -66,7 +66,7 @@ void		list_clear(t_list *list)
 /*
   Initializes a node
  */
-inline void	lnode_init(t_lnode *node,
+void		lnode_init(t_lnode *node,
 			   void *data, t_lnode *prev, t_lnode *next)
 {
   node->data = data;
