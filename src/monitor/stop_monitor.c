@@ -35,6 +35,7 @@ int		libanio_stop_monitor(t_anio *server)
       print_err(ret);
       return (-1);
     }
+  pthread_join(server->monitoring_thread, NULL);
   pthread_mutex_unlock(&server->monitoring_thread_mutex);
   return (0);
 }
