@@ -64,6 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -88,26 +89,55 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">s_anio_buf Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This structure holds data that will be used later for i/o (when the related file descriptor is ready for it)  
+ <a href="structs__anio__buf.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="libanio__types_8h_source.html">libanio_types.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a02c46784474f98b41a7e9f9c817cf90c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02c46784474f98b41a7e9f9c817cf90c"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>data</b></td></tr>
-<tr class="separator:a02c46784474f98b41a7e9f9c817cf90c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4546e61945657a00a36b079dbf752d6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4546e61945657a00a36b079dbf752d6"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>size</b></td></tr>
-<tr class="separator:ad4546e61945657a00a36b079dbf752d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6912d23b4ff2216e00cc8bc4665cb5c5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6912d23b4ff2216e00cc8bc4665cb5c5"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>memsize</b></td></tr>
-<tr class="separator:a6912d23b4ff2216e00cc8bc4665cb5c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a130032371bea15404f3b665b30a7061b"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio__buf.html#a130032371bea15404f3b665b30a7061b">data</a></td></tr>
+<tr class="separator:a130032371bea15404f3b665b30a7061b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae7edea53529615402ceec1e26d755cf"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio__buf.html#aae7edea53529615402ceec1e26d755cf">size</a></td></tr>
+<tr class="separator:aae7edea53529615402ceec1e26d755cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This structure holds data that will be used later for i/o (when the related file descriptor is ready for it) </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a130032371bea15404f3b665b30a7061b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio_buf::data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'data' contains the bytes read or to write </p>
+
+</div>
+</div>
+<a class="anchor" id="aae7edea53529615402ceec1e26d755cf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio_buf::size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'size' contains the number of bytes available in data </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/<a class="el" href="libanio__types_8h_source.html">libanio_types.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 14 2015 01:12:20 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 29 2015 17:01:14 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -64,6 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -88,6 +89,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">s_lnode Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This structure holds a double linked node.  
+ <a href="structs__lnode.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="list_8h_source.html">list.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for s_lnode:</div>
 <div class="dyncontent">
@@ -97,23 +103,62 @@ Collaboration diagram for s_lnode:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a2e94a1e8984c8a1e7b72135bb8e31d29"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e94a1e8984c8a1e7b72135bb8e31d29"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>data</b></td></tr>
-<tr class="separator:a2e94a1e8984c8a1e7b72135bb8e31d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee8c355fad865420ad22055b3272049d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee8c355fad865420ad22055b3272049d"></a>
-struct <a class="el" href="structs__lnode.html">s_lnode</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>prev</b></td></tr>
-<tr class="separator:aee8c355fad865420ad22055b3272049d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07ec49a3b71459b4f560ae2ac571802c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07ec49a3b71459b4f560ae2ac571802c"></a>
-struct <a class="el" href="structs__lnode.html">s_lnode</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>next</b></td></tr>
-<tr class="separator:a07ec49a3b71459b4f560ae2ac571802c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f586e4c3ddb54d11cd5ae97ebaec850"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__lnode.html#a4f586e4c3ddb54d11cd5ae97ebaec850">data</a></td></tr>
+<tr class="separator:a4f586e4c3ddb54d11cd5ae97ebaec850"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1761de9a211149f32219f03492d098"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structs__lnode.html">s_lnode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__lnode.html#afe1761de9a211149f32219f03492d098">prev</a></td></tr>
+<tr class="separator:afe1761de9a211149f32219f03492d098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add1117deef5047ce064a52f68e2d611d"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structs__lnode.html">s_lnode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__lnode.html#add1117deef5047ce064a52f68e2d611d">next</a></td></tr>
+<tr class="separator:add1117deef5047ce064a52f68e2d611d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This structure holds a double linked node. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a4f586e4c3ddb54d11cd5ae97ebaec850"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_lnode::data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'data' contains the data stored in this node </p>
+
+</div>
+</div>
+<a class="anchor" id="add1117deef5047ce064a52f68e2d611d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_lnode::next</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'next' contains the address of the next node (or NULL if there isn't any) </p>
+
+</div>
+</div>
+<a class="anchor" id="afe1761de9a211149f32219f03492d098"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_lnode::prev</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'prev' contains the address of the previous node (or NULL if there isn't any) </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/<a class="el" href="list_8h_source.html">list.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 14 2015 01:12:20 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 29 2015 17:01:14 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

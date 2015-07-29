@@ -64,6 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -88,6 +89,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">s_anio Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This structure holds the necessary elements for libanio to manage the server's fd.  
+ <a href="structs__anio.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="libanio__types_8h_source.html">libanio_types.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for s_anio:</div>
 <div class="dyncontent">
@@ -97,47 +103,212 @@ Collaboration diagram for s_anio:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a02c3ef33c4789ab890b7316bb0907076"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02c3ef33c4789ab890b7316bb0907076"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>fd</b></td></tr>
-<tr class="separator:a02c3ef33c4789ab890b7316bb0907076"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fdf66c04e31cb75fe982160c4846d7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3fdf66c04e31cb75fe982160c4846d7e"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>max_clients</b></td></tr>
-<tr class="separator:a3fdf66c04e31cb75fe982160c4846d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a7357c39c829f1fa66ddac440f3377d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a7357c39c829f1fa66ddac440f3377d"></a>
-<a class="el" href="structs__list.html">t_list</a>&#160;</td><td class="memItemRight" valign="bottom"><b>clients</b></td></tr>
-<tr class="separator:a8a7357c39c829f1fa66ddac440f3377d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72eaf48aa3edb9a1f6cd9d7e85f0b2f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a72eaf48aa3edb9a1f6cd9d7e85f0b2f2"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>thread_pool_size</b></td></tr>
-<tr class="separator:a72eaf48aa3edb9a1f6cd9d7e85f0b2f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2225874d23473461a4300666dd482be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af2225874d23473461a4300666dd482be"></a>
-<a class="el" href="structs__list.html">t_list</a>&#160;</td><td class="memItemRight" valign="bottom"><b>threads</b></td></tr>
-<tr class="separator:af2225874d23473461a4300666dd482be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18b6ac10276e44a6807c618b2ea5a7fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a18b6ac10276e44a6807c618b2ea5a7fd"></a>
-t_anio_fptr_on_accept&#160;</td><td class="memItemRight" valign="bottom"><b>fptr_on_accept</b></td></tr>
-<tr class="separator:a18b6ac10276e44a6807c618b2ea5a7fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f2478bbfc29ce07de6e75104bea6880"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f2478bbfc29ce07de6e75104bea6880"></a>
-t_anio_fptr_on_read&#160;</td><td class="memItemRight" valign="bottom"><b>fptr_on_read</b></td></tr>
-<tr class="separator:a2f2478bbfc29ce07de6e75104bea6880"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05480be803c2910ea0693fb39a8f5242"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a05480be803c2910ea0693fb39a8f5242"></a>
-t_anio_fptr_on_eof&#160;</td><td class="memItemRight" valign="bottom"><b>fptr_on_eof</b></td></tr>
-<tr class="separator:a05480be803c2910ea0693fb39a8f5242"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dca098f55a1fea8ca8f12ff6442fef3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0dca098f55a1fea8ca8f12ff6442fef3"></a>
-t_anio_fptr_on_error&#160;</td><td class="memItemRight" valign="bottom"><b>fptr_on_error</b></td></tr>
-<tr class="separator:a0dca098f55a1fea8ca8f12ff6442fef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a5ac796814dbe122539f2c83c2ee148"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a5ac796814dbe122539f2c83c2ee148"></a>
-t_anio_mode&#160;</td><td class="memItemRight" valign="bottom"><b>mode</b></td></tr>
-<tr class="separator:a3a5ac796814dbe122539f2c83c2ee148"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36028b85a43b5e85ccbe98d66e104b63"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36028b85a43b5e85ccbe98d66e104b63"></a>
-<a class="el" href="unionu__anio__mode__config.html">t_anio_mode_config</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mode_config</b></td></tr>
-<tr class="separator:a36028b85a43b5e85ccbe98d66e104b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f2299298072be288b2e8023ddb1876b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structs__fdesc.html">t_fdesc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#a8f2299298072be288b2e8023ddb1876b">fdesc</a></td></tr>
+<tr class="separator:a8f2299298072be288b2e8023ddb1876b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63a323821e4c59f823cd9f7ccfc49f67"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#a63a323821e4c59f823cd9f7ccfc49f67">max_clients</a></td></tr>
+<tr class="separator:a63a323821e4c59f823cd9f7ccfc49f67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa18ac90a5592f8ce8d870cd2fa0ef9f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structs__list.html">t_list</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#aa18ac90a5592f8ce8d870cd2fa0ef9f2">clients</a></td></tr>
+<tr class="separator:aa18ac90a5592f8ce8d870cd2fa0ef9f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad37ba794a80b637d4ff4f52696287d68"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#ad37ba794a80b637d4ff4f52696287d68">clients_mutex</a></td></tr>
+<tr class="separator:ad37ba794a80b637d4ff4f52696287d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e6f96badcda7b3194416a2234a0473f"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#a5e6f96badcda7b3194416a2234a0473f">monitoring_thread_mutex</a></td></tr>
+<tr class="separator:a5e6f96badcda7b3194416a2234a0473f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87ae1e913300a5f18105cc5e9bcd991"><td class="memItemLeft" align="right" valign="top">pthread_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#ad87ae1e913300a5f18105cc5e9bcd991">monitoring_thread</a></td></tr>
+<tr class="separator:ad87ae1e913300a5f18105cc5e9bcd991"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2090eced07a64cca0f4a39e0e3928214"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structs__thread__pool.html">t_thread_pool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#a2090eced07a64cca0f4a39e0e3928214">thread_pool</a></td></tr>
+<tr class="separator:a2090eced07a64cca0f4a39e0e3928214"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02d4a0107368dc5ebb180836f67129af"><td class="memItemLeft" align="right" valign="top">t_anio_fptr_on_accept&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#a02d4a0107368dc5ebb180836f67129af">fptr_on_accept</a></td></tr>
+<tr class="separator:a02d4a0107368dc5ebb180836f67129af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca8e00d72ff1a420757122fe8328f9e5"><td class="memItemLeft" align="right" valign="top">t_anio_fptr_on_read&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#aca8e00d72ff1a420757122fe8328f9e5">fptr_on_read</a></td></tr>
+<tr class="separator:aca8e00d72ff1a420757122fe8328f9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af681ce20da5e7d7df16e5c7c3af6110e"><td class="memItemLeft" align="right" valign="top">t_anio_fptr_on_eof&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#af681ce20da5e7d7df16e5c7c3af6110e">fptr_on_eof</a></td></tr>
+<tr class="separator:af681ce20da5e7d7df16e5c7c3af6110e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ca9612c8081f66ed33e0824627f7262"><td class="memItemLeft" align="right" valign="top">t_anio_fptr_on_error&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#a1ca9612c8081f66ed33e0824627f7262">fptr_on_error</a></td></tr>
+<tr class="separator:a1ca9612c8081f66ed33e0824627f7262"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8103ffbbc1a816b3461f8b0c26c9c3ff"><td class="memItemLeft" align="right" valign="top">t_anio_mode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#a8103ffbbc1a816b3461f8b0c26c9c3ff">mode</a></td></tr>
+<tr class="separator:a8103ffbbc1a816b3461f8b0c26c9c3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8b074796a020765a00a9dd9b0c4d709"><td class="memItemLeft" align="right" valign="top"><a class="el" href="unionu__anio__mode__config.html">t_anio_mode_config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html#ab8b074796a020765a00a9dd9b0c4d709">mode_config</a></td></tr>
+<tr class="separator:ab8b074796a020765a00a9dd9b0c4d709"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This structure holds the necessary elements for libanio to manage the server's fd. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="aa18ac90a5592f8ce8d870cd2fa0ef9f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::clients</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'clients' is a linked list of clients. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad37ba794a80b637d4ff4f52696287d68"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::clients_mutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'clients_mutex' is a lock to safely access the clients list from different threads. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8f2299298072be288b2e8023ddb1876b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::fdesc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'fdesc' represents the server's file descriptor. </p>
+
+</div>
+</div>
+<a class="anchor" id="a02d4a0107368dc5ebb180836f67129af"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::fptr_on_accept</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'fptr_on_accept' is a function pointer on a handler to be called back when a new client is accepted. </p>
+
+</div>
+</div>
+<a class="anchor" id="af681ce20da5e7d7df16e5c7c3af6110e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::fptr_on_eof</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'fptr_on_eof' is a function pointer on a handler to be called back when a client disconnects. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1ca9612c8081f66ed33e0824627f7262"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::fptr_on_error</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'fptr_on_error' is a function pointer on a handler to be called back when an error occurs. </p>
+
+</div>
+</div>
+<a class="anchor" id="aca8e00d72ff1a420757122fe8328f9e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::fptr_on_read</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'fptr_on_read' is a function pointer on a handler to be called back when data is ready to be consumed (see mode). </p>
+
+</div>
+</div>
+<a class="anchor" id="a63a323821e4c59f823cd9f7ccfc49f67"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::max_clients</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'max_clients' is the maximum number of clients the server should manage simultaneously. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8103ffbbc1a816b3461f8b0c26c9c3ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::mode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'mode' tells what reading mode to use (ANIO_MODE_STREAM: consum data as it comes, ANIO_MODE_BLOCK: wait until a block of prefixed size is complete before consuming it, ANIO_MODE_LINE: wait until a line with prefixed end-of-line delimiter is complete before consuming it). </p>
+
+</div>
+</div>
+<a class="anchor" id="ab8b074796a020765a00a9dd9b0c4d709"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::mode_config</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'mode_config' sets, depending on the mode, either the block size or the end-of-line delimiter. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad87ae1e913300a5f18105cc5e9bcd991"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::monitoring_thread</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'monitoring_thread' contains the monitor thread id. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5e6f96badcda7b3194416a2234a0473f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::monitoring_thread_mutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'remaining_jobs' is a lock to make sure this server's monitor is only run once at a time. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2090eced07a64cca0f4a39e0e3928214"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_anio::thread_pool</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'thread_pool' represents this server's thread pool. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/<a class="el" href="libanio__types_8h_source.html">libanio_types.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 14 2015 01:12:20 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 29 2015 17:01:14 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

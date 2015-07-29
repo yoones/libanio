@@ -90,72 +90,137 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">libanio_types.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="libanio__types_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef LIBANIO_TYPES_H_</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"># define LIBANIO_TYPES_H_</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="structs__anio__buf.html">    8</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct  </span><a class="code" href="structs__anio__buf.html">s_anio_buf</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keywordtype">char</span>      *data;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keywordtype">size_t</span>    size;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordtype">size_t</span>    memsize;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}       <a class="code" href="structs__anio__buf.html">t_anio_buf</a>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span>    e_anio_mode</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    ANIO_MODE_STREAM,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    ANIO_MODE_BLOCK,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    ANIO_MODE_LINE</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  }     t_anio_mode;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="unionu__anio__mode__config.html">   22</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">union   </span><a class="code" href="unionu__anio__mode__config.html">u_anio_mode_config</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">char</span>      *line_delim;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keywordtype">size_t</span>    block_size;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}       <a class="code" href="unionu__anio__mode__config.html">t_anio_mode_config</a>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structs__anio__fd.html">   28</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct  </span><a class="code" href="structs__anio__fd.html">s_anio_fd</a></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">int</span>       fd;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="comment">/* t_list readbuf; */</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="comment">/* t_list writebuf; */</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}       <a class="code" href="structs__anio__fd.html">t_anio_fd</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">struct </span><a class="code" href="structs__anio.html">s_anio</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">typedef</span> void (*t_anio_fptr_on_accept)(<span class="keyword">struct </span><a class="code" href="structs__anio.html">s_anio</a> *, <a class="code" href="structs__anio__fd.html">t_anio_fd</a> *);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">typedef</span> void (*t_anio_fptr_on_read)(<span class="keyword">struct </span><a class="code" href="structs__anio.html">s_anio</a> *, <a class="code" href="structs__anio__fd.html">t_anio_fd</a> *, <span class="keywordtype">char</span> *, size_t);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">typedef</span> void (*t_anio_fptr_on_eof)(<span class="keyword">struct </span><a class="code" href="structs__anio.html">s_anio</a> *, t_anio_fd *, <span class="keywordtype">char</span> *, size_t);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">typedef</span> void (*t_anio_fptr_on_error)(<span class="keyword">struct </span><a class="code" href="structs__anio.html">s_anio</a> *, t_anio_fd *, int);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structs__anio.html">   42</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct      </span><a class="code" href="structs__anio.html">s_anio</a></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">int</span>           fd;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">size_t</span>        max_clients;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="structs__list.html">t_list</a>        clients;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">size_t</span>        thread_pool_size;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="structs__list.html">t_list</a>        threads;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  t_anio_fptr_on_accept fptr_on_accept;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  t_anio_fptr_on_read   fptr_on_read;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  t_anio_fptr_on_eof    fptr_on_eof;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  t_anio_fptr_on_error  fptr_on_error;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  t_anio_mode       mode;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="unionu__anio__mode__config.html">t_anio_mode_config</a>    mode_config;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}           <a class="code" href="structs__anio.html">t_anio</a>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="structs__anio_html"><div class="ttname"><a href="structs__anio.html">s_anio</a></div><div class="ttdef"><b>Definition:</b> libanio_types.h:42</div></div>
-<div class="ttc" id="structs__anio__fd_html"><div class="ttname"><a href="structs__anio__fd.html">s_anio_fd</a></div><div class="ttdef"><b>Definition:</b> libanio_types.h:28</div></div>
-<div class="ttc" id="structs__anio__buf_html"><div class="ttname"><a href="structs__anio__buf.html">s_anio_buf</a></div><div class="ttdef"><b>Definition:</b> libanio_types.h:8</div></div>
-<div class="ttc" id="unionu__anio__mode__config_html"><div class="ttname"><a href="unionu__anio__mode__config.html">u_anio_mode_config</a></div><div class="ttdef"><b>Definition:</b> libanio_types.h:22</div></div>
-<div class="ttc" id="structs__list_html"><div class="ttname"><a href="structs__list.html">s_list</a></div><div class="ttdef"><b>Definition:</b> list.h:26</div></div>
+<a href="libanio__types_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">  This file is part of libanio (https://github.com/yoones/libanio).</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">  libanio is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">  it under the terms of the GNU General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">  libanio is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">  GNU General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">  You should have received a copy of the GNU General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">  along with libanio.  If not, see &lt;http://www.gnu.org/licenses/&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#ifndef LIBANIO_TYPES_H_</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"># define LIBANIO_TYPES_H_</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="structs__anio__buf.html">   32</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct  </span><a class="code" href="structs__anio__buf.html">s_anio_buf</a></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structs__anio__buf.html#a130032371bea15404f3b665b30a7061b">   34</a></span>&#160;  <span class="keywordtype">char</span>      *<a class="code" href="structs__anio__buf.html#a130032371bea15404f3b665b30a7061b">data</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structs__anio__buf.html#aae7edea53529615402ceec1e26d755cf">   35</a></span>&#160;  <span class="keywordtype">size_t</span>    <a class="code" href="structs__anio__buf.html#aae7edea53529615402ceec1e26d755cf">size</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}       <a class="code" href="structs__anio__buf.html">t_anio_buf</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span>    e_anio_mode</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    ANIO_MODE_STREAM,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    ANIO_MODE_BLOCK,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    ANIO_MODE_LINE</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  }     t_anio_mode;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="unionu__anio__mode__config.html">   52</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">union   </span><a class="code" href="unionu__anio__mode__config.html">u_anio_mode_config</a></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="unionu__anio__mode__config.html#ad7eb0740f3431ba4cd248f59d2c3a59b">   54</a></span>&#160;  <span class="keywordtype">char</span>      *<a class="code" href="unionu__anio__mode__config.html#ad7eb0740f3431ba4cd248f59d2c3a59b">line_delim</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="unionu__anio__mode__config.html#a677bc5720f0d8e1d14e5795a8c364f73">   55</a></span>&#160;  <span class="keywordtype">size_t</span>    <a class="code" href="unionu__anio__mode__config.html#a677bc5720f0d8e1d14e5795a8c364f73">block_size</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}       <a class="code" href="unionu__anio__mode__config.html">t_anio_mode_config</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="structs__fdesc.html">   71</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct      </span><a class="code" href="structs__fdesc.html">s_fdesc</a></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="structs__fdesc.html#a6384ba385a5cf09c6a58bfffe248c257">   73</a></span>&#160;  <span class="keywordtype">int</span>           <a class="code" href="structs__fdesc.html#a6384ba385a5cf09c6a58bfffe248c257">fd</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="structs__fdesc.html#a7b5ff006481530a145f43728d1cb0815">   74</a></span>&#160;  <span class="keywordtype">int</span>           <a class="code" href="structs__fdesc.html#a7b5ff006481530a145f43728d1cb0815">closed</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="structs__fdesc.html#ad68cecdfd8e6cc9a0248f79b3e46a393">   75</a></span>&#160;  <span class="keyword">struct </span>epoll_event    <a class="code" href="structs__fdesc.html#ad68cecdfd8e6cc9a0248f79b3e46a393">event</a>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="structs__fdesc.html#a387ee6fc84c44f17f50b31ce0f435862">   76</a></span>&#160;  <a class="code" href="structs__list.html">t_list</a>        <a class="code" href="structs__fdesc.html#a387ee6fc84c44f17f50b31ce0f435862">readbuf</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="structs__fdesc.html#a41f8341d38c99becf10870a1b77655f9">   77</a></span>&#160;  <a class="code" href="structs__list.html">t_list</a>        <a class="code" href="structs__fdesc.html#a41f8341d38c99becf10870a1b77655f9">writebuf</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}           <a class="code" href="structs__fdesc.html">t_fdesc</a>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">struct </span><a class="code" href="structs__anio.html">s_anio</a>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">typedef</span> void (*t_anio_fptr_on_accept)(<span class="keyword">struct </span><a class="code" href="structs__anio.html">s_anio</a> *, int);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">typedef</span> void (*t_anio_fptr_on_read)(<span class="keyword">struct </span><a class="code" href="structs__anio.html">s_anio</a> *, int, <span class="keywordtype">char</span> *, size_t);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">typedef</span> void (*t_anio_fptr_on_eof)(<span class="keyword">struct </span><a class="code" href="structs__anio.html">s_anio</a> *, int, <span class="keywordtype">char</span> *, size_t);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">typedef</span> void (*t_anio_fptr_on_error)(<span class="keyword">struct </span><a class="code" href="structs__anio.html">s_anio</a> *, int, int);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="structs__thread__pool.html">  106</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct      </span><a class="code" href="structs__thread__pool.html">s_thread_pool</a></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="structs__thread__pool.html#a6514baa133ead32a26873fb71efb4fc3">  108</a></span>&#160;  <span class="keywordtype">size_t</span>        <a class="code" href="structs__thread__pool.html#a6514baa133ead32a26873fb71efb4fc3">max_workers</a>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="structs__thread__pool.html#a499f3b150499f33aacbeeeee14cdcdbf">  109</a></span>&#160;  <a class="code" href="structs__list.html">t_list</a>        <a class="code" href="structs__thread__pool.html#a499f3b150499f33aacbeeeee14cdcdbf">workers</a>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="structs__thread__pool.html#ad29f26123236fdfa8e758cd4dd75ff0b">  111</a></span>&#160;  <span class="keywordtype">int</span>           <a class="code" href="structs__thread__pool.html#ad29f26123236fdfa8e758cd4dd75ff0b">epoll_fd</a>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="structs__thread__pool.html#a88d77ee858e9c9d6b43bdcb35c86b73b">  112</a></span>&#160;  <span class="keyword">struct </span>epoll_event    *<a class="code" href="structs__thread__pool.html#a88d77ee858e9c9d6b43bdcb35c86b73b">jobs</a>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="structs__thread__pool.html#a770306a3ae1ad4b1fbc15666e2070474">  113</a></span>&#160;  <span class="keywordtype">int</span>           <a class="code" href="structs__thread__pool.html#a770306a3ae1ad4b1fbc15666e2070474">remaining_jobs</a>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="structs__thread__pool.html#a93fd6e2cb28298435a38d19df6b8ceb0">  114</a></span>&#160;  <span class="keywordtype">int</span>           <a class="code" href="structs__thread__pool.html#a93fd6e2cb28298435a38d19df6b8ceb0">busy_workers</a>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="structs__thread__pool.html#a28c1be718ce196b7a79bbe7c815e90fe">  115</a></span>&#160;  pthread_mutex_t   <a class="code" href="structs__thread__pool.html#a28c1be718ce196b7a79bbe7c815e90fe">jobs_mutex</a>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="structs__thread__pool.html#aef0ffc31f56dff666865314b3b7f14df">  116</a></span>&#160;  pthread_cond_t    <a class="code" href="structs__thread__pool.html#aef0ffc31f56dff666865314b3b7f14df">jobs_condvar</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}           <a class="code" href="structs__thread__pool.html">t_thread_pool</a>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="structs__anio.html">  148</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct      </span><a class="code" href="structs__anio.html">s_anio</a></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;{</div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="structs__anio.html#a8f2299298072be288b2e8023ddb1876b">  150</a></span>&#160;  <a class="code" href="structs__fdesc.html">t_fdesc</a>       <a class="code" href="structs__anio.html#a8f2299298072be288b2e8023ddb1876b">fdesc</a>;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="structs__anio.html#a63a323821e4c59f823cd9f7ccfc49f67">  152</a></span>&#160;  <span class="keywordtype">size_t</span>        <a class="code" href="structs__anio.html#a63a323821e4c59f823cd9f7ccfc49f67">max_clients</a>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="structs__anio.html#aa18ac90a5592f8ce8d870cd2fa0ef9f2">  153</a></span>&#160;  <a class="code" href="structs__list.html">t_list</a>        <a class="code" href="structs__anio.html#aa18ac90a5592f8ce8d870cd2fa0ef9f2">clients</a>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="structs__anio.html#ad37ba794a80b637d4ff4f52696287d68">  154</a></span>&#160;  pthread_mutex_t   <a class="code" href="structs__anio.html#ad37ba794a80b637d4ff4f52696287d68">clients_mutex</a>;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="structs__anio.html#a5e6f96badcda7b3194416a2234a0473f">  156</a></span>&#160;  pthread_mutex_t   <a class="code" href="structs__anio.html#a5e6f96badcda7b3194416a2234a0473f">monitoring_thread_mutex</a>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="structs__anio.html#ad87ae1e913300a5f18105cc5e9bcd991">  157</a></span>&#160;  pthread_t     <a class="code" href="structs__anio.html#ad87ae1e913300a5f18105cc5e9bcd991">monitoring_thread</a>;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="structs__anio.html#a2090eced07a64cca0f4a39e0e3928214">  159</a></span>&#160;  <a class="code" href="structs__thread__pool.html">t_thread_pool</a>     <a class="code" href="structs__anio.html#a2090eced07a64cca0f4a39e0e3928214">thread_pool</a>;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="structs__anio.html#a02d4a0107368dc5ebb180836f67129af">  161</a></span>&#160;  t_anio_fptr_on_accept <a class="code" href="structs__anio.html#a02d4a0107368dc5ebb180836f67129af">fptr_on_accept</a>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="structs__anio.html#aca8e00d72ff1a420757122fe8328f9e5">  162</a></span>&#160;  t_anio_fptr_on_read   <a class="code" href="structs__anio.html#aca8e00d72ff1a420757122fe8328f9e5">fptr_on_read</a>;</div>
+<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="structs__anio.html#af681ce20da5e7d7df16e5c7c3af6110e">  163</a></span>&#160;  t_anio_fptr_on_eof    <a class="code" href="structs__anio.html#af681ce20da5e7d7df16e5c7c3af6110e">fptr_on_eof</a>;</div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="structs__anio.html#a1ca9612c8081f66ed33e0824627f7262">  164</a></span>&#160;  t_anio_fptr_on_error  <a class="code" href="structs__anio.html#a1ca9612c8081f66ed33e0824627f7262">fptr_on_error</a>;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="structs__anio.html#a8103ffbbc1a816b3461f8b0c26c9c3ff">  166</a></span>&#160;  t_anio_mode       <a class="code" href="structs__anio.html#a8103ffbbc1a816b3461f8b0c26c9c3ff">mode</a>;</div>
+<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="structs__anio.html#ab8b074796a020765a00a9dd9b0c4d709">  167</a></span>&#160;  <a class="code" href="unionu__anio__mode__config.html">t_anio_mode_config</a>    <a class="code" href="structs__anio.html#ab8b074796a020765a00a9dd9b0c4d709">mode_config</a>;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;}           <a class="code" href="structs__anio.html">t_anio</a>;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="unionu__anio__mode__config_html_ad7eb0740f3431ba4cd248f59d2c3a59b"><div class="ttname"><a href="unionu__anio__mode__config.html#ad7eb0740f3431ba4cd248f59d2c3a59b">u_anio_mode_config::line_delim</a></div><div class="ttdeci">char * line_delim</div><div class="ttdef"><b>Definition:</b> libanio_types.h:54</div></div>
+<div class="ttc" id="structs__anio_html_a2090eced07a64cca0f4a39e0e3928214"><div class="ttname"><a href="structs__anio.html#a2090eced07a64cca0f4a39e0e3928214">s_anio::thread_pool</a></div><div class="ttdeci">t_thread_pool thread_pool</div><div class="ttdef"><b>Definition:</b> libanio_types.h:159</div></div>
+<div class="ttc" id="structs__thread__pool_html_a6514baa133ead32a26873fb71efb4fc3"><div class="ttname"><a href="structs__thread__pool.html#a6514baa133ead32a26873fb71efb4fc3">s_thread_pool::max_workers</a></div><div class="ttdeci">size_t max_workers</div><div class="ttdef"><b>Definition:</b> libanio_types.h:108</div></div>
+<div class="ttc" id="structs__thread__pool_html_aef0ffc31f56dff666865314b3b7f14df"><div class="ttname"><a href="structs__thread__pool.html#aef0ffc31f56dff666865314b3b7f14df">s_thread_pool::jobs_condvar</a></div><div class="ttdeci">pthread_cond_t jobs_condvar</div><div class="ttdef"><b>Definition:</b> libanio_types.h:116</div></div>
+<div class="ttc" id="structs__anio__buf_html_aae7edea53529615402ceec1e26d755cf"><div class="ttname"><a href="structs__anio__buf.html#aae7edea53529615402ceec1e26d755cf">s_anio_buf::size</a></div><div class="ttdeci">size_t size</div><div class="ttdef"><b>Definition:</b> libanio_types.h:35</div></div>
+<div class="ttc" id="structs__anio_html"><div class="ttname"><a href="structs__anio.html">s_anio</a></div><div class="ttdoc">This structure holds the necessary elements for libanio to manage the server&#39;s fd. </div><div class="ttdef"><b>Definition:</b> libanio_types.h:148</div></div>
+<div class="ttc" id="structs__anio__buf_html_a130032371bea15404f3b665b30a7061b"><div class="ttname"><a href="structs__anio__buf.html#a130032371bea15404f3b665b30a7061b">s_anio_buf::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> libanio_types.h:34</div></div>
+<div class="ttc" id="structs__thread__pool_html_ad29f26123236fdfa8e758cd4dd75ff0b"><div class="ttname"><a href="structs__thread__pool.html#ad29f26123236fdfa8e758cd4dd75ff0b">s_thread_pool::epoll_fd</a></div><div class="ttdeci">int epoll_fd</div><div class="ttdef"><b>Definition:</b> libanio_types.h:111</div></div>
+<div class="ttc" id="structs__thread__pool_html_a93fd6e2cb28298435a38d19df6b8ceb0"><div class="ttname"><a href="structs__thread__pool.html#a93fd6e2cb28298435a38d19df6b8ceb0">s_thread_pool::busy_workers</a></div><div class="ttdeci">int busy_workers</div><div class="ttdef"><b>Definition:</b> libanio_types.h:114</div></div>
+<div class="ttc" id="structs__thread__pool_html_a88d77ee858e9c9d6b43bdcb35c86b73b"><div class="ttname"><a href="structs__thread__pool.html#a88d77ee858e9c9d6b43bdcb35c86b73b">s_thread_pool::jobs</a></div><div class="ttdeci">struct epoll_event * jobs</div><div class="ttdef"><b>Definition:</b> libanio_types.h:112</div></div>
+<div class="ttc" id="structs__anio_html_a02d4a0107368dc5ebb180836f67129af"><div class="ttname"><a href="structs__anio.html#a02d4a0107368dc5ebb180836f67129af">s_anio::fptr_on_accept</a></div><div class="ttdeci">t_anio_fptr_on_accept fptr_on_accept</div><div class="ttdef"><b>Definition:</b> libanio_types.h:161</div></div>
+<div class="ttc" id="structs__thread__pool_html_a28c1be718ce196b7a79bbe7c815e90fe"><div class="ttname"><a href="structs__thread__pool.html#a28c1be718ce196b7a79bbe7c815e90fe">s_thread_pool::jobs_mutex</a></div><div class="ttdeci">pthread_mutex_t jobs_mutex</div><div class="ttdef"><b>Definition:</b> libanio_types.h:115</div></div>
+<div class="ttc" id="structs__anio_html_aca8e00d72ff1a420757122fe8328f9e5"><div class="ttname"><a href="structs__anio.html#aca8e00d72ff1a420757122fe8328f9e5">s_anio::fptr_on_read</a></div><div class="ttdeci">t_anio_fptr_on_read fptr_on_read</div><div class="ttdef"><b>Definition:</b> libanio_types.h:162</div></div>
+<div class="ttc" id="structs__anio_html_a63a323821e4c59f823cd9f7ccfc49f67"><div class="ttname"><a href="structs__anio.html#a63a323821e4c59f823cd9f7ccfc49f67">s_anio::max_clients</a></div><div class="ttdeci">size_t max_clients</div><div class="ttdef"><b>Definition:</b> libanio_types.h:152</div></div>
+<div class="ttc" id="structs__anio_html_a8103ffbbc1a816b3461f8b0c26c9c3ff"><div class="ttname"><a href="structs__anio.html#a8103ffbbc1a816b3461f8b0c26c9c3ff">s_anio::mode</a></div><div class="ttdeci">t_anio_mode mode</div><div class="ttdef"><b>Definition:</b> libanio_types.h:166</div></div>
+<div class="ttc" id="structs__fdesc_html_a387ee6fc84c44f17f50b31ce0f435862"><div class="ttname"><a href="structs__fdesc.html#a387ee6fc84c44f17f50b31ce0f435862">s_fdesc::readbuf</a></div><div class="ttdeci">t_list readbuf</div><div class="ttdef"><b>Definition:</b> libanio_types.h:76</div></div>
+<div class="ttc" id="unionu__anio__mode__config_html_a677bc5720f0d8e1d14e5795a8c364f73"><div class="ttname"><a href="unionu__anio__mode__config.html#a677bc5720f0d8e1d14e5795a8c364f73">u_anio_mode_config::block_size</a></div><div class="ttdeci">size_t block_size</div><div class="ttdef"><b>Definition:</b> libanio_types.h:55</div></div>
+<div class="ttc" id="structs__fdesc_html_a7b5ff006481530a145f43728d1cb0815"><div class="ttname"><a href="structs__fdesc.html#a7b5ff006481530a145f43728d1cb0815">s_fdesc::closed</a></div><div class="ttdeci">int closed</div><div class="ttdef"><b>Definition:</b> libanio_types.h:74</div></div>
+<div class="ttc" id="structs__fdesc_html_a6384ba385a5cf09c6a58bfffe248c257"><div class="ttname"><a href="structs__fdesc.html#a6384ba385a5cf09c6a58bfffe248c257">s_fdesc::fd</a></div><div class="ttdeci">int fd</div><div class="ttdef"><b>Definition:</b> libanio_types.h:73</div></div>
+<div class="ttc" id="structs__fdesc_html"><div class="ttname"><a href="structs__fdesc.html">s_fdesc</a></div><div class="ttdoc">This structure represents a client. </div><div class="ttdef"><b>Definition:</b> libanio_types.h:71</div></div>
+<div class="ttc" id="structs__anio__buf_html"><div class="ttname"><a href="structs__anio__buf.html">s_anio_buf</a></div><div class="ttdoc">This structure holds data that will be used later for i/o (when the related file descriptor is ready ...</div><div class="ttdef"><b>Definition:</b> libanio_types.h:32</div></div>
+<div class="ttc" id="structs__fdesc_html_ad68cecdfd8e6cc9a0248f79b3e46a393"><div class="ttname"><a href="structs__fdesc.html#ad68cecdfd8e6cc9a0248f79b3e46a393">s_fdesc::event</a></div><div class="ttdeci">struct epoll_event event</div><div class="ttdef"><b>Definition:</b> libanio_types.h:75</div></div>
+<div class="ttc" id="structs__anio_html_ad87ae1e913300a5f18105cc5e9bcd991"><div class="ttname"><a href="structs__anio.html#ad87ae1e913300a5f18105cc5e9bcd991">s_anio::monitoring_thread</a></div><div class="ttdeci">pthread_t monitoring_thread</div><div class="ttdef"><b>Definition:</b> libanio_types.h:157</div></div>
+<div class="ttc" id="structs__anio_html_aa18ac90a5592f8ce8d870cd2fa0ef9f2"><div class="ttname"><a href="structs__anio.html#aa18ac90a5592f8ce8d870cd2fa0ef9f2">s_anio::clients</a></div><div class="ttdeci">t_list clients</div><div class="ttdef"><b>Definition:</b> libanio_types.h:153</div></div>
+<div class="ttc" id="unionu__anio__mode__config_html"><div class="ttname"><a href="unionu__anio__mode__config.html">u_anio_mode_config</a></div><div class="ttdoc">This union holds precisions depending on the reading mode set. </div><div class="ttdef"><b>Definition:</b> libanio_types.h:52</div></div>
+<div class="ttc" id="structs__thread__pool_html_a770306a3ae1ad4b1fbc15666e2070474"><div class="ttname"><a href="structs__thread__pool.html#a770306a3ae1ad4b1fbc15666e2070474">s_thread_pool::remaining_jobs</a></div><div class="ttdeci">int remaining_jobs</div><div class="ttdef"><b>Definition:</b> libanio_types.h:113</div></div>
+<div class="ttc" id="structs__anio_html_af681ce20da5e7d7df16e5c7c3af6110e"><div class="ttname"><a href="structs__anio.html#af681ce20da5e7d7df16e5c7c3af6110e">s_anio::fptr_on_eof</a></div><div class="ttdeci">t_anio_fptr_on_eof fptr_on_eof</div><div class="ttdef"><b>Definition:</b> libanio_types.h:163</div></div>
+<div class="ttc" id="structs__fdesc_html_a41f8341d38c99becf10870a1b77655f9"><div class="ttname"><a href="structs__fdesc.html#a41f8341d38c99becf10870a1b77655f9">s_fdesc::writebuf</a></div><div class="ttdeci">t_list writebuf</div><div class="ttdef"><b>Definition:</b> libanio_types.h:77</div></div>
+<div class="ttc" id="structs__anio_html_ad37ba794a80b637d4ff4f52696287d68"><div class="ttname"><a href="structs__anio.html#ad37ba794a80b637d4ff4f52696287d68">s_anio::clients_mutex</a></div><div class="ttdeci">pthread_mutex_t clients_mutex</div><div class="ttdef"><b>Definition:</b> libanio_types.h:154</div></div>
+<div class="ttc" id="structs__list_html"><div class="ttname"><a href="structs__list.html">s_list</a></div><div class="ttdoc">This structure holds a node if the double linked list. </div><div class="ttdef"><b>Definition:</b> list.h:57</div></div>
+<div class="ttc" id="structs__anio_html_a1ca9612c8081f66ed33e0824627f7262"><div class="ttname"><a href="structs__anio.html#a1ca9612c8081f66ed33e0824627f7262">s_anio::fptr_on_error</a></div><div class="ttdeci">t_anio_fptr_on_error fptr_on_error</div><div class="ttdef"><b>Definition:</b> libanio_types.h:164</div></div>
+<div class="ttc" id="structs__thread__pool_html_a499f3b150499f33aacbeeeee14cdcdbf"><div class="ttname"><a href="structs__thread__pool.html#a499f3b150499f33aacbeeeee14cdcdbf">s_thread_pool::workers</a></div><div class="ttdeci">t_list workers</div><div class="ttdef"><b>Definition:</b> libanio_types.h:109</div></div>
+<div class="ttc" id="structs__anio_html_ab8b074796a020765a00a9dd9b0c4d709"><div class="ttname"><a href="structs__anio.html#ab8b074796a020765a00a9dd9b0c4d709">s_anio::mode_config</a></div><div class="ttdeci">t_anio_mode_config mode_config</div><div class="ttdef"><b>Definition:</b> libanio_types.h:167</div></div>
+<div class="ttc" id="structs__thread__pool_html"><div class="ttname"><a href="structs__thread__pool.html">s_thread_pool</a></div><div class="ttdoc">This structure holds data used to manage the workers and the events they shall handle. </div><div class="ttdef"><b>Definition:</b> libanio_types.h:106</div></div>
+<div class="ttc" id="structs__anio_html_a8f2299298072be288b2e8023ddb1876b"><div class="ttname"><a href="structs__anio.html#a8f2299298072be288b2e8023ddb1876b">s_anio::fdesc</a></div><div class="ttdeci">t_fdesc fdesc</div><div class="ttdef"><b>Definition:</b> libanio_types.h:150</div></div>
+<div class="ttc" id="structs__anio_html_a5e6f96badcda7b3194416a2234a0473f"><div class="ttname"><a href="structs__anio.html#a5e6f96badcda7b3194416a2234a0473f">s_anio::monitoring_thread_mutex</a></div><div class="ttdeci">pthread_mutex_t monitoring_thread_mutex</div><div class="ttdef"><b>Definition:</b> libanio_types.h:156</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 14 2015 01:12:20 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 29 2015 17:01:14 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

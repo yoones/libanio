@@ -1,0 +1,367 @@
+\hypertarget{libanio__internal__interface_8h}{}\section{include/libanio\+\_\+internal\+\_\+interface.h File Reference}
+\label{libanio__internal__interface_8h}\index{include/libanio\+\_\+internal\+\_\+interface.\+h@{include/libanio\+\_\+internal\+\_\+interface.\+h}}
+{\ttfamily \#include \char`\"{}libanio\+\_\+types.\+h\char`\"{}}\\*
+Include dependency graph for libanio\+\_\+internal\+\_\+interface.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{libanio__internal__interface_8h_a4bc4bf3b1db70597d66798cab423e421}{libanio\+\_\+start\+\_\+monitor} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server)
+\begin{DoxyCompactList}\small\item\em Starts the monitor on a separate thread (that\textquotesingle{}ll create workers and wait for events) \end{DoxyCompactList}\item 
+int \hyperlink{libanio__internal__interface_8h_ab468ac729807e9c60faebf7db0f8272c}{libanio\+\_\+stop\+\_\+monitor} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server)
+\begin{DoxyCompactList}\small\item\em Stops the monitor and its workers. \end{DoxyCompactList}\item 
+int \hyperlink{libanio__internal__interface_8h_ad83723b893d602facc266af7af91eb47}{libanio\+\_\+create\+\_\+workers} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server)
+\begin{DoxyCompactList}\small\item\em Creates the threads (workers) that\textquotesingle{}ll handle events polled by their monitor. This function is called by the monitor, end-\/user should not call it. \end{DoxyCompactList}\item 
+int \hyperlink{libanio__internal__interface_8h_a916c1467003e6056dded36c3e5bfec71}{libanio\+\_\+destroy\+\_\+workers} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server)
+\begin{DoxyCompactList}\small\item\em Asks the workers to exit. This function is called by the monitor, end-\/user should not call it. \end{DoxyCompactList}\item 
+int \hyperlink{libanio__internal__interface_8h_aafda654baba29c5eecf8a4a16451278b}{libanio\+\_\+handle\+\_\+event} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, struct epoll\+\_\+event $\ast$job)
+\begin{DoxyCompactList}\small\item\em Handle (read$\vert$write$\vert$accept$\vert$eof$\vert$error) event. This function is called by the monitor, end-\/user should not call it. \end{DoxyCompactList}\item 
+int \hyperlink{libanio__internal__interface_8h_ae45cef539c1ad34da513f1d48037b842}{libanio\+\_\+fdesc\+\_\+init} (\hyperlink{structs__fdesc}{t\+\_\+fdesc} $\ast$fdesc, int fd)
+\begin{DoxyCompactList}\small\item\em Initializes a t\+\_\+fdesc structure with the five file descriptor. \end{DoxyCompactList}\item 
+int \hyperlink{libanio__internal__interface_8h_a0db0b479bc71e1ef506e5084637518d1}{libanio\+\_\+fdesc\+\_\+close} (\hyperlink{structs__fdesc}{t\+\_\+fdesc} $\ast$fdesc)
+\begin{DoxyCompactList}\small\item\em Closes the file descriptor and frees the t\+\_\+fdesc structure\textquotesingle{}s internal buffers. \end{DoxyCompactList}\item 
+int \hyperlink{libanio__internal__interface_8h_ad064aef780e6109e84e7ca916842b501}{libanio\+\_\+has\+\_\+client} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, int fd)
+\begin{DoxyCompactList}\small\item\em Checks if a file descriptor exists in the clients list. \end{DoxyCompactList}\item 
+int \hyperlink{libanio__internal__interface_8h_abdfc594d3b8bd2d4cc814005bad60c42}{libanio\+\_\+add\+\_\+client} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, int fd)
+\begin{DoxyCompactList}\small\item\em Adds a new client. \end{DoxyCompactList}\item 
+int \hyperlink{libanio__internal__interface_8h_a1004e0ec9e938cf6afd025ac48ed5fac}{libanio\+\_\+remove\+\_\+client} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, int fd)
+\begin{DoxyCompactList}\small\item\em Removes a client (and closes it). \end{DoxyCompactList}\item 
+int \hyperlink{libanio__internal__interface_8h_aa94023cedb5d3a0b1b36cda3a9a79727}{libanio\+\_\+get\+\_\+client} (\hyperlink{structs__anio}{t\+\_\+anio} $\ast$server, int fd, \hyperlink{structs__fdesc}{t\+\_\+fdesc} $\ast$$\ast$fdesc)
+\begin{DoxyCompactList}\small\item\em Gets the file descriptor\textquotesingle{}s associated t\+\_\+fdesc structure if found. \end{DoxyCompactList}\item 
+\hypertarget{libanio__internal__interface_8h_aaca678ccf75c81b0d3f239ad1c1b10c6}{}int {\bfseries x\+\_\+pthread\+\_\+mutex\+\_\+lock} (pthread\+\_\+mutex\+\_\+t $\ast$mutex)\label{libanio__internal__interface_8h_aaca678ccf75c81b0d3f239ad1c1b10c6}
+
+\item 
+\hypertarget{libanio__internal__interface_8h_a6e640d70d4037fda4b73efc44e41bb5b}{}int {\bfseries x\+\_\+pthread\+\_\+mutex\+\_\+trylock} (pthread\+\_\+mutex\+\_\+t $\ast$mutex)\label{libanio__internal__interface_8h_a6e640d70d4037fda4b73efc44e41bb5b}
+
+\item 
+\hypertarget{libanio__internal__interface_8h_a0b57a360d7386d97765b9e1776db15d7}{}int {\bfseries x\+\_\+pthread\+\_\+mutex\+\_\+unlock} (pthread\+\_\+mutex\+\_\+t $\ast$mutex)\label{libanio__internal__interface_8h_a0b57a360d7386d97765b9e1776db15d7}
+
+\item 
+\hypertarget{libanio__internal__interface_8h_ad06fb317ab674e67de11a9f9372f08d6}{}int {\bfseries x\+\_\+pthread\+\_\+create} (pthread\+\_\+t $\ast$thread, const pthread\+\_\+attr\+\_\+t $\ast$attr, void $\ast$($\ast$start\+\_\+routine)(void $\ast$), void $\ast$arg)\label{libanio__internal__interface_8h_ad06fb317ab674e67de11a9f9372f08d6}
+
+\item 
+\hypertarget{libanio__internal__interface_8h_ad52848a2e95766ac6686a31806ca3576}{}int {\bfseries x\+\_\+pthread\+\_\+cancel} (pthread\+\_\+t thread)\label{libanio__internal__interface_8h_ad52848a2e95766ac6686a31806ca3576}
+
+\item 
+\hypertarget{libanio__internal__interface_8h_a9c87f9a8e05b13188775aebd7f4a2bcf}{}int {\bfseries x\+\_\+pthread\+\_\+cond\+\_\+broadcast} (pthread\+\_\+cond\+\_\+t $\ast$cond)\label{libanio__internal__interface_8h_a9c87f9a8e05b13188775aebd7f4a2bcf}
+
+\item 
+\hypertarget{libanio__internal__interface_8h_a9394fe079c4ea58af78de7cdf2f6cb28}{}int {\bfseries x\+\_\+pthread\+\_\+cond\+\_\+wait} (pthread\+\_\+cond\+\_\+t $\ast$cond, pthread\+\_\+mutex\+\_\+t $\ast$mutex)\label{libanio__internal__interface_8h_a9394fe079c4ea58af78de7cdf2f6cb28}
+
+\item 
+\hypertarget{libanio__internal__interface_8h_a6efd459ddcb7b155f735ca9ac5695996}{}int {\bfseries x\+\_\+epoll\+\_\+create1} (int flags)\label{libanio__internal__interface_8h_a6efd459ddcb7b155f735ca9ac5695996}
+
+\item 
+\hypertarget{libanio__internal__interface_8h_acb65c9ef549455a9c381087873c86fa5}{}int {\bfseries x\+\_\+epoll\+\_\+ctl} (int epfd, int op, int fd, struct epoll\+\_\+event $\ast$event)\label{libanio__internal__interface_8h_acb65c9ef549455a9c381087873c86fa5}
+
+\item 
+\hypertarget{libanio__internal__interface_8h_a7c66508b36e910bee252d1a7306529b0}{}int {\bfseries x\+\_\+epoll\+\_\+wait} (int epfd, struct epoll\+\_\+event $\ast$events, int maxevents, int timeout)\label{libanio__internal__interface_8h_a7c66508b36e910bee252d1a7306529b0}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{libanio__internal__interface_8h_abdfc594d3b8bd2d4cc814005bad60c42}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+add\+\_\+client@{libanio\+\_\+add\+\_\+client}}
+\index{libanio\+\_\+add\+\_\+client@{libanio\+\_\+add\+\_\+client}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+add\+\_\+client}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+add\+\_\+client (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+anio} $\ast$}]{server, }
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_abdfc594d3b8bd2d4cc814005bad60c42}
+
+
+Adds a new client. 
+
+Exemples\+:
+
+libanio\+\_\+add\+\_\+client(\&server, client\+\_\+fd);
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the t\+\_\+anio structure holding the clients list. \\
+\hline
+{\em fd} & File descriptor to add as a client.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(1) if client is found 
+
+(0) if client is not found 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{libanio__internal__interface_8h_ad83723b893d602facc266af7af91eb47}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+create\+\_\+workers@{libanio\+\_\+create\+\_\+workers}}
+\index{libanio\+\_\+create\+\_\+workers@{libanio\+\_\+create\+\_\+workers}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+create\+\_\+workers}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+create\+\_\+workers (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+anio} $\ast$}]{server}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_ad83723b893d602facc266af7af91eb47}
+
+
+Creates the threads (workers) that\textquotesingle{}ll handle events polled by their monitor. This function is called by the monitor, end-\/user should not call it. 
+
+Exemples\+:
+
+libanio\+\_\+create\+\_\+workers(\&server);
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the t\+\_\+anio structure which will hold the workers (and their monitor).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{libanio__internal__interface_8h_a916c1467003e6056dded36c3e5bfec71}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+destroy\+\_\+workers@{libanio\+\_\+destroy\+\_\+workers}}
+\index{libanio\+\_\+destroy\+\_\+workers@{libanio\+\_\+destroy\+\_\+workers}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+destroy\+\_\+workers}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+destroy\+\_\+workers (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+anio} $\ast$}]{server}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_a916c1467003e6056dded36c3e5bfec71}
+
+
+Asks the workers to exit. This function is called by the monitor, end-\/user should not call it. 
+
+Exemples\+:
+
+libanio\+\_\+destroy\+\_\+workers(\&server);
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the t\+\_\+anio structure which will hold the workers (and their monitor).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{libanio__internal__interface_8h_a0db0b479bc71e1ef506e5084637518d1}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+fdesc\+\_\+close@{libanio\+\_\+fdesc\+\_\+close}}
+\index{libanio\+\_\+fdesc\+\_\+close@{libanio\+\_\+fdesc\+\_\+close}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+fdesc\+\_\+close}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+fdesc\+\_\+close (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+fdesc} $\ast$}]{fdesc}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_a0db0b479bc71e1ef506e5084637518d1}
+
+
+Closes the file descriptor and frees the t\+\_\+fdesc structure\textquotesingle{}s internal buffers. 
+
+Exemples\+:
+
+libanio\+\_\+fdesc\+\_\+close(\&server);
+
+
+\begin{DoxyParams}{Parameters}
+{\em fdesc} & Pointer to the t\+\_\+fdesc structure to clean.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{libanio__internal__interface_8h_ae45cef539c1ad34da513f1d48037b842}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+fdesc\+\_\+init@{libanio\+\_\+fdesc\+\_\+init}}
+\index{libanio\+\_\+fdesc\+\_\+init@{libanio\+\_\+fdesc\+\_\+init}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+fdesc\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+fdesc\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+fdesc} $\ast$}]{fdesc, }
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_ae45cef539c1ad34da513f1d48037b842}
+
+
+Initializes a t\+\_\+fdesc structure with the five file descriptor. 
+
+Exemples\+:
+
+libanio\+\_\+fdesc\+\_\+init(\&server, client\+\_\+fd);
+
+
+\begin{DoxyParams}{Parameters}
+{\em fdesc} & Pointer to the t\+\_\+fdesc structure to initialize. \\
+\hline
+{\em fd} & File descriptor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{libanio__internal__interface_8h_aa94023cedb5d3a0b1b36cda3a9a79727}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+get\+\_\+client@{libanio\+\_\+get\+\_\+client}}
+\index{libanio\+\_\+get\+\_\+client@{libanio\+\_\+get\+\_\+client}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+get\+\_\+client}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+get\+\_\+client (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+anio} $\ast$}]{server, }
+\item[{int}]{fd, }
+\item[{{\bf t\+\_\+fdesc} $\ast$$\ast$}]{fdesc}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_aa94023cedb5d3a0b1b36cda3a9a79727}
+
+
+Gets the file descriptor\textquotesingle{}s associated t\+\_\+fdesc structure if found. 
+
+Exemples\+:
+
+libanio\+\_\+get\+\_\+client(\&server, client\+\_\+fd, \&fdesc);
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the t\+\_\+anio structure holding the clients to look into. \\
+\hline
+{\em fd} & File descriptor to look for. \\
+\hline
+{\em fdesc} & Will contain the t\+\_\+fdesc structure address if found.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(1) if client is found 
+
+(0) if client is not found 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{libanio__internal__interface_8h_aafda654baba29c5eecf8a4a16451278b}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+handle\+\_\+event@{libanio\+\_\+handle\+\_\+event}}
+\index{libanio\+\_\+handle\+\_\+event@{libanio\+\_\+handle\+\_\+event}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+handle\+\_\+event}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+handle\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+anio} $\ast$}]{server, }
+\item[{struct epoll\+\_\+event $\ast$}]{job}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_aafda654baba29c5eecf8a4a16451278b}
+
+
+Handle (read$\vert$write$\vert$accept$\vert$eof$\vert$error) event. This function is called by the monitor, end-\/user should not call it. 
+
+Exemples\+:
+
+libanio\+\_\+handle\+\_\+event(\&server, \&my\+\_\+job);
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the t\+\_\+anio structure which will hold the workers (and their monitor). \\
+\hline
+{\em job} & Pointer to the epoll\+\_\+event containing the event and the associated file descriptor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{libanio__internal__interface_8h_ad064aef780e6109e84e7ca916842b501}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+has\+\_\+client@{libanio\+\_\+has\+\_\+client}}
+\index{libanio\+\_\+has\+\_\+client@{libanio\+\_\+has\+\_\+client}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+has\+\_\+client}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+has\+\_\+client (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+anio} $\ast$}]{server, }
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_ad064aef780e6109e84e7ca916842b501}
+
+
+Checks if a file descriptor exists in the clients list. 
+
+Exemples\+:
+
+libanio\+\_\+has\+\_\+client(\&server, client\+\_\+fd);
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the t\+\_\+anio structure holding the clients to look into. \\
+\hline
+{\em fd} & File descriptor to look for.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(1) if client is found 
+
+(0) if client is not found 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{libanio__internal__interface_8h_a1004e0ec9e938cf6afd025ac48ed5fac}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+remove\+\_\+client@{libanio\+\_\+remove\+\_\+client}}
+\index{libanio\+\_\+remove\+\_\+client@{libanio\+\_\+remove\+\_\+client}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+remove\+\_\+client}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+remove\+\_\+client (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+anio} $\ast$}]{server, }
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_a1004e0ec9e938cf6afd025ac48ed5fac}
+
+
+Removes a client (and closes it). 
+
+Exemples\+:
+
+libanio\+\_\+remove\+\_\+client(\&server, client\+\_\+fd);
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the t\+\_\+anio structure holding the clients list. \\
+\hline
+{\em fd} & File descriptor to remove from the clients list.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{libanio__internal__interface_8h_a4bc4bf3b1db70597d66798cab423e421}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+start\+\_\+monitor@{libanio\+\_\+start\+\_\+monitor}}
+\index{libanio\+\_\+start\+\_\+monitor@{libanio\+\_\+start\+\_\+monitor}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+start\+\_\+monitor}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+start\+\_\+monitor (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+anio} $\ast$}]{server}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_a4bc4bf3b1db70597d66798cab423e421}
+
+
+Starts the monitor on a separate thread (that\textquotesingle{}ll create workers and wait for events) 
+
+Exemples\+:
+
+libanio\+\_\+start\+\_\+monitor(\&server);
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the t\+\_\+anio structure which monitor is to be started.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{libanio__internal__interface_8h_ab468ac729807e9c60faebf7db0f8272c}{}\index{libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}!libanio\+\_\+stop\+\_\+monitor@{libanio\+\_\+stop\+\_\+monitor}}
+\index{libanio\+\_\+stop\+\_\+monitor@{libanio\+\_\+stop\+\_\+monitor}!libanio\+\_\+internal\+\_\+interface.\+h@{libanio\+\_\+internal\+\_\+interface.\+h}}
+\subsubsection[{libanio\+\_\+stop\+\_\+monitor}]{\setlength{\rightskip}{0pt plus 5cm}int libanio\+\_\+stop\+\_\+monitor (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+anio} $\ast$}]{server}
+\end{DoxyParamCaption}
+)}\label{libanio__internal__interface_8h_ab468ac729807e9c60faebf7db0f8272c}
+
+
+Stops the monitor and its workers. 
+
+Exemples\+:
+
+libanio\+\_\+stop\+\_\+monitor(\&server);
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the t\+\_\+anio structure which monitor is to be stoped.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}

@@ -120,6 +120,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a1a7f934494bc6994c46eb31d8277c437"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#a1a7f934494bc6994c46eb31d8277c437">libanio_init</a> (<a class="el" href="structs__anio.html">t_anio</a> *server, int fd, size_t max_clients, size_t thread_pool_size, t_anio_fptr_on_accept fptr_on_accept, t_anio_fptr_on_read fptr_on_read, t_anio_fptr_on_eof fptr_on_eof, t_anio_fptr_on_error fptr_on_error, t_anio_mode mode,...)</td></tr>
 <tr class="memdesc:a1a7f934494bc6994c46eb31d8277c437"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the server structure.  <a href="#a1a7f934494bc6994c46eb31d8277c437">More...</a><br /></td></tr>
 <tr class="separator:a1a7f934494bc6994c46eb31d8277c437"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37a160d5ffba42f9a3c1d77f0426bbd0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#a37a160d5ffba42f9a3c1d77f0426bbd0">libanio_free</a> (<a class="el" href="structs__anio.html">t_anio</a> *server)</td></tr>
+<tr class="memdesc:a37a160d5ffba42f9a3c1d77f0426bbd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans the t_anio structure.  <a href="#a37a160d5ffba42f9a3c1d77f0426bbd0">More...</a><br /></td></tr>
+<tr class="separator:a37a160d5ffba42f9a3c1d77f0426bbd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a708cc62d9730395df12c098c0abc76bb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#a708cc62d9730395df12c098c0abc76bb">libanio_set_max_clients</a> (<a class="el" href="structs__anio.html">t_anio</a> *server, size_t nb)</td></tr>
 <tr class="memdesc:a708cc62d9730395df12c098c0abc76bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum allowed number of simultaneously-connected clients.  <a href="#a708cc62d9730395df12c098c0abc76bb">More...</a><br /></td></tr>
 <tr class="separator:a708cc62d9730395df12c098c0abc76bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,7 +130,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7f66b33805597799d31a335a9f9602c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the number of threads to use to perform i/o operations and callbacks when needed.  <a href="#a7f66b33805597799d31a335a9f9602c6">More...</a><br /></td></tr>
 <tr class="separator:a7f66b33805597799d31a335a9f9602c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1190451a512c6dbd8d306fb4ca44926"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#ac1190451a512c6dbd8d306fb4ca44926">libanio_set_callbacks</a> (<a class="el" href="structs__anio.html">t_anio</a> *server, t_anio_fptr_on_accept fptr_on_accept, t_anio_fptr_on_read fptr_on_read, t_anio_fptr_on_eof fptr_on_eof, t_anio_fptr_on_error fptr_on_error)</td></tr>
-<tr class="memdesc:ac1190451a512c6dbd8d306fb4ca44926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the callbacks function pointers.  <a href="#ac1190451a512c6dbd8d306fb4ca44926">More...</a><br /></td></tr>
+<tr class="memdesc:ac1190451a512c6dbd8d306fb4ca44926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the callbacks function pointers.  <a href="#ac1190451a512c6dbd8d306fb4ca44926">More...</a><br /></td></tr>
 <tr class="separator:ac1190451a512c6dbd8d306fb4ca44926"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e0610343ec515a1457135203dc8d863"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#a6e0610343ec515a1457135203dc8d863">libanio_set_callback_on_accept</a> (<a class="el" href="structs__anio.html">t_anio</a> *server, t_anio_fptr_on_accept fptr_on_accept)</td></tr>
 <tr class="memdesc:a6e0610343ec515a1457135203dc8d863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the function pointer to be called when accepting a new client.  <a href="#a6e0610343ec515a1457135203dc8d863">More...</a><br /></td></tr>
@@ -141,20 +144,43 @@ Functions</h2></td></tr>
 <tr class="memitem:a77724dbd7bff77d898168c7feba51434"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#a77724dbd7bff77d898168c7feba51434">libanio_set_callback_on_error</a> (<a class="el" href="structs__anio.html">t_anio</a> *server, t_anio_fptr_on_error fptr_on_error)</td></tr>
 <tr class="memdesc:a77724dbd7bff77d898168c7feba51434"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the function pointer to be called when a syscall fails.  <a href="#a77724dbd7bff77d898168c7feba51434">More...</a><br /></td></tr>
 <tr class="separator:a77724dbd7bff77d898168c7feba51434"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2c29ea5a0307125773f5fc302c335ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#ac2c29ea5a0307125773f5fc302c335ff">libanio_start_accept</a> (<a class="el" href="structs__anio.html">t_anio</a> *server)</td></tr>
-<tr class="memdesc:ac2c29ea5a0307125773f5fc302c335ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows new clients to connect in respect of the max_nb_clients set.  <a href="#ac2c29ea5a0307125773f5fc302c335ff">More...</a><br /></td></tr>
-<tr class="separator:ac2c29ea5a0307125773f5fc302c335ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3187024cc48cfe16a1328553c4a9e8d1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#a3187024cc48cfe16a1328553c4a9e8d1">libanio_start_stop</a> (<a class="el" href="structs__anio.html">t_anio</a> *server)</td></tr>
-<tr class="memdesc:a3187024cc48cfe16a1328553c4a9e8d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forbids new clients connexion.  <a href="#a3187024cc48cfe16a1328553c4a9e8d1">More...</a><br /></td></tr>
-<tr class="separator:a3187024cc48cfe16a1328553c4a9e8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a158adcdee02749660ed934123af8e1bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#a158adcdee02749660ed934123af8e1bc">libanio_is_server_alive</a> (<a class="el" href="structs__anio.html">t_anio</a> *server)</td></tr>
 <tr class="memdesc:a158adcdee02749660ed934123af8e1bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells if the server is still running.  <a href="#a158adcdee02749660ed934123af8e1bc">More...</a><br /></td></tr>
 <tr class="separator:a158adcdee02749660ed934123af8e1bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33a691c20915091680ef74a682212ecf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#a33a691c20915091680ef74a682212ecf">libanio_wait</a> (<a class="el" href="structs__anio.html">t_anio</a> *server)</td></tr>
-<tr class="memdesc:a33a691c20915091680ef74a682212ecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait forever.  <a href="#a33a691c20915091680ef74a682212ecf">More...</a><br /></td></tr>
-<tr class="separator:a33a691c20915091680ef74a682212ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c55c115c0de0cc9cd3c082e61113c4d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#a4c55c115c0de0cc9cd3c082e61113c4d">libanio_send</a> (<a class="el" href="structs__anio.html">t_anio</a> *server, int fd, char *buf, size_t nbytes)</td></tr>
+<tr class="memdesc:a4c55c115c0de0cc9cd3c082e61113c4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores data to be sent (later) to a client.  <a href="#a4c55c115c0de0cc9cd3c082e61113c4d">More...</a><br /></td></tr>
+<tr class="separator:a4c55c115c0de0cc9cd3c082e61113c4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a004d5784199d403bee364ec8dfbe470e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libanio__interface_8h.html#a004d5784199d403bee364ec8dfbe470e">libanio_send_string</a> (<a class="el" href="structs__anio.html">t_anio</a> *server, int fd, char *buf)</td></tr>
+<tr class="memdesc:a004d5784199d403bee364ec8dfbe470e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores a string (NULL terminated array of chars) to be sent (later) to a client.  <a href="#a004d5784199d403bee364ec8dfbe470e">More...</a><br /></td></tr>
+<tr class="separator:a004d5784199d403bee364ec8dfbe470e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a37a160d5ffba42f9a3c1d77f0426bbd0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void libanio_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structs__anio.html">t_anio</a> *&#160;</td>
+          <td class="paramname"><em>server</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cleans the t_anio structure. </p>
+<p>Exemple:</p>
+<p>libanio_free(&amp;server);</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">server</td><td>Pointer to the t_anio structure to clean. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a1a7f934494bc6994c46eb31d8277c437"></a>
 <div class="memitem">
 <div class="memproto">
@@ -243,7 +269,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">fptr_on_eof</td><td>Function pointer to be called when reaching end-of-file. </td></tr>
     <tr><td class="paramname">fptr_on_error</td><td>Function pointer to be called when a syscall fails. </td></tr>
     <tr><td class="paramname">server</td><td>mode Defines when to call the fptr_on_read callback (ANIO_STREAM: whenever data is read, ANIO_BLOCK: when a complete block is available, ANIO_LINE: when a complete line is available). Once set, the mode shall not be changed. </td></tr>
-    <tr><td class="paramname">...</td><td>Depending on the mode: ANIO_STREAM: nothing (ignored if any given), ANIO_BLOCK: block size, ANIO_LINE: array of chars representing the newline sequence.</td></tr>
+    <tr><td class="paramname">...</td><td>Depending on the mode: ANIO_STREAM: nothing (ignored if any given), ANIO_BLOCK: block size of type (size_t), ANIO_LINE: array of chars representing the newline sequence of type (char *).</td></tr>
   </table>
   </dd>
 </dl>
@@ -273,6 +299,107 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">server</td><td>Pointer to the t_anio structure.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>(0) on success </dd>
+<dd>
+(-1) on error </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4c55c115c0de0cc9cd3c082e61113c4d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int libanio_send </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structs__anio.html">t_anio</a> *&#160;</td>
+          <td class="paramname"><em>server</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>nbytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stores data to be sent (later) to a client. </p>
+<p>Exemples:</p>
+<p>libanio_send(&amp;server, client_fd, "hello world", 11);</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">server</td><td>Pointer to the t_anio structure. </td></tr>
+    <tr><td class="paramname">fd</td><td>Client's file descriptor. </td></tr>
+    <tr><td class="paramname">buf</td><td>Pointer to the data to send. </td></tr>
+    <tr><td class="paramname">nbytes</td><td>Number of bytes to send.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>(0) on success </dd>
+<dd>
+(-1) on error </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a004d5784199d403bee364ec8dfbe470e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int libanio_send_string </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structs__anio.html">t_anio</a> *&#160;</td>
+          <td class="paramname"><em>server</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buf</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stores a string (NULL terminated array of chars) to be sent (later) to a client. </p>
+<p>Exemples:</p>
+<p>libanio_send(&amp;server, client_fd, "hello world");</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">server</td><td>Pointer to the t_anio structure. </td></tr>
+    <tr><td class="paramname">fd</td><td>Client's file descriptor. </td></tr>
+    <tr><td class="paramname">buf</td><td>Pointer to the string.</td></tr>
   </table>
   </dd>
 </dl>
@@ -484,7 +611,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Updates the callbacks function pointers. </p>
+<p>Sets the callbacks function pointers. </p>
 <p>Exemples:</p>
 <p>libanio_set_callbacks(&amp;server, &amp;on_accept, &amp;on_read, &amp;on_eof, &amp;on_error);</p>
 <p>libanio_set_callbacks(&amp;server, NULL, &amp;on_read, NULL, NULL);</p>
@@ -585,94 +712,10 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac2c29ea5a0307125773f5fc302c335ff"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int libanio_start_accept </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structs__anio.html">t_anio</a> *&#160;</td>
-          <td class="paramname"><em>server</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allows new clients to connect in respect of the max_nb_clients set. </p>
-<p>Exemples:</p>
-<p>libanio_start_accept(&amp;server);</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">server</td><td>Pointer to the t_anio structure.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>(0) on success </dd>
-<dd>
-(-1) on error </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a3187024cc48cfe16a1328553c4a9e8d1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int libanio_start_stop </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structs__anio.html">t_anio</a> *&#160;</td>
-          <td class="paramname"><em>server</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Forbids new clients connexion. </p>
-<p>Exemples:</p>
-<p>libanio_stop_accept(&amp;server);</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">server</td><td>Pointer to the t_anio structure.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>(0) on success </dd>
-<dd>
-(-1) on error </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a33a691c20915091680ef74a682212ecf"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void libanio_wait </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structs__anio.html">t_anio</a> *&#160;</td>
-          <td class="paramname"><em>server</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Wait forever. </p>
-<p>Exemples:</p>
-<p>libanio_wait(&amp;server);</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">server</td><td>Pointer to the t_anio structure. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 14 2015 01:12:20 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 29 2015 17:01:14 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

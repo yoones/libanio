@@ -1,0 +1,54 @@
+\hypertarget{structs__fdesc}{}\section{s\+\_\+fdesc Struct Reference}
+\label{structs__fdesc}\index{s\+\_\+fdesc@{s\+\_\+fdesc}}
+
+
+This structure represents a client.  
+
+
+
+
+{\ttfamily \#include $<$libanio\+\_\+types.\+h$>$}
+
+
+
+Collaboration diagram for s\+\_\+fdesc\+:
+% FIG 0
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structs__fdesc_a6384ba385a5cf09c6a58bfffe248c257}{fd}
+\item 
+int \hyperlink{structs__fdesc_a7b5ff006481530a145f43728d1cb0815}{closed}
+\item 
+struct epoll\+\_\+event \hyperlink{structs__fdesc_ad68cecdfd8e6cc9a0248f79b3e46a393}{event}
+\item 
+\hyperlink{structs__list}{t\+\_\+list} \hyperlink{structs__fdesc_a387ee6fc84c44f17f50b31ce0f435862}{readbuf}
+\item 
+\hyperlink{structs__list}{t\+\_\+list} \hyperlink{structs__fdesc_a41f8341d38c99becf10870a1b77655f9}{writebuf}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This structure represents a client. 
+
+\subsection{Field Documentation}
+\hypertarget{structs__fdesc_a7b5ff006481530a145f43728d1cb0815}{}\index{s\+\_\+fdesc@{s\+\_\+fdesc}!closed@{closed}}
+\index{closed@{closed}!s\+\_\+fdesc@{s\+\_\+fdesc}}
+\subsubsection[{closed}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+fdesc\+::closed}\label{structs__fdesc_a7b5ff006481530a145f43728d1cb0815}
+Member \textquotesingle{}closed\textquotesingle{} tells if the file descriptors has been closed. \hypertarget{structs__fdesc_ad68cecdfd8e6cc9a0248f79b3e46a393}{}\index{s\+\_\+fdesc@{s\+\_\+fdesc}!event@{event}}
+\index{event@{event}!s\+\_\+fdesc@{s\+\_\+fdesc}}
+\subsubsection[{event}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+fdesc\+::event}\label{structs__fdesc_ad68cecdfd8e6cc9a0248f79b3e46a393}
+Member \textquotesingle{}event\textquotesingle{} contains the event read by the monitor using epoll for a worker to handle it. \hypertarget{structs__fdesc_a6384ba385a5cf09c6a58bfffe248c257}{}\index{s\+\_\+fdesc@{s\+\_\+fdesc}!fd@{fd}}
+\index{fd@{fd}!s\+\_\+fdesc@{s\+\_\+fdesc}}
+\subsubsection[{fd}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+fdesc\+::fd}\label{structs__fdesc_a6384ba385a5cf09c6a58bfffe248c257}
+Member \textquotesingle{}fd\textquotesingle{} contains the client\textquotesingle{}s file descriptor. \hypertarget{structs__fdesc_a387ee6fc84c44f17f50b31ce0f435862}{}\index{s\+\_\+fdesc@{s\+\_\+fdesc}!readbuf@{readbuf}}
+\index{readbuf@{readbuf}!s\+\_\+fdesc@{s\+\_\+fdesc}}
+\subsubsection[{readbuf}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+fdesc\+::readbuf}\label{structs__fdesc_a387ee6fc84c44f17f50b31ce0f435862}
+Member \textquotesingle{}readbuf\textquotesingle{} contains the bytes received that are waiting to be consumed. \hypertarget{structs__fdesc_a41f8341d38c99becf10870a1b77655f9}{}\index{s\+\_\+fdesc@{s\+\_\+fdesc}!writebuf@{writebuf}}
+\index{writebuf@{writebuf}!s\+\_\+fdesc@{s\+\_\+fdesc}}
+\subsubsection[{writebuf}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+fdesc\+::writebuf}\label{structs__fdesc_a41f8341d38c99becf10870a1b77655f9}
+Member \textquotesingle{}writebuf\textquotesingle{} contains the bytes to be sent. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{libanio__types_8h}{libanio\+\_\+types.\+h}\end{DoxyCompactItemize}

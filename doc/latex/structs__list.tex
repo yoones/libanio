@@ -2,28 +2,53 @@
 \label{structs__list}\index{s\+\_\+list@{s\+\_\+list}}
 
 
+This structure holds a node if the double linked list.  
+
+
+
+
+{\ttfamily \#include $<$list.\+h$>$}
+
+
+
 Collaboration diagram for s\+\_\+list\+:
 % FIG 0
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{structs__list_a43151a7fd223a88c82cdc6fe1de89c28}{}\hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$ {\bfseries head}\label{structs__list_a43151a7fd223a88c82cdc6fe1de89c28}
-
+\hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$ \hyperlink{structs__list_af222b43290e12d08dd57530ebc7f672b}{head}
 \item 
-\hypertarget{structs__list_a2474d511089fed7e181ad40d371787fd}{}\hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$ {\bfseries tail}\label{structs__list_a2474d511089fed7e181ad40d371787fd}
-
+\hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$ \hyperlink{structs__list_a34c85ecf7803f11cb86886c9e9967c19}{tail}
 \item 
-\hypertarget{structs__list_a3bf0ae0bf073d51a6d81b8d90d23e29f}{}int {\bfseries size}\label{structs__list_a3bf0ae0bf073d51a6d81b8d90d23e29f}
-
+int \hyperlink{structs__list_ac322563dbbb8c1dafd814734cfa689f1}{size}
 \item 
-\hypertarget{structs__list_a8ff53bfc27ae587862e08566df35d772}{}t\+\_\+list\+\_\+data\+\_\+free $\ast$ {\bfseries f\+\_\+free}\label{structs__list_a8ff53bfc27ae587862e08566df35d772}
-
+t\+\_\+list\+\_\+data\+\_\+free $\ast$ \hyperlink{structs__list_a6a8f9425515ba8a81adb922221ce2e7d}{f\+\_\+free}
 \item 
-\hypertarget{structs__list_a11fc71f40e9fb5e6eb4edd467e21e603}{}t\+\_\+list\+\_\+data\+\_\+cmp $\ast$ {\bfseries f\+\_\+cmp}\label{structs__list_a11fc71f40e9fb5e6eb4edd467e21e603}
-
+t\+\_\+list\+\_\+data\+\_\+cmp $\ast$ \hyperlink{structs__list_a6e86ceb59adda3831427bede11346dc6}{f\+\_\+cmp}
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+This structure holds a node if the double linked list. 
+
+\subsection{Field Documentation}
+\hypertarget{structs__list_a6e86ceb59adda3831427bede11346dc6}{}\index{s\+\_\+list@{s\+\_\+list}!f\+\_\+cmp@{f\+\_\+cmp}}
+\index{f\+\_\+cmp@{f\+\_\+cmp}!s\+\_\+list@{s\+\_\+list}}
+\subsubsection[{f\+\_\+cmp}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+list\+::f\+\_\+cmp}\label{structs__list_a6e86ceb59adda3831427bede11346dc6}
+Member \textquotesingle{}f\+\_\+cmp\textquotesingle{} contains the address of a function of call for comparing two nodes\textquotesingle{} \textquotesingle{}data\textquotesingle{} (ex\+: strcmp) \hypertarget{structs__list_a6a8f9425515ba8a81adb922221ce2e7d}{}\index{s\+\_\+list@{s\+\_\+list}!f\+\_\+free@{f\+\_\+free}}
+\index{f\+\_\+free@{f\+\_\+free}!s\+\_\+list@{s\+\_\+list}}
+\subsubsection[{f\+\_\+free}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+list\+::f\+\_\+free}\label{structs__list_a6a8f9425515ba8a81adb922221ce2e7d}
+Member \textquotesingle{}f\+\_\+free\textquotesingle{} contains the address of a function of call for freeing \textquotesingle{}data\textquotesingle{} when cleaning the list (ex\+: free) \hypertarget{structs__list_af222b43290e12d08dd57530ebc7f672b}{}\index{s\+\_\+list@{s\+\_\+list}!head@{head}}
+\index{head@{head}!s\+\_\+list@{s\+\_\+list}}
+\subsubsection[{head}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+list\+::head}\label{structs__list_af222b43290e12d08dd57530ebc7f672b}
+Member \textquotesingle{}head\textquotesingle{} contains the address of the first node (of N\+U\+L\+L if there isn\textquotesingle{}t any) \hypertarget{structs__list_ac322563dbbb8c1dafd814734cfa689f1}{}\index{s\+\_\+list@{s\+\_\+list}!size@{size}}
+\index{size@{size}!s\+\_\+list@{s\+\_\+list}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+list\+::size}\label{structs__list_ac322563dbbb8c1dafd814734cfa689f1}
+Member \textquotesingle{}size\textquotesingle{} contains the number of nodes stored in the linked list \hypertarget{structs__list_a34c85ecf7803f11cb86886c9e9967c19}{}\index{s\+\_\+list@{s\+\_\+list}!tail@{tail}}
+\index{tail@{tail}!s\+\_\+list@{s\+\_\+list}}
+\subsubsection[{tail}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+list\+::tail}\label{structs__list_a34c85ecf7803f11cb86886c9e9967c19}
+Member \textquotesingle{}tail\textquotesingle{} contains the address of the last node (of N\+U\+L\+L if there isn\textquotesingle{}t any) 
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/list.\+h\end{DoxyCompactItemize}
+include/\hyperlink{list_8h}{list.\+h}\end{DoxyCompactItemize}

@@ -2,22 +2,43 @@
 \label{structs__lnode}\index{s\+\_\+lnode@{s\+\_\+lnode}}
 
 
+This structure holds a double linked node.  
+
+
+
+
+{\ttfamily \#include $<$list.\+h$>$}
+
+
+
 Collaboration diagram for s\+\_\+lnode\+:
 % FIG 0
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{structs__lnode_a2e94a1e8984c8a1e7b72135bb8e31d29}{}void $\ast$ {\bfseries data}\label{structs__lnode_a2e94a1e8984c8a1e7b72135bb8e31d29}
-
+void $\ast$ \hyperlink{structs__lnode_a4f586e4c3ddb54d11cd5ae97ebaec850}{data}
 \item 
-\hypertarget{structs__lnode_aee8c355fad865420ad22055b3272049d}{}struct \hyperlink{structs__lnode}{s\+\_\+lnode} $\ast$ {\bfseries prev}\label{structs__lnode_aee8c355fad865420ad22055b3272049d}
-
+struct \hyperlink{structs__lnode}{s\+\_\+lnode} $\ast$ \hyperlink{structs__lnode_afe1761de9a211149f32219f03492d098}{prev}
 \item 
-\hypertarget{structs__lnode_a07ec49a3b71459b4f560ae2ac571802c}{}struct \hyperlink{structs__lnode}{s\+\_\+lnode} $\ast$ {\bfseries next}\label{structs__lnode_a07ec49a3b71459b4f560ae2ac571802c}
-
+struct \hyperlink{structs__lnode}{s\+\_\+lnode} $\ast$ \hyperlink{structs__lnode_add1117deef5047ce064a52f68e2d611d}{next}
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+This structure holds a double linked node. 
+
+\subsection{Field Documentation}
+\hypertarget{structs__lnode_a4f586e4c3ddb54d11cd5ae97ebaec850}{}\index{s\+\_\+lnode@{s\+\_\+lnode}!data@{data}}
+\index{data@{data}!s\+\_\+lnode@{s\+\_\+lnode}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+lnode\+::data}\label{structs__lnode_a4f586e4c3ddb54d11cd5ae97ebaec850}
+Member \textquotesingle{}data\textquotesingle{} contains the data stored in this node \hypertarget{structs__lnode_add1117deef5047ce064a52f68e2d611d}{}\index{s\+\_\+lnode@{s\+\_\+lnode}!next@{next}}
+\index{next@{next}!s\+\_\+lnode@{s\+\_\+lnode}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+lnode\+::next}\label{structs__lnode_add1117deef5047ce064a52f68e2d611d}
+Member \textquotesingle{}next\textquotesingle{} contains the address of the next node (or N\+U\+L\+L if there isn\textquotesingle{}t any) \hypertarget{structs__lnode_afe1761de9a211149f32219f03492d098}{}\index{s\+\_\+lnode@{s\+\_\+lnode}!prev@{prev}}
+\index{prev@{prev}!s\+\_\+lnode@{s\+\_\+lnode}}
+\subsubsection[{prev}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+lnode\+::prev}\label{structs__lnode_afe1761de9a211149f32219f03492d098}
+Member \textquotesingle{}prev\textquotesingle{} contains the address of the previous node (or N\+U\+L\+L if there isn\textquotesingle{}t any) 
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/list.\+h\end{DoxyCompactItemize}
+include/\hyperlink{list_8h}{list.\+h}\end{DoxyCompactItemize}

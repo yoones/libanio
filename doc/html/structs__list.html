@@ -64,6 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -88,6 +89,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">s_list Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This structure holds a node if the double linked list.  
+ <a href="structs__list.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="list_8h_source.html">list.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for s_list:</div>
 <div class="dyncontent">
@@ -97,29 +103,92 @@ Collaboration diagram for s_list:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a43151a7fd223a88c82cdc6fe1de89c28"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43151a7fd223a88c82cdc6fe1de89c28"></a>
-<a class="el" href="structs__lnode.html">t_lnode</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>head</b></td></tr>
-<tr class="separator:a43151a7fd223a88c82cdc6fe1de89c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2474d511089fed7e181ad40d371787fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2474d511089fed7e181ad40d371787fd"></a>
-<a class="el" href="structs__lnode.html">t_lnode</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>tail</b></td></tr>
-<tr class="separator:a2474d511089fed7e181ad40d371787fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bf0ae0bf073d51a6d81b8d90d23e29f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3bf0ae0bf073d51a6d81b8d90d23e29f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>size</b></td></tr>
-<tr class="separator:a3bf0ae0bf073d51a6d81b8d90d23e29f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ff53bfc27ae587862e08566df35d772"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ff53bfc27ae587862e08566df35d772"></a>
-t_list_data_free *&#160;</td><td class="memItemRight" valign="bottom"><b>f_free</b></td></tr>
-<tr class="separator:a8ff53bfc27ae587862e08566df35d772"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11fc71f40e9fb5e6eb4edd467e21e603"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a11fc71f40e9fb5e6eb4edd467e21e603"></a>
-t_list_data_cmp *&#160;</td><td class="memItemRight" valign="bottom"><b>f_cmp</b></td></tr>
-<tr class="separator:a11fc71f40e9fb5e6eb4edd467e21e603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af222b43290e12d08dd57530ebc7f672b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structs__lnode.html">t_lnode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__list.html#af222b43290e12d08dd57530ebc7f672b">head</a></td></tr>
+<tr class="separator:af222b43290e12d08dd57530ebc7f672b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34c85ecf7803f11cb86886c9e9967c19"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structs__lnode.html">t_lnode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__list.html#a34c85ecf7803f11cb86886c9e9967c19">tail</a></td></tr>
+<tr class="separator:a34c85ecf7803f11cb86886c9e9967c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac322563dbbb8c1dafd814734cfa689f1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__list.html#ac322563dbbb8c1dafd814734cfa689f1">size</a></td></tr>
+<tr class="separator:ac322563dbbb8c1dafd814734cfa689f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a8f9425515ba8a81adb922221ce2e7d"><td class="memItemLeft" align="right" valign="top">t_list_data_free *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__list.html#a6a8f9425515ba8a81adb922221ce2e7d">f_free</a></td></tr>
+<tr class="separator:a6a8f9425515ba8a81adb922221ce2e7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e86ceb59adda3831427bede11346dc6"><td class="memItemLeft" align="right" valign="top">t_list_data_cmp *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__list.html#a6e86ceb59adda3831427bede11346dc6">f_cmp</a></td></tr>
+<tr class="separator:a6e86ceb59adda3831427bede11346dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This structure holds a node if the double linked list. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a6e86ceb59adda3831427bede11346dc6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_list::f_cmp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'f_cmp' contains the address of a function of call for comparing two nodes' 'data' (ex: strcmp) </p>
+
+</div>
+</div>
+<a class="anchor" id="a6a8f9425515ba8a81adb922221ce2e7d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_list::f_free</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'f_free' contains the address of a function of call for freeing 'data' when cleaning the list (ex: free) </p>
+
+</div>
+</div>
+<a class="anchor" id="af222b43290e12d08dd57530ebc7f672b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_list::head</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'head' contains the address of the first node (of NULL if there isn't any) </p>
+
+</div>
+</div>
+<a class="anchor" id="ac322563dbbb8c1dafd814734cfa689f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_list::size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'size' contains the number of nodes stored in the linked list </p>
+
+</div>
+</div>
+<a class="anchor" id="a34c85ecf7803f11cb86886c9e9967c19"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s_list::tail</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Member 'tail' contains the address of the last node (of NULL if there isn't any) </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/<a class="el" href="list_8h_source.html">list.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 14 2015 01:12:20 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 29 2015 17:01:14 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

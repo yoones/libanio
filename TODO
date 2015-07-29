@@ -1,4 +1,4 @@
-- Update documentation
+- Check is max_clients is used???
 - thread_pool list: replace casted thread_id byreal structure containing thread_id
 - Find memory leak (go valgrind)
 - Refactor thread pool to make it reusable for other purposes

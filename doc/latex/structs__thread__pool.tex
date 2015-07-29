@@ -1,0 +1,69 @@
+\hypertarget{structs__thread__pool}{}\section{s\+\_\+thread\+\_\+pool Struct Reference}
+\label{structs__thread__pool}\index{s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}}
+
+
+This structure holds data used to manage the workers and the events they shall handle.  
+
+
+
+
+{\ttfamily \#include $<$libanio\+\_\+types.\+h$>$}
+
+
+
+Collaboration diagram for s\+\_\+thread\+\_\+pool\+:
+% FIG 0
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \hyperlink{structs__thread__pool_a6514baa133ead32a26873fb71efb4fc3}{max\+\_\+workers}
+\item 
+\hyperlink{structs__list}{t\+\_\+list} \hyperlink{structs__thread__pool_a499f3b150499f33aacbeeeee14cdcdbf}{workers}
+\item 
+int \hyperlink{structs__thread__pool_ad29f26123236fdfa8e758cd4dd75ff0b}{epoll\+\_\+fd}
+\item 
+struct epoll\+\_\+event $\ast$ \hyperlink{structs__thread__pool_a88d77ee858e9c9d6b43bdcb35c86b73b}{jobs}
+\item 
+int \hyperlink{structs__thread__pool_a770306a3ae1ad4b1fbc15666e2070474}{remaining\+\_\+jobs}
+\item 
+int \hyperlink{structs__thread__pool_a93fd6e2cb28298435a38d19df6b8ceb0}{busy\+\_\+workers}
+\item 
+pthread\+\_\+mutex\+\_\+t \hyperlink{structs__thread__pool_a28c1be718ce196b7a79bbe7c815e90fe}{jobs\+\_\+mutex}
+\item 
+pthread\+\_\+cond\+\_\+t \hyperlink{structs__thread__pool_aef0ffc31f56dff666865314b3b7f14df}{jobs\+\_\+condvar}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This structure holds data used to manage the workers and the events they shall handle. 
+
+\subsection{Field Documentation}
+\hypertarget{structs__thread__pool_a93fd6e2cb28298435a38d19df6b8ceb0}{}\index{s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}!busy\+\_\+workers@{busy\+\_\+workers}}
+\index{busy\+\_\+workers@{busy\+\_\+workers}!s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}}
+\subsubsection[{busy\+\_\+workers}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+thread\+\_\+pool\+::busy\+\_\+workers}\label{structs__thread__pool_a93fd6e2cb28298435a38d19df6b8ceb0}
+Member \textquotesingle{}busy\+\_\+workers\textquotesingle{} contains the current number of workers currently handling events. \hypertarget{structs__thread__pool_ad29f26123236fdfa8e758cd4dd75ff0b}{}\index{s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}!epoll\+\_\+fd@{epoll\+\_\+fd}}
+\index{epoll\+\_\+fd@{epoll\+\_\+fd}!s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}}
+\subsubsection[{epoll\+\_\+fd}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+thread\+\_\+pool\+::epoll\+\_\+fd}\label{structs__thread__pool_ad29f26123236fdfa8e758cd4dd75ff0b}
+Member \textquotesingle{}epoll\+\_\+fd\textquotesingle{} contains epoll\textquotesingle{}s file descriptor used by the monitor to wait for events. \hypertarget{structs__thread__pool_a88d77ee858e9c9d6b43bdcb35c86b73b}{}\index{s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}!jobs@{jobs}}
+\index{jobs@{jobs}!s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}}
+\subsubsection[{jobs}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+thread\+\_\+pool\+::jobs}\label{structs__thread__pool_a88d77ee858e9c9d6b43bdcb35c86b73b}
+Member \textquotesingle{}jobs\textquotesingle{} is an array used where the monitor stores events for the workers to read them. \hypertarget{structs__thread__pool_aef0ffc31f56dff666865314b3b7f14df}{}\index{s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}!jobs\+\_\+condvar@{jobs\+\_\+condvar}}
+\index{jobs\+\_\+condvar@{jobs\+\_\+condvar}!s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}}
+\subsubsection[{jobs\+\_\+condvar}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+thread\+\_\+pool\+::jobs\+\_\+condvar}\label{structs__thread__pool_aef0ffc31f56dff666865314b3b7f14df}
+Member \textquotesingle{}jobs\+\_\+condvar\textquotesingle{} is a conditional variable used to wake up workers when events are to be handled. \hypertarget{structs__thread__pool_a28c1be718ce196b7a79bbe7c815e90fe}{}\index{s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}!jobs\+\_\+mutex@{jobs\+\_\+mutex}}
+\index{jobs\+\_\+mutex@{jobs\+\_\+mutex}!s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}}
+\subsubsection[{jobs\+\_\+mutex}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+thread\+\_\+pool\+::jobs\+\_\+mutex}\label{structs__thread__pool_a28c1be718ce196b7a79bbe7c815e90fe}
+Member \textquotesingle{}jobs\+\_\+mutex\textquotesingle{} is a lock to safely access the jobs from different threads. \hypertarget{structs__thread__pool_a6514baa133ead32a26873fb71efb4fc3}{}\index{s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}!max\+\_\+workers@{max\+\_\+workers}}
+\index{max\+\_\+workers@{max\+\_\+workers}!s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}}
+\subsubsection[{max\+\_\+workers}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+thread\+\_\+pool\+::max\+\_\+workers}\label{structs__thread__pool_a6514baa133ead32a26873fb71efb4fc3}
+Member \textquotesingle{}max\+\_\+workers\textquotesingle{} contains the maximum number of threads wanted. \hypertarget{structs__thread__pool_a770306a3ae1ad4b1fbc15666e2070474}{}\index{s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}!remaining\+\_\+jobs@{remaining\+\_\+jobs}}
+\index{remaining\+\_\+jobs@{remaining\+\_\+jobs}!s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}}
+\subsubsection[{remaining\+\_\+jobs}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+thread\+\_\+pool\+::remaining\+\_\+jobs}\label{structs__thread__pool_a770306a3ae1ad4b1fbc15666e2070474}
+Member \textquotesingle{}remaining\+\_\+jobs\textquotesingle{} contains the remaining number of jobs that workers have to take care of. \hypertarget{structs__thread__pool_a499f3b150499f33aacbeeeee14cdcdbf}{}\index{s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}!workers@{workers}}
+\index{workers@{workers}!s\+\_\+thread\+\_\+pool@{s\+\_\+thread\+\_\+pool}}
+\subsubsection[{workers}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+thread\+\_\+pool\+::workers}\label{structs__thread__pool_a499f3b150499f33aacbeeeee14cdcdbf}
+Member \textquotesingle{}workers\textquotesingle{} is a linked list of workers. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{libanio__types_8h}{libanio\+\_\+types.\+h}\end{DoxyCompactItemize}

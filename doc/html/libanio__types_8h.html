@@ -106,12 +106,19 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio__buf.html">s_anio_buf</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This structure holds data that will be used later for i/o (when the related file descriptor is ready for it)  <a href="structs__anio__buf.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionu__anio__mode__config.html">u_anio_mode_config</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This union holds precisions depending on the reading mode set.  <a href="unionu__anio__mode__config.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio__fd.html">s_anio_fd</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__fdesc.html">s_fdesc</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This structure represents a client.  <a href="structs__fdesc.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__thread__pool.html">s_thread_pool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This structure holds data used to manage the workers and the events they shall handle.  <a href="structs__thread__pool.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structs__anio.html">s_anio</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This structure holds the necessary elements for libanio to manage the server's fd.  <a href="structs__anio.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -125,21 +132,24 @@ typedef enum e_anio_mode&#160;</td><td class="memItemRight" valign="bottom"><b>t
 <tr class="memitem:aa11807d955839518205e2c33891a1810"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa11807d955839518205e2c33891a1810"></a>
 typedef union <a class="el" href="unionu__anio__mode__config.html">u_anio_mode_config</a>&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio_mode_config</b></td></tr>
 <tr class="separator:aa11807d955839518205e2c33891a1810"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7a6264cd9853146b93ff35e123cbe1e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7a6264cd9853146b93ff35e123cbe1e"></a>
-typedef struct <a class="el" href="structs__anio__fd.html">s_anio_fd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio_fd</b></td></tr>
-<tr class="separator:aa7a6264cd9853146b93ff35e123cbe1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad836bebccb89cbb6cfe67b67fc2cae83"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad836bebccb89cbb6cfe67b67fc2cae83"></a>
-typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio_fptr_on_accept</b>) (struct <a class="el" href="structs__anio.html">s_anio</a> *, <a class="el" href="structs__anio__fd.html">t_anio_fd</a> *)</td></tr>
-<tr class="separator:ad836bebccb89cbb6cfe67b67fc2cae83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbeeeb6cde9e3d880c6ed27d189cb5af"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abbeeeb6cde9e3d880c6ed27d189cb5af"></a>
-typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio_fptr_on_read</b>) (struct <a class="el" href="structs__anio.html">s_anio</a> *, <a class="el" href="structs__anio__fd.html">t_anio_fd</a> *, char *, size_t)</td></tr>
-<tr class="separator:abbeeeb6cde9e3d880c6ed27d189cb5af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f1a775fe1b6cf5629e9d35dfa438c3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f1a775fe1b6cf5629e9d35dfa438c3a"></a>
-typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio_fptr_on_eof</b>) (struct <a class="el" href="structs__anio.html">s_anio</a> *, <a class="el" href="structs__anio__fd.html">t_anio_fd</a> *, char *, size_t)</td></tr>
-<tr class="separator:a3f1a775fe1b6cf5629e9d35dfa438c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6381de19ff7329f146116c4738061da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6381de19ff7329f146116c4738061da"></a>
-typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio_fptr_on_error</b>) (struct <a class="el" href="structs__anio.html">s_anio</a> *, <a class="el" href="structs__anio__fd.html">t_anio_fd</a> *, int)</td></tr>
-<tr class="separator:ab6381de19ff7329f146116c4738061da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1698ed37ee713a91fd45dacf1e4c2bef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1698ed37ee713a91fd45dacf1e4c2bef"></a>
+typedef struct <a class="el" href="structs__fdesc.html">s_fdesc</a>&#160;</td><td class="memItemRight" valign="bottom"><b>t_fdesc</b></td></tr>
+<tr class="separator:a1698ed37ee713a91fd45dacf1e4c2bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace81f5e9f69847519d82a22021589c00"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace81f5e9f69847519d82a22021589c00"></a>
+typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio_fptr_on_accept</b>) (struct <a class="el" href="structs__anio.html">s_anio</a> *, int)</td></tr>
+<tr class="separator:ace81f5e9f69847519d82a22021589c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaef8a07b6a8a30a44629cca1b739c09"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abaef8a07b6a8a30a44629cca1b739c09"></a>
+typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio_fptr_on_read</b>) (struct <a class="el" href="structs__anio.html">s_anio</a> *, int, char *, size_t)</td></tr>
+<tr class="separator:abaef8a07b6a8a30a44629cca1b739c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8771e520183c2257e09fae1fa85c491e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8771e520183c2257e09fae1fa85c491e"></a>
+typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio_fptr_on_eof</b>) (struct <a class="el" href="structs__anio.html">s_anio</a> *, int, char *, size_t)</td></tr>
+<tr class="separator:a8771e520183c2257e09fae1fa85c491e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36b1f3ffc5e4c1a0d7fe88d053401501"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36b1f3ffc5e4c1a0d7fe88d053401501"></a>
+typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio_fptr_on_error</b>) (struct <a class="el" href="structs__anio.html">s_anio</a> *, int, int)</td></tr>
+<tr class="separator:a36b1f3ffc5e4c1a0d7fe88d053401501"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b7e1a06cf8254638d95cafd66927299"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6b7e1a06cf8254638d95cafd66927299"></a>
+typedef struct <a class="el" href="structs__thread__pool.html">s_thread_pool</a>&#160;</td><td class="memItemRight" valign="bottom"><b>t_thread_pool</b></td></tr>
+<tr class="separator:a6b7e1a06cf8254638d95cafd66927299"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a058e72d72c3571a1d8a7f6011c3c0219"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a058e72d72c3571a1d8a7f6011c3c0219"></a>
 typedef struct <a class="el" href="structs__anio.html">s_anio</a>&#160;</td><td class="memItemRight" valign="bottom"><b>t_anio</b></td></tr>
 <tr class="separator:a058e72d72c3571a1d8a7f6011c3c0219"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,7 +165,7 @@ Enumerations</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 14 2015 01:12:20 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 29 2015 17:01:14 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -90,71 +90,100 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">list.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">**</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">**</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef LIST_H_</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor"># define LIST_H_</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">/* typedef enum     e_ldatatype */</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">/*   { */</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">/*     LDT_INT, */</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">/*     LDT_STRING, */</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">/*     LDT_ */</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">/*   }          t_ldatatype; */</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structs__lnode.html">   16</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct      </span><a class="code" href="structs__lnode.html">s_lnode</a></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordtype">void</span>          *data;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">struct </span><a class="code" href="structs__lnode.html">s_lnode</a>    *prev;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">struct </span><a class="code" href="structs__lnode.html">s_lnode</a>    *next;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}           <a class="code" href="structs__lnode.html">t_lnode</a>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">typedef</span> int (t_list_data_cmp)(<span class="keywordtype">void</span> *, <span class="keywordtype">void</span> *);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">typedef</span> void (t_list_data_free)(<span class="keywordtype">void</span> *);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structs__list.html">   26</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct      </span><a class="code" href="structs__list.html">s_list</a></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <a class="code" href="structs__lnode.html">t_lnode</a>       *head;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <a class="code" href="structs__lnode.html">t_lnode</a>       *tail;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">int</span>           size;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  t_list_data_free  *f_free;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  t_list_data_cmp   *f_cmp;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}           <a class="code" href="structs__list.html">t_list</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span>        list_init(<a class="code" href="structs__list.html">t_list</a> *list,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;              t_list_data_free *f_free,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;              t_list_data_cmp *f_cmp);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<a class="code" href="structs__list.html">t_list</a>      *list_create(t_list_data_free *f_free,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                 t_list_data_cmp *f_cmp);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span>        list_clear(<a class="code" href="structs__list.html">t_list</a> *list);</div>
+<a href="list_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">  This file is part of libanio (https://github.com/yoones/libanio).</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">  libanio is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">  it under the terms of the GNU General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">  libanio is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">  GNU General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">  You should have received a copy of the GNU General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">  along with libanio.  If not, see &lt;http://www.gnu.org/licenses/&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#ifndef LIST_H_</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"># define LIST_H_</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structs__lnode.html">   34</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct      </span><a class="code" href="structs__lnode.html">s_lnode</a></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structs__lnode.html#a4f586e4c3ddb54d11cd5ae97ebaec850">   36</a></span>&#160;  <span class="keywordtype">void</span>          *<a class="code" href="structs__lnode.html#a4f586e4c3ddb54d11cd5ae97ebaec850">data</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structs__lnode.html#afe1761de9a211149f32219f03492d098">   37</a></span>&#160;  <span class="keyword">struct </span><a class="code" href="structs__lnode.html">s_lnode</a>    *<a class="code" href="structs__lnode.html#afe1761de9a211149f32219f03492d098">prev</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structs__lnode.html#add1117deef5047ce064a52f68e2d611d">   38</a></span>&#160;  <span class="keyword">struct </span><a class="code" href="structs__lnode.html">s_lnode</a>    *<a class="code" href="structs__lnode.html#add1117deef5047ce064a52f68e2d611d">next</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}           <a class="code" href="structs__lnode.html">t_lnode</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">typedef</span> int (t_list_data_cmp)(<span class="keywordtype">void</span> *, <span class="keywordtype">void</span> *);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">typedef</span> void (t_list_data_free)(<span class="keywordtype">void</span> *);</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> lnode_init(<a class="code" href="structs__lnode.html">t_lnode</a> *node,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;               <span class="keywordtype">void</span> *data, <a class="code" href="structs__lnode.html">t_lnode</a> *prev, <a class="code" href="structs__lnode.html">t_lnode</a> *next);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<a class="code" href="structs__lnode.html">t_lnode</a>     *lnode_create(<span class="keywordtype">void</span> *data, <a class="code" href="structs__lnode.html">t_lnode</a> *prev, <a class="code" href="structs__lnode.html">t_lnode</a> *next);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">int</span>     list_push_front(<a class="code" href="structs__list.html">t_list</a> *list, <span class="keywordtype">void</span> *data);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">int</span>     list_push_back(<a class="code" href="structs__list.html">t_list</a> *list, <span class="keywordtype">void</span> *data);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">void</span>        list_pop_front(<a class="code" href="structs__list.html">t_list</a> *list);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">void</span>        list_pop_back(<a class="code" href="structs__list.html">t_list</a> *list);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keywordtype">int</span>     list_contains(<a class="code" href="structs__list.html">t_list</a> *list, <span class="keywordtype">void</span> *data);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* LIST_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="structs__list_html"><div class="ttname"><a href="structs__list.html">s_list</a></div><div class="ttdef"><b>Definition:</b> list.h:26</div></div>
-<div class="ttc" id="structs__lnode_html"><div class="ttname"><a href="structs__lnode.html">s_lnode</a></div><div class="ttdef"><b>Definition:</b> list.h:16</div></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="structs__list.html">   57</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct      </span><a class="code" href="structs__list.html">s_list</a></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="structs__list.html#af222b43290e12d08dd57530ebc7f672b">   59</a></span>&#160;  <a class="code" href="structs__lnode.html">t_lnode</a>       *<a class="code" href="structs__list.html#af222b43290e12d08dd57530ebc7f672b">head</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="structs__list.html#a34c85ecf7803f11cb86886c9e9967c19">   60</a></span>&#160;  <a class="code" href="structs__lnode.html">t_lnode</a>       *<a class="code" href="structs__list.html#a34c85ecf7803f11cb86886c9e9967c19">tail</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structs__list.html#ac322563dbbb8c1dafd814734cfa689f1">   61</a></span>&#160;  <span class="keywordtype">int</span>           <a class="code" href="structs__list.html#ac322563dbbb8c1dafd814734cfa689f1">size</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structs__list.html#a6a8f9425515ba8a81adb922221ce2e7d">   62</a></span>&#160;  t_list_data_free  *<a class="code" href="structs__list.html#a6a8f9425515ba8a81adb922221ce2e7d">f_free</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="structs__list.html#a6e86ceb59adda3831427bede11346dc6">   63</a></span>&#160;  t_list_data_cmp   *<a class="code" href="structs__list.html#a6e86ceb59adda3831427bede11346dc6">f_cmp</a>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}           <a class="code" href="structs__list.html">t_list</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">void</span>        <a class="code" href="list_8h.html#ad70012480ebd59a23d5937ef0488e5d4">list_init</a>(<a class="code" href="structs__list.html">t_list</a> *list,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;              t_list_data_free *f_free,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;              t_list_data_cmp *f_cmp);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<a class="code" href="structs__list.html">t_list</a>      *<a class="code" href="list_8h.html#a11396fc6d9246c3ba53b97a06ac74ef2">list_create</a>(t_list_data_free *f_free,</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                 t_list_data_cmp *f_cmp);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordtype">void</span>        <a class="code" href="list_8h.html#ad2f10c74b4dc3b18cb52e22d4124c089">list_clear</a>(<a class="code" href="structs__list.html">t_list</a> *list);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keywordtype">void</span>        <a class="code" href="list_8h.html#af188d09f672c644accd80ba3da6217d9">lnode_init</a>(<a class="code" href="structs__lnode.html">t_lnode</a> *node,</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;               <span class="keywordtype">void</span> *data, <a class="code" href="structs__lnode.html">t_lnode</a> *prev, <a class="code" href="structs__lnode.html">t_lnode</a> *next);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<a class="code" href="structs__lnode.html">t_lnode</a>     *<a class="code" href="list_8h.html#a67f39810cd310c5a507adc4907aa9700">lnode_create</a>(<span class="keywordtype">void</span> *data, <a class="code" href="structs__lnode.html">t_lnode</a> *prev, <a class="code" href="structs__lnode.html">t_lnode</a> *next);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="keywordtype">int</span>     <a class="code" href="list_8h.html#a7d547d085187219efce80840ed4e2e66">list_push_front</a>(<a class="code" href="structs__list.html">t_list</a> *list, <span class="keywordtype">void</span> *data);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keywordtype">int</span>     <a class="code" href="list_8h.html#a0b33bac38a803f824eae4d9291560deb">list_push_back</a>(<a class="code" href="structs__list.html">t_list</a> *list, <span class="keywordtype">void</span> *data);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="keywordtype">void</span>        <a class="code" href="list_8h.html#a2a686f6dd9e9fc914a57c4c7e5d1f904">list_pop_front</a>(<a class="code" href="structs__list.html">t_list</a> *list);</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="keywordtype">void</span>        <a class="code" href="list_8h.html#a2b5e3ad9eba4404602a47e83d9bed38f">list_pop_back</a>(<a class="code" href="structs__list.html">t_list</a> *list);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="keywordtype">void</span>        <a class="code" href="list_8h.html#ab4f0c3af064e67db61e84c701cfa936d">list_pop_node</a>(<a class="code" href="structs__list.html">t_list</a> *list, <a class="code" href="structs__lnode.html">t_lnode</a> *node);</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="keywordtype">void</span>        <a class="code" href="list_8h.html#ab8da66d6f59c0b625246a3e43502b49c">list_pop_data</a>(<a class="code" href="structs__list.html">t_list</a> *list, <span class="keywordtype">void</span> *data);</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="keywordtype">int</span>     <a class="code" href="list_8h.html#aa629c34281dbca90f87b9024354e1aab">list_contains</a>(<a class="code" href="structs__list.html">t_list</a> *list, <span class="keywordtype">void</span> *data);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* LIST_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="list_8h_html_ad70012480ebd59a23d5937ef0488e5d4"><div class="ttname"><a href="list_8h.html#ad70012480ebd59a23d5937ef0488e5d4">list_init</a></div><div class="ttdeci">void list_init(t_list *list, t_list_data_free *f_free, t_list_data_cmp *f_cmp)</div><div class="ttdoc">Initializes a t_list structure. </div><div class="ttdef"><b>Definition:</b> list.c:25</div></div>
+<div class="ttc" id="list_8h_html_a2b5e3ad9eba4404602a47e83d9bed38f"><div class="ttname"><a href="list_8h.html#a2b5e3ad9eba4404602a47e83d9bed38f">list_pop_back</a></div><div class="ttdeci">void list_pop_back(t_list *list)</div><div class="ttdoc">Removes the last node of the list. Warning: f_free is NOT called on node->data. </div><div class="ttdef"><b>Definition:</b> list.c:167</div></div>
+<div class="ttc" id="list_8h_html_af188d09f672c644accd80ba3da6217d9"><div class="ttname"><a href="list_8h.html#af188d09f672c644accd80ba3da6217d9">lnode_init</a></div><div class="ttdeci">void lnode_init(t_lnode *node, void *data, t_lnode *prev, t_lnode *next)</div><div class="ttdoc">Initializes a t_lnode structure. </div><div class="ttdef"><b>Definition:</b> list.c:69</div></div>
+<div class="ttc" id="list_8h_html_a0b33bac38a803f824eae4d9291560deb"><div class="ttname"><a href="list_8h.html#a0b33bac38a803f824eae4d9291560deb">list_push_back</a></div><div class="ttdeci">int list_push_back(t_list *list, void *data)</div><div class="ttdoc">Pushes a data at the end of the list. </div><div class="ttdef"><b>Definition:</b> list.c:120</div></div>
+<div class="ttc" id="list_8h_html_a11396fc6d9246c3ba53b97a06ac74ef2"><div class="ttname"><a href="list_8h.html#a11396fc6d9246c3ba53b97a06ac74ef2">list_create</a></div><div class="ttdeci">t_list * list_create(t_list_data_free *f_free, t_list_data_cmp *f_cmp)</div><div class="ttdoc">Allocates and initializes a t_list structure. </div><div class="ttdef"><b>Definition:</b> list.c:37</div></div>
+<div class="ttc" id="list_8h_html_a7d547d085187219efce80840ed4e2e66"><div class="ttname"><a href="list_8h.html#a7d547d085187219efce80840ed4e2e66">list_push_front</a></div><div class="ttdeci">int list_push_front(t_list *list, void *data)</div><div class="ttdoc">Pushes a data at the beginning of the list. </div><div class="ttdef"><b>Definition:</b> list.c:96</div></div>
+<div class="ttc" id="list_8h_html_ab8da66d6f59c0b625246a3e43502b49c"><div class="ttname"><a href="list_8h.html#ab8da66d6f59c0b625246a3e43502b49c">list_pop_data</a></div><div class="ttdeci">void list_pop_data(t_list *list, void *data)</div><div class="ttdoc">Removes the first node that holds data from the list if this data is found in it. Warning: f_free is ...</div><div class="ttdef"><b>Definition:</b> list.c:211</div></div>
+<div class="ttc" id="structs__list_html_a6e86ceb59adda3831427bede11346dc6"><div class="ttname"><a href="structs__list.html#a6e86ceb59adda3831427bede11346dc6">s_list::f_cmp</a></div><div class="ttdeci">t_list_data_cmp * f_cmp</div><div class="ttdef"><b>Definition:</b> list.h:63</div></div>
+<div class="ttc" id="list_8h_html_ab4f0c3af064e67db61e84c701cfa936d"><div class="ttname"><a href="list_8h.html#ab4f0c3af064e67db61e84c701cfa936d">list_pop_node</a></div><div class="ttdeci">void list_pop_node(t_list *list, t_lnode *node)</div><div class="ttdoc">Removes the node from the list if the node is found in it. Warning: f_free is NOT called on node->dat...</div><div class="ttdef"><b>Definition:</b> list.c:184</div></div>
+<div class="ttc" id="structs__lnode_html_a4f586e4c3ddb54d11cd5ae97ebaec850"><div class="ttname"><a href="structs__lnode.html#a4f586e4c3ddb54d11cd5ae97ebaec850">s_lnode::data</a></div><div class="ttdeci">void * data</div><div class="ttdef"><b>Definition:</b> list.h:36</div></div>
+<div class="ttc" id="list_8h_html_a67f39810cd310c5a507adc4907aa9700"><div class="ttname"><a href="list_8h.html#a67f39810cd310c5a507adc4907aa9700">lnode_create</a></div><div class="ttdeci">t_lnode * lnode_create(void *data, t_lnode *prev, t_lnode *next)</div><div class="ttdoc">Allocates and initializes a t_lnode structure. </div><div class="ttdef"><b>Definition:</b> list.c:80</div></div>
+<div class="ttc" id="structs__list_html_ac322563dbbb8c1dafd814734cfa689f1"><div class="ttname"><a href="structs__list.html#ac322563dbbb8c1dafd814734cfa689f1">s_list::size</a></div><div class="ttdeci">int size</div><div class="ttdef"><b>Definition:</b> list.h:61</div></div>
+<div class="ttc" id="structs__list_html_af222b43290e12d08dd57530ebc7f672b"><div class="ttname"><a href="structs__list.html#af222b43290e12d08dd57530ebc7f672b">s_list::head</a></div><div class="ttdeci">t_lnode * head</div><div class="ttdef"><b>Definition:</b> list.h:59</div></div>
+<div class="ttc" id="list_8h_html_ad2f10c74b4dc3b18cb52e22d4124c089"><div class="ttname"><a href="list_8h.html#ad2f10c74b4dc3b18cb52e22d4124c089">list_clear</a></div><div class="ttdeci">void list_clear(t_list *list)</div><div class="ttdoc">Pops all nodes in the list. If f_free is set, it is called on each node&#39;s &#39;data&#39; before freeing the n...</div><div class="ttdef"><b>Definition:</b> list.c:53</div></div>
+<div class="ttc" id="list_8h_html_a2a686f6dd9e9fc914a57c4c7e5d1f904"><div class="ttname"><a href="list_8h.html#a2a686f6dd9e9fc914a57c4c7e5d1f904">list_pop_front</a></div><div class="ttdeci">void list_pop_front(t_list *list)</div><div class="ttdoc">Removes the first node of the list. Warning: f_free is NOT called on node->data. </div><div class="ttdef"><b>Definition:</b> list.c:142</div></div>
+<div class="ttc" id="structs__list_html_a34c85ecf7803f11cb86886c9e9967c19"><div class="ttname"><a href="structs__list.html#a34c85ecf7803f11cb86886c9e9967c19">s_list::tail</a></div><div class="ttdeci">t_lnode * tail</div><div class="ttdef"><b>Definition:</b> list.h:60</div></div>
+<div class="ttc" id="structs__list_html"><div class="ttname"><a href="structs__list.html">s_list</a></div><div class="ttdoc">This structure holds a node if the double linked list. </div><div class="ttdef"><b>Definition:</b> list.h:57</div></div>
+<div class="ttc" id="structs__lnode_html_afe1761de9a211149f32219f03492d098"><div class="ttname"><a href="structs__lnode.html#afe1761de9a211149f32219f03492d098">s_lnode::prev</a></div><div class="ttdeci">struct s_lnode * prev</div><div class="ttdef"><b>Definition:</b> list.h:37</div></div>
+<div class="ttc" id="structs__lnode_html_add1117deef5047ce064a52f68e2d611d"><div class="ttname"><a href="structs__lnode.html#add1117deef5047ce064a52f68e2d611d">s_lnode::next</a></div><div class="ttdeci">struct s_lnode * next</div><div class="ttdef"><b>Definition:</b> list.h:38</div></div>
+<div class="ttc" id="structs__lnode_html"><div class="ttname"><a href="structs__lnode.html">s_lnode</a></div><div class="ttdoc">This structure holds a double linked node. </div><div class="ttdef"><b>Definition:</b> list.h:34</div></div>
+<div class="ttc" id="structs__list_html_a6a8f9425515ba8a81adb922221ce2e7d"><div class="ttname"><a href="structs__list.html#a6a8f9425515ba8a81adb922221ce2e7d">s_list::f_free</a></div><div class="ttdeci">t_list_data_free * f_free</div><div class="ttdef"><b>Definition:</b> list.h:62</div></div>
+<div class="ttc" id="list_8h_html_aa629c34281dbca90f87b9024354e1aab"><div class="ttname"><a href="list_8h.html#aa629c34281dbca90f87b9024354e1aab">list_contains</a></div><div class="ttdeci">int list_contains(t_list *list, void *data)</div><div class="ttdoc">Checks if he list contains a node that contains the given data. </div><div class="ttdef"><b>Definition:</b> list.c:243</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 14 2015 01:12:20 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 29 2015 17:01:14 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

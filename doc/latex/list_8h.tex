@@ -1,0 +1,349 @@
+\hypertarget{list_8h}{}\section{include/list.h File Reference}
+\label{list_8h}\index{include/list.\+h@{include/list.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structs__lnode}{s\+\_\+lnode}
+\begin{DoxyCompactList}\small\item\em This structure holds a double linked node. \end{DoxyCompactList}\item 
+struct \hyperlink{structs__list}{s\+\_\+list}
+\begin{DoxyCompactList}\small\item\em This structure holds a node if the double linked list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{list_8h_af577e93d4f69fbf24a585e8926416735}{}typedef struct \hyperlink{structs__lnode}{s\+\_\+lnode} {\bfseries t\+\_\+lnode}\label{list_8h_af577e93d4f69fbf24a585e8926416735}
+
+\item 
+\hypertarget{list_8h_a3af6dc9d89b853556b343c7a830af0c4}{}typedef int( {\bfseries t\+\_\+list\+\_\+data\+\_\+cmp}) (void $\ast$, void $\ast$)\label{list_8h_a3af6dc9d89b853556b343c7a830af0c4}
+
+\item 
+\hypertarget{list_8h_aa7552fb01a9cf9f2022e7115a91bac73}{}typedef void( {\bfseries t\+\_\+list\+\_\+data\+\_\+free}) (void $\ast$)\label{list_8h_aa7552fb01a9cf9f2022e7115a91bac73}
+
+\item 
+\hypertarget{list_8h_aa073beba29d3550fb1d0d3170f122e91}{}typedef struct \hyperlink{structs__list}{s\+\_\+list} {\bfseries t\+\_\+list}\label{list_8h_aa073beba29d3550fb1d0d3170f122e91}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{list_8h_ad70012480ebd59a23d5937ef0488e5d4}{list\+\_\+init} (\hyperlink{structs__list}{t\+\_\+list} $\ast$list, t\+\_\+list\+\_\+data\+\_\+free $\ast$f\+\_\+free, t\+\_\+list\+\_\+data\+\_\+cmp $\ast$f\+\_\+cmp)
+\begin{DoxyCompactList}\small\item\em Initializes a t\+\_\+list structure. \end{DoxyCompactList}\item 
+\hyperlink{structs__list}{t\+\_\+list} $\ast$ \hyperlink{list_8h_a11396fc6d9246c3ba53b97a06ac74ef2}{list\+\_\+create} (t\+\_\+list\+\_\+data\+\_\+free $\ast$f\+\_\+free, t\+\_\+list\+\_\+data\+\_\+cmp $\ast$f\+\_\+cmp)
+\begin{DoxyCompactList}\small\item\em Allocates and initializes a t\+\_\+list structure. \end{DoxyCompactList}\item 
+void \hyperlink{list_8h_ad2f10c74b4dc3b18cb52e22d4124c089}{list\+\_\+clear} (\hyperlink{structs__list}{t\+\_\+list} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Pops all nodes in the list. If f\+\_\+free is set, it is called on each node\textquotesingle{}s \textquotesingle{}data\textquotesingle{} before freeing the node. \end{DoxyCompactList}\item 
+void \hyperlink{list_8h_af188d09f672c644accd80ba3da6217d9}{lnode\+\_\+init} (\hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$node, void $\ast$data, \hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$prev, \hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$next)
+\begin{DoxyCompactList}\small\item\em Initializes a t\+\_\+lnode structure. \end{DoxyCompactList}\item 
+\hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$ \hyperlink{list_8h_a67f39810cd310c5a507adc4907aa9700}{lnode\+\_\+create} (void $\ast$data, \hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$prev, \hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$next)
+\begin{DoxyCompactList}\small\item\em Allocates and initializes a t\+\_\+lnode structure. \end{DoxyCompactList}\item 
+int \hyperlink{list_8h_a7d547d085187219efce80840ed4e2e66}{list\+\_\+push\+\_\+front} (\hyperlink{structs__list}{t\+\_\+list} $\ast$list, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Pushes a data at the beginning of the list. \end{DoxyCompactList}\item 
+int \hyperlink{list_8h_a0b33bac38a803f824eae4d9291560deb}{list\+\_\+push\+\_\+back} (\hyperlink{structs__list}{t\+\_\+list} $\ast$list, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Pushes a data at the end of the list. \end{DoxyCompactList}\item 
+void \hyperlink{list_8h_a2a686f6dd9e9fc914a57c4c7e5d1f904}{list\+\_\+pop\+\_\+front} (\hyperlink{structs__list}{t\+\_\+list} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Removes the first node of the list. Warning\+: f\+\_\+free is N\+O\+T called on node-\/$>$data. \end{DoxyCompactList}\item 
+void \hyperlink{list_8h_a2b5e3ad9eba4404602a47e83d9bed38f}{list\+\_\+pop\+\_\+back} (\hyperlink{structs__list}{t\+\_\+list} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Removes the last node of the list. Warning\+: f\+\_\+free is N\+O\+T called on node-\/$>$data. \end{DoxyCompactList}\item 
+void \hyperlink{list_8h_ab4f0c3af064e67db61e84c701cfa936d}{list\+\_\+pop\+\_\+node} (\hyperlink{structs__list}{t\+\_\+list} $\ast$list, \hyperlink{structs__lnode}{t\+\_\+lnode} $\ast$node)
+\begin{DoxyCompactList}\small\item\em Removes the node from the list if the node is found in it. Warning\+: f\+\_\+free is N\+O\+T called on node-\/$>$data. \end{DoxyCompactList}\item 
+void \hyperlink{list_8h_ab8da66d6f59c0b625246a3e43502b49c}{list\+\_\+pop\+\_\+data} (\hyperlink{structs__list}{t\+\_\+list} $\ast$list, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Removes the first node that holds data from the list if this data is found in it. Warning\+: f\+\_\+free is N\+O\+T called on node-\/$>$data. \end{DoxyCompactList}\item 
+int \hyperlink{list_8h_aa629c34281dbca90f87b9024354e1aab}{list\+\_\+contains} (\hyperlink{structs__list}{t\+\_\+list} $\ast$list, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Checks if he list contains a node that contains the given data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{list_8h_ad2f10c74b4dc3b18cb52e22d4124c089}{}\index{list.\+h@{list.\+h}!list\+\_\+clear@{list\+\_\+clear}}
+\index{list\+\_\+clear@{list\+\_\+clear}!list.\+h@{list.\+h}}
+\subsubsection[{list\+\_\+clear}]{\setlength{\rightskip}{0pt plus 5cm}void list\+\_\+clear (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+list} $\ast$}]{list}
+\end{DoxyParamCaption}
+)}\label{list_8h_ad2f10c74b4dc3b18cb52e22d4124c089}
+
+
+Pops all nodes in the list. If f\+\_\+free is set, it is called on each node\textquotesingle{}s \textquotesingle{}data\textquotesingle{} before freeing the node. 
+
+Exemples\+:
+
+list\+\_\+clear(\&list);
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Pointer to the t\+\_\+list structure to initialize. \\
+\hline
+\end{DoxyParams}
+\hypertarget{list_8h_aa629c34281dbca90f87b9024354e1aab}{}\index{list.\+h@{list.\+h}!list\+\_\+contains@{list\+\_\+contains}}
+\index{list\+\_\+contains@{list\+\_\+contains}!list.\+h@{list.\+h}}
+\subsubsection[{list\+\_\+contains}]{\setlength{\rightskip}{0pt plus 5cm}int list\+\_\+contains (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+list} $\ast$}]{list, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{list_8h_aa629c34281dbca90f87b9024354e1aab}
+
+
+Checks if he list contains a node that contains the given data. 
+
+Exemples\+:
+
+if (list\+\_\+contains(\&list, \&data) == 0)
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & List from which to pop the node. \\
+\hline
+\end{DoxyParams}
+\hypertarget{list_8h_a11396fc6d9246c3ba53b97a06ac74ef2}{}\index{list.\+h@{list.\+h}!list\+\_\+create@{list\+\_\+create}}
+\index{list\+\_\+create@{list\+\_\+create}!list.\+h@{list.\+h}}
+\subsubsection[{list\+\_\+create}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\+\_\+list}$\ast$ list\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{t\+\_\+list\+\_\+data\+\_\+free $\ast$}]{f\+\_\+free, }
+\item[{t\+\_\+list\+\_\+data\+\_\+cmp $\ast$}]{f\+\_\+cmp}
+\end{DoxyParamCaption}
+)}\label{list_8h_a11396fc6d9246c3ba53b97a06ac74ef2}
+
+
+Allocates and initializes a t\+\_\+list structure. 
+
+Exemples\+:
+
+list = list\+\_\+create((t\+\_\+list\+\_\+data\+\_\+free $\ast$)\&free, (t\+\_\+list\+\_\+data\+\_\+cmp $\ast$)\&strcmp);
+
+
+\begin{DoxyParams}{Parameters}
+{\em f\+\_\+free} & Pointer to a function that is able to free \textquotesingle{}data\textquotesingle{} and its contect if any. \\
+\hline
+{\em f\+\_\+cmp} & Pointer to a function that is able to compare two nodes\textquotesingle{} \textquotesingle{}data\textquotesingle{}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The address of the list on success 
+
+(N\+U\+L\+L) on error 
+\end{DoxyReturn}
+\hypertarget{list_8h_ad70012480ebd59a23d5937ef0488e5d4}{}\index{list.\+h@{list.\+h}!list\+\_\+init@{list\+\_\+init}}
+\index{list\+\_\+init@{list\+\_\+init}!list.\+h@{list.\+h}}
+\subsubsection[{list\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}void list\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+list} $\ast$}]{list, }
+\item[{t\+\_\+list\+\_\+data\+\_\+free $\ast$}]{f\+\_\+free, }
+\item[{t\+\_\+list\+\_\+data\+\_\+cmp $\ast$}]{f\+\_\+cmp}
+\end{DoxyParamCaption}
+)}\label{list_8h_ad70012480ebd59a23d5937ef0488e5d4}
+
+
+Initializes a t\+\_\+list structure. 
+
+Exemples\+:
+
+list\+\_\+init(\&list, (t\+\_\+list\+\_\+data\+\_\+free $\ast$)\&free, (t\+\_\+list\+\_\+data\+\_\+cmp $\ast$)\&strcmp);
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Pointer to the t\+\_\+list structure to initialize. \\
+\hline
+{\em f\+\_\+free} & Pointer to a function that is able to free \textquotesingle{}data\textquotesingle{} and its contect if any. \\
+\hline
+{\em f\+\_\+cmp} & Pointer to a function that is able to compare two nodes\textquotesingle{} \textquotesingle{}data\textquotesingle{}. \\
+\hline
+\end{DoxyParams}
+\hypertarget{list_8h_a2b5e3ad9eba4404602a47e83d9bed38f}{}\index{list.\+h@{list.\+h}!list\+\_\+pop\+\_\+back@{list\+\_\+pop\+\_\+back}}
+\index{list\+\_\+pop\+\_\+back@{list\+\_\+pop\+\_\+back}!list.\+h@{list.\+h}}
+\subsubsection[{list\+\_\+pop\+\_\+back}]{\setlength{\rightskip}{0pt plus 5cm}void list\+\_\+pop\+\_\+back (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+list} $\ast$}]{list}
+\end{DoxyParamCaption}
+)}\label{list_8h_a2b5e3ad9eba4404602a47e83d9bed38f}
+
+
+Removes the last node of the list. Warning\+: f\+\_\+free is N\+O\+T called on node-\/$>$data. 
+
+Exemples\+:
+
+list\+\_\+pop\+\_\+bask(\&list);
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & List from which to pop the node. \\
+\hline
+\end{DoxyParams}
+\hypertarget{list_8h_ab8da66d6f59c0b625246a3e43502b49c}{}\index{list.\+h@{list.\+h}!list\+\_\+pop\+\_\+data@{list\+\_\+pop\+\_\+data}}
+\index{list\+\_\+pop\+\_\+data@{list\+\_\+pop\+\_\+data}!list.\+h@{list.\+h}}
+\subsubsection[{list\+\_\+pop\+\_\+data}]{\setlength{\rightskip}{0pt plus 5cm}void list\+\_\+pop\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+list} $\ast$}]{list, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{list_8h_ab8da66d6f59c0b625246a3e43502b49c}
+
+
+Removes the first node that holds data from the list if this data is found in it. Warning\+: f\+\_\+free is N\+O\+T called on node-\/$>$data. 
+
+Exemples\+:
+
+list\+\_\+pop\+\_\+data(\&list, \&data);
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & List from which to pop the node. \\
+\hline
+\end{DoxyParams}
+\hypertarget{list_8h_a2a686f6dd9e9fc914a57c4c7e5d1f904}{}\index{list.\+h@{list.\+h}!list\+\_\+pop\+\_\+front@{list\+\_\+pop\+\_\+front}}
+\index{list\+\_\+pop\+\_\+front@{list\+\_\+pop\+\_\+front}!list.\+h@{list.\+h}}
+\subsubsection[{list\+\_\+pop\+\_\+front}]{\setlength{\rightskip}{0pt plus 5cm}void list\+\_\+pop\+\_\+front (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+list} $\ast$}]{list}
+\end{DoxyParamCaption}
+)}\label{list_8h_a2a686f6dd9e9fc914a57c4c7e5d1f904}
+
+
+Removes the first node of the list. Warning\+: f\+\_\+free is N\+O\+T called on node-\/$>$data. 
+
+Exemples\+:
+
+list\+\_\+pop\+\_\+front(\&list);
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & List from which to pop the node. \\
+\hline
+\end{DoxyParams}
+\hypertarget{list_8h_ab4f0c3af064e67db61e84c701cfa936d}{}\index{list.\+h@{list.\+h}!list\+\_\+pop\+\_\+node@{list\+\_\+pop\+\_\+node}}
+\index{list\+\_\+pop\+\_\+node@{list\+\_\+pop\+\_\+node}!list.\+h@{list.\+h}}
+\subsubsection[{list\+\_\+pop\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}void list\+\_\+pop\+\_\+node (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+list} $\ast$}]{list, }
+\item[{{\bf t\+\_\+lnode} $\ast$}]{node}
+\end{DoxyParamCaption}
+)}\label{list_8h_ab4f0c3af064e67db61e84c701cfa936d}
+
+
+Removes the node from the list if the node is found in it. Warning\+: f\+\_\+free is N\+O\+T called on node-\/$>$data. 
+
+Exemples\+:
+
+list\+\_\+pop\+\_\+node(\&list, \&node);
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & List from which to pop the node. \\
+\hline
+\end{DoxyParams}
+\hypertarget{list_8h_a0b33bac38a803f824eae4d9291560deb}{}\index{list.\+h@{list.\+h}!list\+\_\+push\+\_\+back@{list\+\_\+push\+\_\+back}}
+\index{list\+\_\+push\+\_\+back@{list\+\_\+push\+\_\+back}!list.\+h@{list.\+h}}
+\subsubsection[{list\+\_\+push\+\_\+back}]{\setlength{\rightskip}{0pt plus 5cm}int list\+\_\+push\+\_\+back (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+list} $\ast$}]{list, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{list_8h_a0b33bac38a803f824eae4d9291560deb}
+
+
+Pushes a data at the end of the list. 
+
+Exemples\+:
+
+list\+\_\+push\+\_\+back(\&list, \char`\"{}random data\char`\"{});
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & List in which to store the data. \\
+\hline
+{\em data} & Data to store.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{list_8h_a7d547d085187219efce80840ed4e2e66}{}\index{list.\+h@{list.\+h}!list\+\_\+push\+\_\+front@{list\+\_\+push\+\_\+front}}
+\index{list\+\_\+push\+\_\+front@{list\+\_\+push\+\_\+front}!list.\+h@{list.\+h}}
+\subsubsection[{list\+\_\+push\+\_\+front}]{\setlength{\rightskip}{0pt plus 5cm}int list\+\_\+push\+\_\+front (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+list} $\ast$}]{list, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\label{list_8h_a7d547d085187219efce80840ed4e2e66}
+
+
+Pushes a data at the beginning of the list. 
+
+Exemples\+:
+
+list\+\_\+push\+\_\+front(\&list, \char`\"{}random data\char`\"{});
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & List in which to store the data. \\
+\hline
+{\em data} & Data to store.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(0) on success 
+
+(-\/1) on error 
+\end{DoxyReturn}
+\hypertarget{list_8h_a67f39810cd310c5a507adc4907aa9700}{}\index{list.\+h@{list.\+h}!lnode\+\_\+create@{lnode\+\_\+create}}
+\index{lnode\+\_\+create@{lnode\+\_\+create}!list.\+h@{list.\+h}}
+\subsubsection[{lnode\+\_\+create}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\+\_\+lnode}$\ast$ lnode\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{data, }
+\item[{{\bf t\+\_\+lnode} $\ast$}]{prev, }
+\item[{{\bf t\+\_\+lnode} $\ast$}]{next}
+\end{DoxyParamCaption}
+)}\label{list_8h_a67f39810cd310c5a507adc4907aa9700}
+
+
+Allocates and initializes a t\+\_\+lnode structure. 
+
+Exemples\+:
+
+node = lnode\+\_\+create(\char`\"{}random data\char`\"{}, N\+U\+L\+L, N\+U\+L\+L);
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Data to store in the node. \\
+\hline
+{\em prev} & Pointer to the previous node. \\
+\hline
+{\em next} & Pointer to the next node.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The address of the node on success 
+
+(N\+U\+L\+L) on error 
+\end{DoxyReturn}
+\hypertarget{list_8h_af188d09f672c644accd80ba3da6217d9}{}\index{list.\+h@{list.\+h}!lnode\+\_\+init@{lnode\+\_\+init}}
+\index{lnode\+\_\+init@{lnode\+\_\+init}!list.\+h@{list.\+h}}
+\subsubsection[{lnode\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}void lnode\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+lnode} $\ast$}]{node, }
+\item[{void $\ast$}]{data, }
+\item[{{\bf t\+\_\+lnode} $\ast$}]{prev, }
+\item[{{\bf t\+\_\+lnode} $\ast$}]{next}
+\end{DoxyParamCaption}
+)}\label{list_8h_af188d09f672c644accd80ba3da6217d9}
+
+
+Initializes a t\+\_\+lnode structure. 
+
+Exemples\+:
+
+lnode\+\_\+init(\&node, \char`\"{}random data\char`\"{}, N\+U\+L\+L, N\+U\+L\+L);
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & Pointer to the t\+\_\+lnode structure to initialize. \\
+\hline
+{\em data} & Data to store in the node. \\
+\hline
+{\em prev} & Pointer to the previous node. \\
+\hline
+{\em next} & Pointer to the next node. \\
+\hline
+\end{DoxyParams}

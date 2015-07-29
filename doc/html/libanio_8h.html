@@ -86,13 +86,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">libanio.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;list.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;stddef.h&gt;</code><br />
+<code>#include &lt;pthread.h&gt;</code><br />
+<code>#include &lt;sys/epoll.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;errno.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="list_8h_source.html">list.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="libanio__types_8h_source.html">libanio_types.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="libanio__interface_8h_source.html">libanio_interface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="libanio__internal__interface_8h_source.html">libanio_internal_interface.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for libanio.h:</div>
 <div class="dyncontent">
@@ -102,10 +110,118 @@ Include dependency graph for libanio.h:</div>
 </div>
 </div>
 <p><a href="libanio_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ab702106cf3b3e96750b6845ded4e0299"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab702106cf3b3e96750b6845ded4e0299"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RESET</b>&#160;&#160;&#160;&quot;\033[0m&quot;</td></tr>
+<tr class="separator:ab702106cf3b3e96750b6845ded4e0299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b3b25cba33b07c303f3060fe41887f6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b3b25cba33b07c303f3060fe41887f6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BLACK</b>&#160;&#160;&#160;&quot;\033[30m&quot;      /* Black */</td></tr>
+<tr class="separator:a7b3b25cba33b07c303f3060fe41887f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d23feea868a983c8c2b661e1e16972f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d23feea868a983c8c2b661e1e16972f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RED</b>&#160;&#160;&#160;&quot;\033[31m&quot;      /* Red */</td></tr>
+<tr class="separator:a8d23feea868a983c8c2b661e1e16972f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfbc006ea433ad708fdee3e82996e721"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acfbc006ea433ad708fdee3e82996e721"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>GREEN</b>&#160;&#160;&#160;&quot;\033[32m&quot;      /* Green */</td></tr>
+<tr class="separator:acfbc006ea433ad708fdee3e82996e721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf681265909adf3d3e8116c93c0ba179"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abf681265909adf3d3e8116c93c0ba179"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>YELLOW</b>&#160;&#160;&#160;&quot;\033[33m&quot;      /* Yellow */</td></tr>
+<tr class="separator:abf681265909adf3d3e8116c93c0ba179"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79d10e672abb49ad63eeaa8aaef57c38"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79d10e672abb49ad63eeaa8aaef57c38"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BLUE</b>&#160;&#160;&#160;&quot;\033[34m&quot;      /* Blue */</td></tr>
+<tr class="separator:a79d10e672abb49ad63eeaa8aaef57c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f699060902f800f12aaae150f3a708e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f699060902f800f12aaae150f3a708e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAGENTA</b>&#160;&#160;&#160;&quot;\033[35m&quot;      /* Magenta */</td></tr>
+<tr class="separator:a6f699060902f800f12aaae150f3a708e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad243f93c16bc4c1d3e0a13b84421d760"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad243f93c16bc4c1d3e0a13b84421d760"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CYAN</b>&#160;&#160;&#160;&quot;\033[36m&quot;      /* Cyan */</td></tr>
+<tr class="separator:ad243f93c16bc4c1d3e0a13b84421d760"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87b537f5fa5c109d3c05c13d6b18f382"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a87b537f5fa5c109d3c05c13d6b18f382"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WHITE</b>&#160;&#160;&#160;&quot;\033[37m&quot;      /* White */</td></tr>
+<tr class="separator:a87b537f5fa5c109d3c05c13d6b18f382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef2fe95894117165b29036718221979f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef2fe95894117165b29036718221979f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BOLDBLACK</b>&#160;&#160;&#160;&quot;\033[1m\033[30m&quot;      /* Bold Black */</td></tr>
+<tr class="separator:aef2fe95894117165b29036718221979f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab912d02c7998c3d47d05f87be4e2c920"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab912d02c7998c3d47d05f87be4e2c920"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BOLDRED</b>&#160;&#160;&#160;&quot;\033[1m\033[31m&quot;      /* Bold Red */</td></tr>
+<tr class="separator:ab912d02c7998c3d47d05f87be4e2c920"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a6c893a1703c33ede7d702fe5f97c91"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a6c893a1703c33ede7d702fe5f97c91"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BOLDGREEN</b>&#160;&#160;&#160;&quot;\033[1m\033[32m&quot;      /* Bold Green */</td></tr>
+<tr class="separator:a4a6c893a1703c33ede7d702fe5f97c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cec79108dfc3c61e8e32d390ec28b26"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8cec79108dfc3c61e8e32d390ec28b26"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BOLDYELLOW</b>&#160;&#160;&#160;&quot;\033[1m\033[33m&quot;      /* Bold Yellow */</td></tr>
+<tr class="separator:a8cec79108dfc3c61e8e32d390ec28b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11e77c19555cbd15bcc744ff36a18635"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a11e77c19555cbd15bcc744ff36a18635"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BOLDBLUE</b>&#160;&#160;&#160;&quot;\033[1m\033[34m&quot;      /* Bold Blue */</td></tr>
+<tr class="separator:a11e77c19555cbd15bcc744ff36a18635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4723c5ee12cfca16e2172b57b99cb07"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac4723c5ee12cfca16e2172b57b99cb07"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BOLDMAGENTA</b>&#160;&#160;&#160;&quot;\033[1m\033[35m&quot;      /* Bold Magenta */</td></tr>
+<tr class="separator:ac4723c5ee12cfca16e2172b57b99cb07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae87af5e6363eb1913b17f24dcb60a22d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae87af5e6363eb1913b17f24dcb60a22d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BOLDCYAN</b>&#160;&#160;&#160;&quot;\033[1m\033[36m&quot;      /* Bold Cyan */</td></tr>
+<tr class="separator:ae87af5e6363eb1913b17f24dcb60a22d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4ef051614aa0bd503b0a18ee158c5d7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4ef051614aa0bd503b0a18ee158c5d7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BOLDWHITE</b>&#160;&#160;&#160;&quot;\033[1m\033[37m&quot;      /* Bold White */</td></tr>
+<tr class="separator:aa4ef051614aa0bd503b0a18ee158c5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba37072cc50c9b425564bb3396a33c7f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>print_err</b>(errnumber)</td></tr>
+<tr class="separator:aba37072cc50c9b425564bb3396a33c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b53c435f7cccb8caf5beec9ee0d703f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>print_custom_err</b>(msg)</td></tr>
+<tr class="separator:a9b53c435f7cccb8caf5beec9ee0d703f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac80a3592e72fd96b772ee47a7d8e0d0a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac80a3592e72fd96b772ee47a7d8e0d0a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>DEBUG_MODE</b></td></tr>
+<tr class="separator:ac80a3592e72fd96b772ee47a7d8e0d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6684732bb042ce56ea7a529fde09439"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad6684732bb042ce56ea7a529fde09439"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>DEBUG</b>(color,  m,  args...)&#160;&#160;&#160;dprintf(2, color m RESET &quot;\n&quot; , ##args)</td></tr>
+<tr class="separator:ad6684732bb042ce56ea7a529fde09439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98cc125c89e33a3bb6aaa0edac8269fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98cc125c89e33a3bb6aaa0edac8269fb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>DEBUG_IN</b>()&#160;&#160;&#160;print_custom_err(&quot;IN&quot;)</td></tr>
+<tr class="separator:a98cc125c89e33a3bb6aaa0edac8269fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd41c6779f5726e9e307eb1c981a444e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abd41c6779f5726e9e307eb1c981a444e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>DEBUG_OUT</b>()&#160;&#160;&#160;print_custom_err(&quot;OUT&quot;)</td></tr>
+<tr class="separator:abd41c6779f5726e9e307eb1c981a444e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a9b53c435f7cccb8caf5beec9ee0d703f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define print_custom_err</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">msg</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">dprintf(2, RED <span class="stringliteral">&quot;%lu\t%s:%s:%d: %s&quot;</span> RESET <span class="stringliteral">&quot;\n&quot;</span>, \</div>
+<div class="line">                       pthread_self(), __FILE__, __func__, __LINE__, msg)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="aba37072cc50c9b425564bb3396a33c7f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define print_err</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">errnumber</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">dprintf(2, RED <span class="stringliteral">&quot;%s:%s:%d: %s&quot;</span> RESET <span class="stringliteral">&quot;\n&quot;</span>, \</div>
+<div class="line">                      __FILE__, __func__, __LINE__, strerror(errnumber))</div>
+</div><!-- fragment -->
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 14 2015 01:12:20 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 29 2015 17:01:14 for libanio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

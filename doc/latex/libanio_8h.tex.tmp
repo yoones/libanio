@@ -1,7 +1,110 @@
 \hypertarget{libanio_8h}{}\section{include/libanio.h File Reference}
 \label{libanio_8h}\index{include/libanio.\+h@{include/libanio.\+h}}
+{\ttfamily \#include $<$stddef.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$sys/epoll.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
 {\ttfamily \#include \char`\"{}list.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}libanio\+\_\+types.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}libanio\+\_\+interface.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}libanio\+\_\+internal\+\_\+interface.\+h\char`\"{}}\\*
 Include dependency graph for libanio.\+h\+:
 % FIG 0
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{libanio_8h_ab702106cf3b3e96750b6845ded4e0299}{}\#define {\bfseries R\+E\+S\+E\+T}~\char`\"{}\textbackslash{}033\mbox{[}0m\char`\"{}\label{libanio_8h_ab702106cf3b3e96750b6845ded4e0299}
+
+\item 
+\hypertarget{libanio_8h_a7b3b25cba33b07c303f3060fe41887f6}{}\#define {\bfseries B\+L\+A\+C\+K}~\char`\"{}\textbackslash{}033\mbox{[}30m\char`\"{}      /$\ast$ Black $\ast$/\label{libanio_8h_a7b3b25cba33b07c303f3060fe41887f6}
+
+\item 
+\hypertarget{libanio_8h_a8d23feea868a983c8c2b661e1e16972f}{}\#define {\bfseries R\+E\+D}~\char`\"{}\textbackslash{}033\mbox{[}31m\char`\"{}      /$\ast$ Red $\ast$/\label{libanio_8h_a8d23feea868a983c8c2b661e1e16972f}
+
+\item 
+\hypertarget{libanio_8h_acfbc006ea433ad708fdee3e82996e721}{}\#define {\bfseries G\+R\+E\+E\+N}~\char`\"{}\textbackslash{}033\mbox{[}32m\char`\"{}      /$\ast$ Green $\ast$/\label{libanio_8h_acfbc006ea433ad708fdee3e82996e721}
+
+\item 
+\hypertarget{libanio_8h_abf681265909adf3d3e8116c93c0ba179}{}\#define {\bfseries Y\+E\+L\+L\+O\+W}~\char`\"{}\textbackslash{}033\mbox{[}33m\char`\"{}      /$\ast$ Yellow $\ast$/\label{libanio_8h_abf681265909adf3d3e8116c93c0ba179}
+
+\item 
+\hypertarget{libanio_8h_a79d10e672abb49ad63eeaa8aaef57c38}{}\#define {\bfseries B\+L\+U\+E}~\char`\"{}\textbackslash{}033\mbox{[}34m\char`\"{}      /$\ast$ Blue $\ast$/\label{libanio_8h_a79d10e672abb49ad63eeaa8aaef57c38}
+
+\item 
+\hypertarget{libanio_8h_a6f699060902f800f12aaae150f3a708e}{}\#define {\bfseries M\+A\+G\+E\+N\+T\+A}~\char`\"{}\textbackslash{}033\mbox{[}35m\char`\"{}      /$\ast$ Magenta $\ast$/\label{libanio_8h_a6f699060902f800f12aaae150f3a708e}
+
+\item 
+\hypertarget{libanio_8h_ad243f93c16bc4c1d3e0a13b84421d760}{}\#define {\bfseries C\+Y\+A\+N}~\char`\"{}\textbackslash{}033\mbox{[}36m\char`\"{}      /$\ast$ Cyan $\ast$/\label{libanio_8h_ad243f93c16bc4c1d3e0a13b84421d760}
+
+\item 
+\hypertarget{libanio_8h_a87b537f5fa5c109d3c05c13d6b18f382}{}\#define {\bfseries W\+H\+I\+T\+E}~\char`\"{}\textbackslash{}033\mbox{[}37m\char`\"{}      /$\ast$ White $\ast$/\label{libanio_8h_a87b537f5fa5c109d3c05c13d6b18f382}
+
+\item 
+\hypertarget{libanio_8h_aef2fe95894117165b29036718221979f}{}\#define {\bfseries B\+O\+L\+D\+B\+L\+A\+C\+K}~\char`\"{}\textbackslash{}033\mbox{[}1m\textbackslash{}033\mbox{[}30m\char`\"{}      /$\ast$ Bold Black $\ast$/\label{libanio_8h_aef2fe95894117165b29036718221979f}
+
+\item 
+\hypertarget{libanio_8h_ab912d02c7998c3d47d05f87be4e2c920}{}\#define {\bfseries B\+O\+L\+D\+R\+E\+D}~\char`\"{}\textbackslash{}033\mbox{[}1m\textbackslash{}033\mbox{[}31m\char`\"{}      /$\ast$ Bold Red $\ast$/\label{libanio_8h_ab912d02c7998c3d47d05f87be4e2c920}
+
+\item 
+\hypertarget{libanio_8h_a4a6c893a1703c33ede7d702fe5f97c91}{}\#define {\bfseries B\+O\+L\+D\+G\+R\+E\+E\+N}~\char`\"{}\textbackslash{}033\mbox{[}1m\textbackslash{}033\mbox{[}32m\char`\"{}      /$\ast$ Bold Green $\ast$/\label{libanio_8h_a4a6c893a1703c33ede7d702fe5f97c91}
+
+\item 
+\hypertarget{libanio_8h_a8cec79108dfc3c61e8e32d390ec28b26}{}\#define {\bfseries B\+O\+L\+D\+Y\+E\+L\+L\+O\+W}~\char`\"{}\textbackslash{}033\mbox{[}1m\textbackslash{}033\mbox{[}33m\char`\"{}      /$\ast$ Bold Yellow $\ast$/\label{libanio_8h_a8cec79108dfc3c61e8e32d390ec28b26}
+
+\item 
+\hypertarget{libanio_8h_a11e77c19555cbd15bcc744ff36a18635}{}\#define {\bfseries B\+O\+L\+D\+B\+L\+U\+E}~\char`\"{}\textbackslash{}033\mbox{[}1m\textbackslash{}033\mbox{[}34m\char`\"{}      /$\ast$ Bold Blue $\ast$/\label{libanio_8h_a11e77c19555cbd15bcc744ff36a18635}
+
+\item 
+\hypertarget{libanio_8h_ac4723c5ee12cfca16e2172b57b99cb07}{}\#define {\bfseries B\+O\+L\+D\+M\+A\+G\+E\+N\+T\+A}~\char`\"{}\textbackslash{}033\mbox{[}1m\textbackslash{}033\mbox{[}35m\char`\"{}      /$\ast$ Bold Magenta $\ast$/\label{libanio_8h_ac4723c5ee12cfca16e2172b57b99cb07}
+
+\item 
+\hypertarget{libanio_8h_ae87af5e6363eb1913b17f24dcb60a22d}{}\#define {\bfseries B\+O\+L\+D\+C\+Y\+A\+N}~\char`\"{}\textbackslash{}033\mbox{[}1m\textbackslash{}033\mbox{[}36m\char`\"{}      /$\ast$ Bold Cyan $\ast$/\label{libanio_8h_ae87af5e6363eb1913b17f24dcb60a22d}
+
+\item 
+\hypertarget{libanio_8h_aa4ef051614aa0bd503b0a18ee158c5d7}{}\#define {\bfseries B\+O\+L\+D\+W\+H\+I\+T\+E}~\char`\"{}\textbackslash{}033\mbox{[}1m\textbackslash{}033\mbox{[}37m\char`\"{}      /$\ast$ Bold White $\ast$/\label{libanio_8h_aa4ef051614aa0bd503b0a18ee158c5d7}
+
+\item 
+\#define {\bfseries print\+\_\+err}(errnumber)
+\item 
+\#define {\bfseries print\+\_\+custom\+\_\+err}(msg)
+\item 
+\hypertarget{libanio_8h_ac80a3592e72fd96b772ee47a7d8e0d0a}{}\#define {\bfseries D\+E\+B\+U\+G\+\_\+\+M\+O\+D\+E}\label{libanio_8h_ac80a3592e72fd96b772ee47a7d8e0d0a}
+
+\item 
+\hypertarget{libanio_8h_ad6684732bb042ce56ea7a529fde09439}{}\#define {\bfseries D\+E\+B\+U\+G}(color,  m,  args...)~dprintf(2, color m R\+E\+S\+E\+T \char`\"{}\textbackslash{}n\char`\"{} , \#\#args)\label{libanio_8h_ad6684732bb042ce56ea7a529fde09439}
+
+\item 
+\hypertarget{libanio_8h_a98cc125c89e33a3bb6aaa0edac8269fb}{}\#define {\bfseries D\+E\+B\+U\+G\+\_\+\+I\+N}()~print\+\_\+custom\+\_\+err(\char`\"{}I\+N\char`\"{})\label{libanio_8h_a98cc125c89e33a3bb6aaa0edac8269fb}
+
+\item 
+\hypertarget{libanio_8h_abd41c6779f5726e9e307eb1c981a444e}{}\#define {\bfseries D\+E\+B\+U\+G\+\_\+\+O\+U\+T}()~print\+\_\+custom\+\_\+err(\char`\"{}O\+U\+T\char`\"{})\label{libanio_8h_abd41c6779f5726e9e307eb1c981a444e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{libanio_8h_a9b53c435f7cccb8caf5beec9ee0d703f}{}\index{libanio.\+h@{libanio.\+h}!print\+\_\+custom\+\_\+err@{print\+\_\+custom\+\_\+err}}
+\index{print\+\_\+custom\+\_\+err@{print\+\_\+custom\+\_\+err}!libanio.\+h@{libanio.\+h}}
+\subsubsection[{print\+\_\+custom\+\_\+err}]{\setlength{\rightskip}{0pt plus 5cm}\#define print\+\_\+custom\+\_\+err(
+\begin{DoxyParamCaption}
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)}\label{libanio_8h_a9b53c435f7cccb8caf5beec9ee0d703f}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+dprintf(2, RED \textcolor{stringliteral}{"%lu\(\backslash\)t%s:%s:%d: %s"} RESET \textcolor{stringliteral}{"\(\backslash\)n"}, \(\backslash\)
+                       pthread\_self(), \_\_FILE\_\_, \_\_func\_\_, \_\_LINE\_\_, msg)
+\end{DoxyCode}
+\hypertarget{libanio_8h_aba37072cc50c9b425564bb3396a33c7f}{}\index{libanio.\+h@{libanio.\+h}!print\+\_\+err@{print\+\_\+err}}
+\index{print\+\_\+err@{print\+\_\+err}!libanio.\+h@{libanio.\+h}}
+\subsubsection[{print\+\_\+err}]{\setlength{\rightskip}{0pt plus 5cm}\#define print\+\_\+err(
+\begin{DoxyParamCaption}
+\item[{}]{errnumber}
+\end{DoxyParamCaption}
+)}\label{libanio_8h_aba37072cc50c9b425564bb3396a33c7f}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+dprintf(2, RED \textcolor{stringliteral}{"%s:%s:%d: %s"} RESET \textcolor{stringliteral}{"\(\backslash\)n"}, \(\backslash\)
+                      \_\_FILE\_\_, \_\_func\_\_, \_\_LINE\_\_, strerror(errnumber))
+\end{DoxyCode}

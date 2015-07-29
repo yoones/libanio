@@ -2,45 +2,92 @@
 \label{structs__anio}\index{s\+\_\+anio@{s\+\_\+anio}}
 
 
+This structure holds the necessary elements for libanio to manage the server\textquotesingle{}s fd.  
+
+
+
+
+{\ttfamily \#include $<$libanio\+\_\+types.\+h$>$}
+
+
+
 Collaboration diagram for s\+\_\+anio\+:
 % FIG 0
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{structs__anio_a02c3ef33c4789ab890b7316bb0907076}{}int {\bfseries fd}\label{structs__anio_a02c3ef33c4789ab890b7316bb0907076}
-
+\hyperlink{structs__fdesc}{t\+\_\+fdesc} \hyperlink{structs__anio_a8f2299298072be288b2e8023ddb1876b}{fdesc}
 \item 
-\hypertarget{structs__anio_a3fdf66c04e31cb75fe982160c4846d7e}{}size\+\_\+t {\bfseries max\+\_\+clients}\label{structs__anio_a3fdf66c04e31cb75fe982160c4846d7e}
-
+size\+\_\+t \hyperlink{structs__anio_a63a323821e4c59f823cd9f7ccfc49f67}{max\+\_\+clients}
 \item 
-\hypertarget{structs__anio_a8a7357c39c829f1fa66ddac440f3377d}{}\hyperlink{structs__list}{t\+\_\+list} {\bfseries clients}\label{structs__anio_a8a7357c39c829f1fa66ddac440f3377d}
-
+\hyperlink{structs__list}{t\+\_\+list} \hyperlink{structs__anio_aa18ac90a5592f8ce8d870cd2fa0ef9f2}{clients}
 \item 
-\hypertarget{structs__anio_a72eaf48aa3edb9a1f6cd9d7e85f0b2f2}{}size\+\_\+t {\bfseries thread\+\_\+pool\+\_\+size}\label{structs__anio_a72eaf48aa3edb9a1f6cd9d7e85f0b2f2}
-
+pthread\+\_\+mutex\+\_\+t \hyperlink{structs__anio_ad37ba794a80b637d4ff4f52696287d68}{clients\+\_\+mutex}
 \item 
-\hypertarget{structs__anio_af2225874d23473461a4300666dd482be}{}\hyperlink{structs__list}{t\+\_\+list} {\bfseries threads}\label{structs__anio_af2225874d23473461a4300666dd482be}
-
+pthread\+\_\+mutex\+\_\+t \hyperlink{structs__anio_a5e6f96badcda7b3194416a2234a0473f}{monitoring\+\_\+thread\+\_\+mutex}
 \item 
-\hypertarget{structs__anio_a18b6ac10276e44a6807c618b2ea5a7fd}{}t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+accept {\bfseries fptr\+\_\+on\+\_\+accept}\label{structs__anio_a18b6ac10276e44a6807c618b2ea5a7fd}
-
+pthread\+\_\+t \hyperlink{structs__anio_ad87ae1e913300a5f18105cc5e9bcd991}{monitoring\+\_\+thread}
 \item 
-\hypertarget{structs__anio_a2f2478bbfc29ce07de6e75104bea6880}{}t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+read {\bfseries fptr\+\_\+on\+\_\+read}\label{structs__anio_a2f2478bbfc29ce07de6e75104bea6880}
-
+\hyperlink{structs__thread__pool}{t\+\_\+thread\+\_\+pool} \hyperlink{structs__anio_a2090eced07a64cca0f4a39e0e3928214}{thread\+\_\+pool}
 \item 
-\hypertarget{structs__anio_a05480be803c2910ea0693fb39a8f5242}{}t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+eof {\bfseries fptr\+\_\+on\+\_\+eof}\label{structs__anio_a05480be803c2910ea0693fb39a8f5242}
-
+t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+accept \hyperlink{structs__anio_a02d4a0107368dc5ebb180836f67129af}{fptr\+\_\+on\+\_\+accept}
 \item 
-\hypertarget{structs__anio_a0dca098f55a1fea8ca8f12ff6442fef3}{}t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+error {\bfseries fptr\+\_\+on\+\_\+error}\label{structs__anio_a0dca098f55a1fea8ca8f12ff6442fef3}
-
+t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+read \hyperlink{structs__anio_aca8e00d72ff1a420757122fe8328f9e5}{fptr\+\_\+on\+\_\+read}
 \item 
-\hypertarget{structs__anio_a3a5ac796814dbe122539f2c83c2ee148}{}t\+\_\+anio\+\_\+mode {\bfseries mode}\label{structs__anio_a3a5ac796814dbe122539f2c83c2ee148}
-
+t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+eof \hyperlink{structs__anio_af681ce20da5e7d7df16e5c7c3af6110e}{fptr\+\_\+on\+\_\+eof}
 \item 
-\hypertarget{structs__anio_a36028b85a43b5e85ccbe98d66e104b63}{}\hyperlink{unionu__anio__mode__config}{t\+\_\+anio\+\_\+mode\+\_\+config} {\bfseries mode\+\_\+config}\label{structs__anio_a36028b85a43b5e85ccbe98d66e104b63}
-
+t\+\_\+anio\+\_\+fptr\+\_\+on\+\_\+error \hyperlink{structs__anio_a1ca9612c8081f66ed33e0824627f7262}{fptr\+\_\+on\+\_\+error}
+\item 
+t\+\_\+anio\+\_\+mode \hyperlink{structs__anio_a8103ffbbc1a816b3461f8b0c26c9c3ff}{mode}
+\item 
+\hyperlink{unionu__anio__mode__config}{t\+\_\+anio\+\_\+mode\+\_\+config} \hyperlink{structs__anio_ab8b074796a020765a00a9dd9b0c4d709}{mode\+\_\+config}
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+This structure holds the necessary elements for libanio to manage the server\textquotesingle{}s fd. 
+
+\subsection{Field Documentation}
+\hypertarget{structs__anio_aa18ac90a5592f8ce8d870cd2fa0ef9f2}{}\index{s\+\_\+anio@{s\+\_\+anio}!clients@{clients}}
+\index{clients@{clients}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{clients}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::clients}\label{structs__anio_aa18ac90a5592f8ce8d870cd2fa0ef9f2}
+Member \textquotesingle{}clients\textquotesingle{} is a linked list of clients. \hypertarget{structs__anio_ad37ba794a80b637d4ff4f52696287d68}{}\index{s\+\_\+anio@{s\+\_\+anio}!clients\+\_\+mutex@{clients\+\_\+mutex}}
+\index{clients\+\_\+mutex@{clients\+\_\+mutex}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{clients\+\_\+mutex}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::clients\+\_\+mutex}\label{structs__anio_ad37ba794a80b637d4ff4f52696287d68}
+Member \textquotesingle{}clients\+\_\+mutex\textquotesingle{} is a lock to safely access the clients list from different threads. \hypertarget{structs__anio_a8f2299298072be288b2e8023ddb1876b}{}\index{s\+\_\+anio@{s\+\_\+anio}!fdesc@{fdesc}}
+\index{fdesc@{fdesc}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{fdesc}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::fdesc}\label{structs__anio_a8f2299298072be288b2e8023ddb1876b}
+Member \textquotesingle{}fdesc\textquotesingle{} represents the server\textquotesingle{}s file descriptor. \hypertarget{structs__anio_a02d4a0107368dc5ebb180836f67129af}{}\index{s\+\_\+anio@{s\+\_\+anio}!fptr\+\_\+on\+\_\+accept@{fptr\+\_\+on\+\_\+accept}}
+\index{fptr\+\_\+on\+\_\+accept@{fptr\+\_\+on\+\_\+accept}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{fptr\+\_\+on\+\_\+accept}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::fptr\+\_\+on\+\_\+accept}\label{structs__anio_a02d4a0107368dc5ebb180836f67129af}
+Member \textquotesingle{}fptr\+\_\+on\+\_\+accept\textquotesingle{} is a function pointer on a handler to be called back when a new client is accepted. \hypertarget{structs__anio_af681ce20da5e7d7df16e5c7c3af6110e}{}\index{s\+\_\+anio@{s\+\_\+anio}!fptr\+\_\+on\+\_\+eof@{fptr\+\_\+on\+\_\+eof}}
+\index{fptr\+\_\+on\+\_\+eof@{fptr\+\_\+on\+\_\+eof}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{fptr\+\_\+on\+\_\+eof}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::fptr\+\_\+on\+\_\+eof}\label{structs__anio_af681ce20da5e7d7df16e5c7c3af6110e}
+Member \textquotesingle{}fptr\+\_\+on\+\_\+eof\textquotesingle{} is a function pointer on a handler to be called back when a client disconnects. \hypertarget{structs__anio_a1ca9612c8081f66ed33e0824627f7262}{}\index{s\+\_\+anio@{s\+\_\+anio}!fptr\+\_\+on\+\_\+error@{fptr\+\_\+on\+\_\+error}}
+\index{fptr\+\_\+on\+\_\+error@{fptr\+\_\+on\+\_\+error}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{fptr\+\_\+on\+\_\+error}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::fptr\+\_\+on\+\_\+error}\label{structs__anio_a1ca9612c8081f66ed33e0824627f7262}
+Member \textquotesingle{}fptr\+\_\+on\+\_\+error\textquotesingle{} is a function pointer on a handler to be called back when an error occurs. \hypertarget{structs__anio_aca8e00d72ff1a420757122fe8328f9e5}{}\index{s\+\_\+anio@{s\+\_\+anio}!fptr\+\_\+on\+\_\+read@{fptr\+\_\+on\+\_\+read}}
+\index{fptr\+\_\+on\+\_\+read@{fptr\+\_\+on\+\_\+read}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{fptr\+\_\+on\+\_\+read}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::fptr\+\_\+on\+\_\+read}\label{structs__anio_aca8e00d72ff1a420757122fe8328f9e5}
+Member \textquotesingle{}fptr\+\_\+on\+\_\+read\textquotesingle{} is a function pointer on a handler to be called back when data is ready to be consumed (see mode). \hypertarget{structs__anio_a63a323821e4c59f823cd9f7ccfc49f67}{}\index{s\+\_\+anio@{s\+\_\+anio}!max\+\_\+clients@{max\+\_\+clients}}
+\index{max\+\_\+clients@{max\+\_\+clients}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{max\+\_\+clients}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::max\+\_\+clients}\label{structs__anio_a63a323821e4c59f823cd9f7ccfc49f67}
+Member \textquotesingle{}max\+\_\+clients\textquotesingle{} is the maximum number of clients the server should manage simultaneously. \hypertarget{structs__anio_a8103ffbbc1a816b3461f8b0c26c9c3ff}{}\index{s\+\_\+anio@{s\+\_\+anio}!mode@{mode}}
+\index{mode@{mode}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{mode}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::mode}\label{structs__anio_a8103ffbbc1a816b3461f8b0c26c9c3ff}
+Member \textquotesingle{}mode\textquotesingle{} tells what reading mode to use (A\+N\+I\+O\+\_\+\+M\+O\+D\+E\+\_\+\+S\+T\+R\+E\+A\+M\+: consum data as it comes, A\+N\+I\+O\+\_\+\+M\+O\+D\+E\+\_\+\+B\+L\+O\+C\+K\+: wait until a block of prefixed size is complete before consuming it, A\+N\+I\+O\+\_\+\+M\+O\+D\+E\+\_\+\+L\+I\+N\+E\+: wait until a line with prefixed end-\/of-\/line delimiter is complete before consuming it). \hypertarget{structs__anio_ab8b074796a020765a00a9dd9b0c4d709}{}\index{s\+\_\+anio@{s\+\_\+anio}!mode\+\_\+config@{mode\+\_\+config}}
+\index{mode\+\_\+config@{mode\+\_\+config}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{mode\+\_\+config}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::mode\+\_\+config}\label{structs__anio_ab8b074796a020765a00a9dd9b0c4d709}
+Member \textquotesingle{}mode\+\_\+config\textquotesingle{} sets, depending on the mode, either the block size or the end-\/of-\/line delimiter. \hypertarget{structs__anio_ad87ae1e913300a5f18105cc5e9bcd991}{}\index{s\+\_\+anio@{s\+\_\+anio}!monitoring\+\_\+thread@{monitoring\+\_\+thread}}
+\index{monitoring\+\_\+thread@{monitoring\+\_\+thread}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{monitoring\+\_\+thread}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::monitoring\+\_\+thread}\label{structs__anio_ad87ae1e913300a5f18105cc5e9bcd991}
+Member \textquotesingle{}monitoring\+\_\+thread\textquotesingle{} contains the monitor thread id. \hypertarget{structs__anio_a5e6f96badcda7b3194416a2234a0473f}{}\index{s\+\_\+anio@{s\+\_\+anio}!monitoring\+\_\+thread\+\_\+mutex@{monitoring\+\_\+thread\+\_\+mutex}}
+\index{monitoring\+\_\+thread\+\_\+mutex@{monitoring\+\_\+thread\+\_\+mutex}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{monitoring\+\_\+thread\+\_\+mutex}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::monitoring\+\_\+thread\+\_\+mutex}\label{structs__anio_a5e6f96badcda7b3194416a2234a0473f}
+Member \textquotesingle{}remaining\+\_\+jobs\textquotesingle{} is a lock to make sure this server\textquotesingle{}s monitor is only run once at a time. \hypertarget{structs__anio_a2090eced07a64cca0f4a39e0e3928214}{}\index{s\+\_\+anio@{s\+\_\+anio}!thread\+\_\+pool@{thread\+\_\+pool}}
+\index{thread\+\_\+pool@{thread\+\_\+pool}!s\+\_\+anio@{s\+\_\+anio}}
+\subsubsection[{thread\+\_\+pool}]{\setlength{\rightskip}{0pt plus 5cm}s\+\_\+anio\+::thread\+\_\+pool}\label{structs__anio_a2090eced07a64cca0f4a39e0e3928214}
+Member \textquotesingle{}thread\+\_\+pool\textquotesingle{} represents this server\textquotesingle{}s thread pool. 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
