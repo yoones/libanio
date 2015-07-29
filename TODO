@@ -1,4 +1,4 @@
-- implement read modes (block & line)
+- Update documentation
 - implement write
 - thread_pool list: replace casted thread_id byreal structure containing thread_id
 - Find memory leak (go valgrind)

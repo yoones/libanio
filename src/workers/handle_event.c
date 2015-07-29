@@ -84,7 +84,6 @@ static char		*_extract_bytes(t_fdesc *fdesc, size_t size, int extra_null_byte)
 
 static int		_handle_error(t_anio *server, int fd, int errnumber)
 {
-  DEBUG_IN();
   print_err(errnumber);
   server->fptr_on_error(server, fd, errnumber);
   libanio_remove_client(server, fd);
@@ -99,7 +98,6 @@ static int		_handle_eof(t_anio *server, int fd)
   t_anio_buf		*anio_buf;
   t_lnode		*w;
 
-  DEBUG_IN();
   if (libanio_get_client(server, fd, &fdesc))
     {
       print_custom_err("Error: fd not found");
@@ -121,7 +119,6 @@ static int		_push_new_data(t_fdesc *fdesc, char *buf, size_t size)
 {
   t_anio_buf		*anio_buf;
 
-  printf("DEBUG: push_new_data(%d)\n", size);
   if (!(anio_buf = malloc(sizeof(t_anio_buf)))
       || !(anio_buf->data = malloc(sizeof(char) * size)))
     {
@@ -175,9 +172,7 @@ static int		_handle_read(t_anio *server, int fd)
   char			*tmp;
   size_t		nbytes;
 
-  DEBUG_IN();
   ret = read(fd, buff, ANIO_BUF_SIZE);
-  DEBUG(RED, "DEBUG: read() returned %d", ret);
   if (ret == -1)
     return (_handle_error(server, fd, errno));
   else if (ret == 0)
@@ -233,7 +228,6 @@ static int		_handle_read(t_anio *server, int fd)
 
 static int		_handle_write(t_anio *server, int fd)
 {
-  DEBUG_IN();
   DEBUG(GREEN, "DEBUG: worker -> _handle_write");
   (void)server;
   DEBUG(GREEN, "TODO: handle write on fd %d\n", fd);
@@ -246,7 +240,6 @@ static int		_handle_accept(t_anio *server)
   struct sockaddr_in	client_sin;
   socklen_t		client_addrlen;
 
-  DEBUG_IN();
   client_addrlen = sizeof(struct sockaddr_in);
   client_fd = accept(server->fdesc.fd, (struct sockaddr *)&client_sin, &client_addrlen);
   if (client_fd == -1)
@@ -266,7 +259,6 @@ static int		_handle_accept(t_anio *server)
 
 int			libanio_handle_event(t_anio *server, struct epoll_event *job)
 {
-  DEBUG_IN();
   if (job->data.fd == server->fdesc.fd)
     {
       if ((job->events & EPOLLERR)
@@ -281,12 +273,12 @@ int			libanio_handle_event(t_anio *server, struct epoll_event *job)
     }
   else
     {
-      printf("=> (in %lu), ERR:%d HUP:%d IN:%d OUT:%d\n",
-	     pthread_self(),
-	     (job->events & EPOLLERR),
-	     (job->events & EPOLLHUP),
-	     (job->events & EPOLLIN),
-	     (job->events & EPOLLOUT));
+      /* printf("=> (in %lu), ERR:%d HUP:%d IN:%d OUT:%d\n", */
+      /*	     pthread_self(), */
+      /*	     (job->events & EPOLLERR), */
+      /*	     (job->events & EPOLLHUP), */
+      /*	     (job->events & EPOLLIN), */
+      /*	     (job->events & EPOLLOUT)); */
       if (job->events & EPOLLERR)
 	return (_handle_error(server, job->data.fd, 0));
       else if (job->events & EPOLLHUP)
@@ -296,6 +288,5 @@ int			libanio_handle_event(t_anio *server, struct epoll_event *job)
       else if (job->events & EPOLLOUT)
 	return (_handle_write(server, job->data.fd));
     }
-  DEBUG(GREEN, "DEBUG: worker -> no handler set for this case");
   return (-1);
 }

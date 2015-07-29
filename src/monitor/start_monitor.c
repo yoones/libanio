@@ -42,18 +42,15 @@ static int	_watch_server_fd(t_anio *server)
 
 static int		_wake_up_workers(t_anio *server)
 {
-  DEBUG_IN();
-  /* DEBUG(YELLOW, "busy workers: %d", server->thread_pool.busy_workers); */
   if (server->thread_pool.remaining_jobs > 0)
     {
       if (server->thread_pool.workers.size == 0)
 	{
 	  print_custom_err("ERROR: no worker available!!!");
-	  abort();	/* todo: manage this case. can should the monitor run if there's no worker?? */
+	  abort();	/* todo: manage this case. should the monitor run if there's no worker?? */
 	}
       if (x_pthread_cond_broadcast(&server->thread_pool.jobs_condvar))
 	return (-1);
-      print_custom_err("I broadcasted, returning EAGAIN");
       return (EAGAIN);
     }
   else if (server->thread_pool.busy_workers > 0)
@@ -66,14 +63,11 @@ static int		_let_workers_consume_events(t_anio *server)
 {
   int			ret;
 
-  DEBUG_IN();
   do
     {
       if (x_pthread_mutex_lock(&server->thread_pool.jobs_mutex))
 	return (-1);
-      print_custom_err("before _wake_up_workers");
       ret = _wake_up_workers(server);
-      print_custom_err("after _wake_up_workers");
       if (x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex))
 	return (-1);
     } while (ret == EAGAIN);
@@ -84,7 +78,6 @@ static int		_monitor_loop(t_anio *server)
 {
   int			ret;
 
-  DEBUG_IN();
   do
     {
       if (x_pthread_mutex_lock(&server->thread_pool.jobs_mutex))
@@ -100,9 +93,7 @@ static int		_monitor_loop(t_anio *server)
 	}
       if (x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex))
 	return (-1);
-      print_custom_err("before _let_workers_consume_events");
       ret = _let_workers_consume_events(server);
-      print_custom_err("after _let_workers_consume_events");
     } while (ret == EAGAIN);
   return (0);
 }
@@ -129,12 +120,7 @@ static void		*_monitor_main(void *arg)
       libanio_destroy_workers(server);
       pthread_exit((void *)EXIT_FAILURE);
     }
-
-  print_custom_err("monito_loop: IN");
   ret = _monitor_loop(server);
-  print_custom_err("monito_loop: OUT");
-
-  DEBUG(RED, "DEBUG: monitor exits loop");
   (void)libanio_destroy_workers(server);
   close(server->thread_pool.epoll_fd);
   server->thread_pool.epoll_fd = -1;

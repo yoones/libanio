@@ -28,13 +28,11 @@
 
 static void		_thread_cancellation_point(t_anio *server)
 {
-  DEBUG_IN();
   if ((int)server->thread_pool.max_workers < server->thread_pool.workers.size)
     {
       x_pthread_mutex_unlock(&server->thread_pool.jobs_mutex);
       pthread_exit((void *)EXIT_SUCCESS);
     }
-  DEBUG_OUT();
 }
 
 static int		_poll_and_handle_available_event(t_anio *server)
@@ -42,7 +40,6 @@ static int		_poll_and_handle_available_event(t_anio *server)
   struct epoll_event	*jobs = server->thread_pool.jobs;
   struct epoll_event	my_job;
 
-  DEBUG_IN();
   server->thread_pool.busy_workers++;
   server->thread_pool.remaining_jobs--;
   memcpy(&my_job, jobs + server->thread_pool.remaining_jobs, sizeof(struct epoll_event));
@@ -55,7 +52,6 @@ static int		_poll_and_handle_available_event(t_anio *server)
   if (x_pthread_mutex_lock(&server->thread_pool.jobs_mutex))
     return (-1);
   server->thread_pool.busy_workers--;
-  DEBUG_OUT();
   return (0);
 }
 
