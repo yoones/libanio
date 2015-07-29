@@ -3,3 +3,8 @@
 - Find memory leak (go valgrind)
 - Refactor thread pool to make it reusable for other purposes
 - use non-blocking fd??
+
+Info:
+* Ctrl+C might not close the process at first try because of the loop in x_epoll_wait()
+  => loop while errno==EINTR
+*

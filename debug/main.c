@@ -83,23 +83,23 @@ int			start_server(int port)
   return (fd);
 }
 
-/* void		_handle_sigint(int sig) */
-/* { */
-/*   (void)sig; */
-/*   fsync(1); */
-/*   fsync(2); */
-/*   write(1, RESET, strlen(RESET)); */
-/*   libanio_stop_monitor(&server); */
-/*   libanio_free(&server); */
-/*   exit(0); */
-/* } */
+void		_handle_sigint(int sig)
+{
+  (void)sig;
+  fsync(1);
+  fsync(2);
+  write(1, RESET, strlen(RESET));
+  libanio_stop_monitor(&server);
+  libanio_free(&server);
+  exit(0);
+}
 
 int		main(int argc, char **argv)
 {
   int		fd;
   int		port;
 
-  /* signal(SIGINT, &_handle_sigint); */
+  signal(SIGINT, &_handle_sigint);
   port = 5555;
   if (argc == 2)
     port = atoi(argv[1]);
