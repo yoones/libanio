@@ -10,7 +10,7 @@ Libanio is a TCP library meant to make your life easier when writing a server.
 
 **Licence:** GNU/GPL
 
-**Github:** (https://github.com/yoones/)
+**Github:** https://github.com/yoones/
 
 Features:
 - **Multiplexing:** all file descriptors are monitored using epoll().
